@@ -104,7 +104,7 @@ int	ft_operfinder(const char *c)
 	return (i);
 }
 
-int	ft_2ndoperand(const char *c)
+int	ft_direct(const char *c)
 {
 	int	sp_mark;
 	int	s_mark;
@@ -171,15 +171,13 @@ int	ft_cmd_counter(const char *c)
 				s_mark++;
 			if (c[i] == '"')
 				sp_mark++;
-			// if (!c[i])
-			// 	return (0);
 		}
 		if ((c[i] == '>' && c[i + 1] == '>') || (c[i] == '<' && c[i + 1] == '<'))
 		{
 			op_counter++;
 			i += 2;
 		}
-		else if (c[i] == '>' || c[i] == '<' || c[i] == '|' )
+		else if (c[i] == '>' || c[i] == '<')
 		{
 			op_counter++;
 			i++;
@@ -194,5 +192,5 @@ int main(void)
 {
 	int	malloc;
 
-	printf("num = %d\n", strlen("lsaiuahd>>iuwa ht"));
+	printf("num = %d\n", ft_cmd_counter("lsaiuahd>>iuwa ht"));
 }

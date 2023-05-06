@@ -34,9 +34,9 @@ static int	ft_count(char const *s, char c)
 	a = 0;
 	a1 = 0;
 	ccount = 0;
-	while (s[a] != '\0')
+	while (s[a])
 	{
-		while (s[a] == c && s[a] != '\0')
+		while (s[a] == c && s[a])
 		{
 			a++;
 			ccount++;
@@ -62,7 +62,7 @@ char	**ft_split(char const *s, char c)
 	left = 0;
 	m = 0;
 	len = ft_strlen(s);
-	main = malloc(sizeof(char *) * (ft_count(s, c)));
+	main = ft_calloc(sizeof(char *), (ft_count(s, c)));
 	if (main == NULL)
 		return (NULL);
 	while (left < len && 1 != ft_count(s, c))

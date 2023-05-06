@@ -27,12 +27,12 @@ int	ft_opr_counter(const char *c)
 			// if (!c[i])
 			// 	return (0);
 		}
-		if ((c[i] == '>' && c[i + 1] == '>') || (c[i] == '<' && c[i + 1] == '<') || (c[i] == '|' && c[i + 1] == '|'))
+		if ((c[i] == '>' && c[i + 1] == '>') || (c[i] == '<' && c[i + 1] == '<'))
 		{
 			op_counter++;
 			i += 2;
 		}
-		else if (c[i] == '>' || c[i] == '<')
+		else if (c[i] == '>' || c[i] == '<' || c[i] == '|')
 		{
 			op_counter++;
 			i++;
@@ -207,13 +207,13 @@ char	**ft_splitps(const char *s, char c)
 	return (str);
 }
 
-int	main(void)
-{
-	char	**string;
+// int	main(void)
+// {
+// 	char	**string;
 
-	string = ft_splitps("grepp gyg \"|| \"monomo yessi >> r", '|');
-	printf("0. %s\n", string[0]);
-	printf("1. %s\n", string[1]);
-	printf("2. %s\n", string[2]);
+// 	string = ft_splitps("grepp monomo | yessi >> r", '|');
+// 	printf("0. %s\n", string[0]);
+// 	printf("1. %s\n", string[1]);
+// 	printf("2. %s\n", string[2]);
 
-}
+// }

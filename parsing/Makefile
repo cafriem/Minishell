@@ -4,7 +4,8 @@ CC = gcc
 
 CFLAGS = -Wall -Wextra -Werror -g
 
-SRCS =	start.c
+SRCS =	start.c			\
+		ft_splitmini.c	\
 
 OBJS = $(SRCS:.c=.o)
 
