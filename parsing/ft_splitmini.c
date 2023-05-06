@@ -14,12 +14,16 @@ static int	sp_markcounter(const char *string, int start)
 	if (string[counter] == '"')
 		sp_mark++;
 	counter++;
-	while ((s_mark % 2 != 0) || (sp_mark % 2 != 0))
+	while ((sp_mark % 2 != 0))
+	{
+		if (string[counter] == '"')
+			sp_mark++;
+		counter++;
+	}
+	while ((s_mark % 2 != 0))
 	{
 		if (string[counter] == '\'')
 			s_mark++;
-		if (string[counter] == '"')
-			sp_mark++;
 		counter++;
 	}
 	return (counter - start);
@@ -61,11 +65,7 @@ char	**ft_splitmini(const char *string, char separator)
 	while (string[counter] != '\0')
 	{
 		if (string[counter] == '\'' || string[counter] == '"')
-		{
 			counter += sp_markcounter(string, counter);
-			// printf("counter = %d\n", counter);
-			// printf("letter = %s\n\n", &string[counter]);
-		}
 		if (string[counter] == separator)
 		{
 			main[word_counter] = ft_substr(string, start, (counter - start));
@@ -78,14 +78,14 @@ char	**ft_splitmini(const char *string, char separator)
 	return(main);
 }
 
-int	main(void)
-{
-	char	**string;
+// int	main(void)
+// {
+// 	char	**string;
 
-	string = ft_splitmini("Testings yes | antoherdw\"fs|f'd\" ysesir | nono", '|');
-	// string = ft_splitmini("Testings yes|antohe ysesir|nono", '|');
-	printf("%s\n", string[0]);
-	printf("%s\n", string[1]);
-	printf("%s\n", string[2]);
-	printf("%s\n", string[3]);
-}
+// 	string = ft_splitmini("Testings yes | antoherdw\"fs|f'd\" ysesir | nono", '|');
+// 	// string = ft_splitmini("Testings yes|antohe ysesir|nono", '|');
+// 	printf("%s\n", string[0]);
+// 	printf("%s\n", string[1]);
+// 	printf("%s\n", string[2]);
+// 	printf("%s\n", string[3]);
+// }
