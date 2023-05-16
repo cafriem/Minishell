@@ -20,10 +20,10 @@
 
 typedef enum e_mini_state
 {
-	RE_INPUT,
-	RE_OUTPUT,
-	APPEND,
-	HERE_DOC
+	RE_INPUT, // <
+	RE_OUTPUT, // >
+	HERE_DOC, // <<
+	APPEND // >>
 }	t_state;
 // counter ft_direct
 
@@ -32,6 +32,7 @@ typedef struct s_shell
 	char				*current_line;
 	char				*line;
 	char				*oldpwd;
+	char				**temp;
 	int					exit_code;
 	struct s_env		*env;
 	struct s_env		*dec_env;
@@ -63,8 +64,12 @@ typedef struct s_command
 //< t1 grep yes > t2
 
 void	mini_cpyarr(int argc, char *argv[], char **string);
+int		splitcount(const char *string, char separator); //number off commands by pipes
 int		ft_double_pointer_counter2(char **dp);
 int		ft_operfinder(const char *c);
-char	**ft_splitmini(char const *s, char c);
+char	**ft_splitmini(char const *s, char c); // splits at all the pipes
+int		ft_skip_spmark(const char *string, int start); // skips all quotaion marks
+int		redirect_counter(char *string); // redirection counter
+void	ft_redirect(char *string, struct s_command *command);
 
 #endif

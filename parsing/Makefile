@@ -6,6 +6,7 @@ CFLAGS = -Wall -Wextra -Werror -g
 
 SRCS =	start.c			\
 		ft_splitmini.c	\
+		ft_redirecter.c	\
 
 OBJS = $(SRCS:.c=.o)
 

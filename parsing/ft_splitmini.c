@@ -1,6 +1,6 @@
 #include "parsing.h"
 
-static int	sp_markcounter(const char *string, int start)
+int	ft_skip_spmark(const char *string, int start)
 {
 	int	s_mark;
 	int	counter;
@@ -29,7 +29,7 @@ static int	sp_markcounter(const char *string, int start)
 	return (counter - start);
 }
 
-static int	splitcount(const char *string, char separator)
+int	splitcount(const char *string, char separator)
 {
 	int	counter;
 	int	sep;
@@ -39,9 +39,7 @@ static int	splitcount(const char *string, char separator)
 	while (string[counter])
 	{
 		if (string[counter] == '\'' || string[counter] == '\"')
-		{
-			counter += sp_markcounter(string, counter);
-		}
+			counter += ft_skip_spmark(string, counter);
 		if (string[counter] == separator)
 			sep++;
 		counter++;
@@ -65,16 +63,16 @@ char	**ft_splitmini(const char *string, char separator)
 	while (string[counter] != '\0')
 	{
 		if (string[counter] == '\'' || string[counter] == '"')
-			counter += sp_markcounter(string, counter);
+			counter += ft_skip_spmark(string, counter);
 		if (string[counter] == separator)
 		{
-			main[word_counter] = ft_substr(string, start, (counter - start));
+			main[word_counter] = ft_strtrim(ft_substr(string, start, (counter - start)), " ");
 			start = counter + 1;
 			word_counter++;
 		}
 		counter++;
 	}
-	main[word_counter] = ft_substr(string, start, (counter - start));
+	main[word_counter] = ft_strtrim(ft_substr(string, start, (counter - start)), " ");
 	return(main);
 }
 
