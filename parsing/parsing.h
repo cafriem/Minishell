@@ -6,7 +6,7 @@
 /*   By: cafriem <cafriem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 15:54:10 by amalbrei          #+#    #+#             */
-/*   Updated: 2023/01/20 14:15:58 by cafriem          ###   ########.fr       */
+/*   Updated: 2023/05/23 18:41:40 by cafriem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@ typedef enum e_mini_state
 	HERE_DOC, // <<
 	APPEND // >>
 }	t_state;
-// counter ft_direct
-
 typedef struct s_shell
 {
 	char				*current_line;
@@ -70,6 +68,9 @@ int		ft_double_pointer_counter2(char **dp);
 int		ft_operfinder(const char *c);
 char	**ft_splitmini(char const *s, char c); // splits at all the pipes
 int		ft_skip_spmark(const char *string, int start); // skips all quotaion marks
+//--------------------ft_redirecter.c-------------//
+void	ft_redirect(struct s_command *command); // redirects
+void	red(char *string, struct s_command *command); // putting it in strucky waky
 int		redirect_counter(char *string); // redirection counter
 
 #endif
