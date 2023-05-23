@@ -28,6 +28,14 @@ int	redirect_counter(char *string)
 	return (redirector);
 }
 
+// char	*filefinder(char *string, int start)
+// {
+// 	int	ending;
+
+// 	ending = start;
+// 	while string
+// }
+
 void	ft_red(char *string, int start, struct s_command *command, int pos)
 {
 	int	counter;
@@ -80,18 +88,17 @@ void	ft_redirectin(char *string, struct s_command *command, int pos)
 	}
 }
 
-void	ft_redirect(char *string, struct s_command *command)
+void	ft_redirect(struct s_command *command)
 {
 	int	counter;
 	int	c;
 
 	counter = 0;
 	printf("entered \n");
-	c = redirect_counter(string);
-	printf("counter \n");
+	c = redirect_counter(&command->temp);
+	printf("counter = %d \n", c);
 	command->redir = ft_calloc(c, sizeof(t_direct));
 	printf("calloc \n");
-	ft_redirectin(string, command, counter);
+	ft_redirectin(&command->temp, &command, counter);
 	printf("finished \n");
-
 }

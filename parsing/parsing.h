@@ -36,7 +36,7 @@ typedef struct s_shell
 	int					exit_code;
 	struct s_env		*env;
 	struct s_env		*dec_env;
-	struct s_command	**command;
+	struct s_command	*command;
 }	t_shell;
 
 typedef struct s_env
@@ -55,6 +55,7 @@ typedef struct s_direct
 typedef struct s_command
 {
 	char				**cmd_args;
+	char				*temp;
 	t_direct			*redir;
 }	t_command;
 
@@ -70,6 +71,5 @@ int		ft_operfinder(const char *c);
 char	**ft_splitmini(char const *s, char c); // splits at all the pipes
 int		ft_skip_spmark(const char *string, int start); // skips all quotaion marks
 int		redirect_counter(char *string); // redirection counter
-void	ft_redirect(char *string, struct s_command *command);
 
 #endif

@@ -43,6 +43,18 @@ int	ft_opr_counter(const char *c)
 	return (op_counter);
 }
 
+void	temp_into_arg(t_shell *shell)
+{
+	int	counter;
+
+	counter = 0;
+	while (shell->temp[counter])
+	{
+		shell->command[counter].temp = ft_strdup(shell->temp[counter]);
+		counter++;
+	}
+}
+
 int	main(void)
 {
 	char		*start;
@@ -51,12 +63,13 @@ int	main(void)
 
 	start = "< t1 grep yes > r | grep monomo";
 	cmd = splitcount(start, '|');
-	shell.command = ft_calloc(cmd, sizeof(t_command*));
 	shell.temp = ft_splitmini(start, '|');
-	printf("0. %s\n", shell.temp[0]);
-	printf("1. %s\n", shell.temp[1]);
+	shell.command = ft_calloc(cmd, sizeof(t_command));
+	temp_into_arg(&shell);
+	printf("0. %s\n", shell.command[0].temp);
+	printf("1. %s\n", shell.command[1].temp);
 	printf("2. %s\n", shell.temp[2]);
 	printf("seperating\n");
-	ft_redirect(shell.temp[0], shell.command[0]);
+	ft_redirect(&shell.command[0]);
 	// ft_redirecter(string, command);
 }
