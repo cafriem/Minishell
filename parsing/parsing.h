@@ -6,7 +6,7 @@
 /*   By: cafriem <cafriem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 15:54:10 by amalbrei          #+#    #+#             */
-/*   Updated: 2023/05/23 18:41:40 by cafriem          ###   ########.fr       */
+/*   Updated: 2023/05/24 12:55:56 by cafriem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ typedef struct s_command
 //use ft_cmd_counter for cmd_args
 //cmd_args = [redirect | command | another redirect]
 
-//< t1 grep yes > t2
+//< t1 grep yes >t2>te
 
 void	mini_cpyarr(int argc, char *argv[], char **string);
 int		splitcount(const char *string, char separator); //number off commands by pipes
@@ -70,7 +70,7 @@ char	**ft_splitmini(char const *s, char c); // splits at all the pipes
 int		ft_skip_spmark(const char *string, int start); // skips all quotaion marks
 //--------------------ft_redirecter.c-------------//
 void	ft_redirect(struct s_command *command); // redirects
-void	red(char *string, struct s_command *command); // putting it in strucky waky
+void	red(char *string, struct s_command *command); // putting redirecs in strucky waky
 int		redirect_counter(char *string); // redirection counter
 
 #endif
