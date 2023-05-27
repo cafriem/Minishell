@@ -6,7 +6,7 @@
 /*   By: cafriem <cafriem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 13:50:31 by cafriem           #+#    #+#             */
-/*   Updated: 2023/05/25 12:28:20 by cafriem          ###   ########.fr       */
+/*   Updated: 2023/05/26 10:15:02 by cafriem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,9 +108,15 @@ void	red(char *string, t_command *command)
 			{
 				command->redir[pos].direct = APPEND;
 				if (newstr[w_c][3] != '\0')
-					command->redir[pos].file = ft_substr(newstr[w_c], 3, ft_strlen(newstr[w_c]));
+				{
+					redirect_str(newstr[w_c + 1], &command, pos);
+					w_c++;
+				}
 				else if (newstr[w_c + 1] && (newstr[w_c + 1][0] != '<' || newstr[w_c + 1][0] != '>'))
-					command->redir[pos].file = ft_strdup(newstr[w_c + 1]);
+				{
+					newstr[w_c] = ft_substr(newstr[w_c], 3, ft_strlen(newstr[w_c]));
+					redirect_str(newstr[w_c], &command, pos);
+				}
 				pos++;
 				// else
 				// 	FAIL ADD A FAIL PARSE ERROR
