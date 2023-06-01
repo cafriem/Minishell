@@ -70,7 +70,8 @@ char	**ft_splitmini(char const *s, char c); // splits at all the pipes
 int		ft_skip_spmark(const char *string, int start); // skips all quotaion marks
 //--------------------ft_redirecter.c-------------//
 void	ft_redirect(struct s_command *command); // redirects
+void	redirect_str(char *string, t_command *command, int pos); // *NEW* grabs the struct and does the stuff
 void	red(char *string, struct s_command *command); // putting redirecs in strucky waky
-int		redirect_counter(char *string); // redirection counter
+int		redirect_counter(char *string); // redirection counter, mainly for calloc
 
 #endif
