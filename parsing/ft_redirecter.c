@@ -6,7 +6,7 @@
 /*   By: cafriem <cafriem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 13:50:31 by cafriem           #+#    #+#             */
-/*   Updated: 2023/06/02 12:21:34 by cafriem          ###   ########.fr       */
+/*   Updated: 2023/06/02 13:13:08 by cafriem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,48 +134,29 @@ char	*filename(char *string, int start)
 
 void	redirect_temp(char *string, t_command *command, int start)
 {
-	int	counter;
-
-	counter = start;
-	command->redir_amount = 0;
-	while (string[start])
+	if (string[start] == '>' && string[start + 1] == '>')
 	{
-		if (string[start] == '>' && string[start + 1] == '>')
-		{
-			command->redir[command->redir_amount].direct = APPEND;
-			command->redir[command->redir_amount].file = filename(string, start + 2);
-			command->redir_amount++;
-			counter = start + 2;
-			start += 2;
-		}
-		else if (string[start] == '<' && string[start + 1] == '<')
-		{
-			command->redir[command->redir_amount].direct = HERE_DOC;
-			command->redir[command->redir_amount].file = ft_substr(string, counter, start - 1);
-			command->redir_amount++;
-			counter = start + 2;
-			start += 2;
-		}
-		else if (string[start] == '>')
-		{
-			command->redir[command->redir_amount].direct = RE_OUTPUT;
-			command->redir[command->redir_amount].file = ft_substr(string, counter, start - 1);
-			command->redir_amount++;
-			counter = start + 1;
-			start += 1;
-		}
-		else if (string[start] == '<')
-		{
-			command->redir[command->redir_amount].direct = RE_INPUT;
-			command->redir[command->redir_amount].file = ft_substr(string, counter, start - 1);
-			command->redir_amount++;
-			counter = start + 1;
-			start += 1;
-		}
-		else
-			start++;
+		command->redir[command->redir_amount].direct = APPEND;
+		command->redir[command->redir_amount].file = filename(string, start + 2);
+		command->redir_amount++;
 	}
-	command->redir[command->redir_amount].file = ft_substr(string, counter, start - 1);
+	else if (string[start] == '<' && string[start + 1] == '<')
+	{
+		command->redir[command->redir_amount].direct = HERE_DOC;
+		command->redir[command->redir_amount].file = filename(string, start + 2);
+		command->redir_amount++;
+	}
+	else if (string[start] == '>')
+	{
+		command->redir[command->redir_amount].direct = RE_OUTPUT;
+		command->redir[command->redir_amount].file = filename(string, start + 1);
+		command->redir_amount++;
+	}
+	else if (string[start] == '<')
+	{
+		command->redir[command->redir_amount].direct = RE_INPUT;
+		command->redir[command->redir_amount].file = filename(string, start + 1);
+	}
 }
 
 void	redir_temp(char *string, t_command *command)
@@ -197,7 +178,9 @@ void	redir_temp(char *string, t_command *command)
 			counter += ft_skip_spmark(string, counter);
 		else if (string[counter] == '>' || string[counter] == '<')
 		{
-			redirect_temp(string, &command, start)
+			redirect_temp(string, &command, counter);
+			counter += command->int_temp;
+			command->redir_amount++;
 		}
 		else
 			counter++;

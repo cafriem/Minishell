@@ -6,7 +6,7 @@
 /*   By: cafriem <cafriem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 15:54:10 by amalbrei          #+#    #+#             */
-/*   Updated: 2023/06/02 12:05:55 by cafriem          ###   ########.fr       */
+/*   Updated: 2023/06/02 13:04:46 by cafriem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ typedef struct s_command
 	char				**cmd_args;
 	char				*temp;
 	char				*temp2;
+	int					int_temp;
 	int					redir_amount;
 	t_direct			*redir;
 }	t_command;
