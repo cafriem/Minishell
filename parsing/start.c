@@ -6,7 +6,7 @@
 /*   By: cafriem <cafriem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 13:50:20 by cafriem           #+#    #+#             */
-/*   Updated: 2023/05/23 18:21:51 by cafriem          ###   ########.fr       */
+/*   Updated: 2023/06/01 14:41:53 by cafriem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,10 +78,10 @@ int	main(void)
 	shell.temp = ft_splitmini(start, '|');
 	shell.command = ft_calloc(cmd, sizeof(t_command));
 	temp_into_arg(&shell);
-	printf("0. %s\n", shell.command[0].temp);
-	printf("1. %s\n", shell.command[1].temp);
-	printf("2. %s\n", shell.temp[2]);
-	printf("seperating\n");
+	printf("$$$ 0. %s\n", shell.command[0].temp);
+	printf("$$$ 1. %s\n", shell.command[1].temp);
+	printf("$$$ 2. %s\n", shell.temp[2]);
+	printf("$$$ seperating\n");
 	ft_redirect(&shell.command[0]);
 	// ft_redirecter(string, command);
 }

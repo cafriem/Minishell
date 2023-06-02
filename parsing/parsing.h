@@ -6,7 +6,7 @@
 /*   By: cafriem <cafriem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 15:54:10 by amalbrei          #+#    #+#             */
-/*   Updated: 2023/05/24 12:55:56 by cafriem          ###   ########.fr       */
+/*   Updated: 2023/06/02 12:05:55 by cafriem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ typedef struct s_command
 {
 	char				**cmd_args;
 	char				*temp;
+	char				*temp2;
+	int					redir_amount;
 	t_direct			*redir;
 }	t_command;
 
@@ -70,7 +72,7 @@ char	**ft_splitmini(char const *s, char c); // splits at all the pipes
 int		ft_skip_spmark(const char *string, int start); // skips all quotaion marks
 //--------------------ft_redirecter.c-------------//
 void	ft_redirect(struct s_command *command); // redirects
-void	redirect_str(char *string, t_command *command, int pos); // *NEW* grabs the struct and does the stuff
+void	redirect_str(char *string, t_command *command); // *NEW* grabs the struct and does the stuff
 void	red(char *string, struct s_command *command); // putting redirecs in strucky waky
 int		redirect_counter(char *string); // redirection counter, mainly for calloc
 
