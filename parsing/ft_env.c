@@ -6,16 +6,19 @@
 /*   By: cafriem <cafriem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 12:04:53 by cafriem           #+#    #+#             */
-/*   Updated: 2023/06/07 12:29:09 by cafriem          ###   ########.fr       */
+/*   Updated: 2023/06/07 16:49:06 by cafriem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
+// #include "parsing.h"
 
 ft_env()
 {
+	int	counter;
+
+	counter = 0;
 	while ()
 	{
-		
+		if (ft_isalnum() == 1 || string[counter])
 	}
 }

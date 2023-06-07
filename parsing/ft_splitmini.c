@@ -6,7 +6,7 @@
 /*   By: cafriem <cafriem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 13:50:16 by cafriem           #+#    #+#             */
-/*   Updated: 2023/06/07 13:47:41 by cafriem          ###   ########.fr       */
+/*   Updated: 2023/06/07 16:45:09 by cafriem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	check_spmark(t_shell *shell, int cmd)
 {
 	int	counter;
 
+	counter = 0;
 	while(cmd > counter)
 	{
 		check_spmark2(shell->split_pipe[counter]);

@@ -6,7 +6,7 @@
 /*   By: cafriem <cafriem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 13:50:20 by cafriem           #+#    #+#             */
-/*   Updated: 2023/06/07 13:28:42 by cafriem          ###   ########.fr       */
+/*   Updated: 2023/06/07 16:45:40 by cafriem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,11 @@ int	main(void)
 	int			cmd;
 	t_shell		shell;
 
-	start = "< 234567 export x=\"cd\" > t2| grep monomo";
+	start = "<234567 export x=\"cd\" > t2| grep monomo";
 	shell.line = ft_strdup(ft_strtrim(start, " "));
 	cmd = splitcount(shell.line, '|');
 	shell.split_pipe = ft_splitmini(shell.line, '|');
-	check_spmarks(&shell, cmd);
+	check_spmark(&shell, cmd);
 	shell.command = ft_calloc(cmd, sizeof(t_command));
 	temp_into_arg(&shell);
 	printf("$$$ 0. %s\n", shell.command[0].temp);
