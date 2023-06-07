@@ -6,7 +6,7 @@
 /*   By: cafriem <cafriem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 13:50:31 by cafriem           #+#    #+#             */
-/*   Updated: 2023/06/05 16:41:23 by cafriem          ###   ########.fr       */
+/*   Updated: 2023/06/07 13:53:25 by cafriem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,18 +121,25 @@ char	*filename(t_command *command, char *string, int start)
 	int	counter;
 
 	counter = start;
+	while (string[counter] == ' ')
+	{
+		start++;
+		counter++;
+	}
+	start = counter;
 	while (string[counter])
 	{
-		if (string[counter] == '"' || string[counter == '\''])
+		if (string[counter] == '"' || string[counter] == '\'')
 			counter += ft_skip_spmark(string, counter);
 		else if (string[counter] == ' ')
 		{
 			command->int_temp = counter;
-			return (ft_substr(string, start, counter));
+			return (ft_substr(string, start, counter - start));
 		}
-		counter++;
+		else
+			counter++;
 	}
-	return (ft_substr(string, start, counter));
+	return (ft_substr(string, start, counter - start));
 }
 
 void	redirect_temp(char *string, t_command *command, int start)
@@ -140,7 +147,7 @@ void	redirect_temp(char *string, t_command *command, int start)
 	if (string[start] == '>' && string[start + 1] == '>')
 	{
 		command->redir[command->redir_amount].direct = APPEND;
-		command->redir[command->redir_amount].file = filename(command ,string, start + 2);
+		command->redir[command->redir_amount].file = filename(command , string, start + 2);
 		command->redir_amount++;
 	}
 	else if (string[start] == '<' && string[start + 1] == '<')
@@ -168,8 +175,9 @@ void	redir_temp(char *string, t_command *command)
 	int	counter;
 	int	start;
 
-	counter = 0;
 	start = 0;
+	counter = 0;
+	command->int_temp = 0;
 	command->redir_amount = 0;
 	while (string[counter])
 	{
@@ -183,7 +191,7 @@ void	redir_temp(char *string, t_command *command)
 		else if (string[counter] == '>' || string[counter] == '<')
 		{
 			redirect_temp(string, command, counter);
-			counter = command->int_temp;
+			counter += command->int_temp;
 		}
 		else
 			counter++;
@@ -192,20 +200,7 @@ void	redir_temp(char *string, t_command *command)
 
 void	ft_redirect(t_command *command)
 {
-	int	counter;
-	int	c;
-
-	counter = 0;
-	c = redirect_counter(command->temp);
-	if (c > 0)
-	{
-		printf("$$$ redirect counter = %d \n", c);
-		command->redir = ft_calloc(c, sizeof(t_direct));
-		// printf("calloc \n");
-		// red(&command->temp, &command);
-		redir_temp(&command->temp[0], command);
-	}
-	// printf("finished \n");
+	printf("$$$ redirect strings = %s \n", command->temp);
+	command->redir = ft_calloc(redirect_counter(command->temp), sizeof(t_direct));
+	redir_temp(&command->temp[0], command);
 }
-
-//< t1 grep yes > r

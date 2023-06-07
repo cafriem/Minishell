@@ -6,7 +6,7 @@
 /*   By: cafriem <cafriem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 13:50:20 by cafriem           #+#    #+#             */
-/*   Updated: 2023/06/01 14:41:53 by cafriem          ###   ########.fr       */
+/*   Updated: 2023/06/07 13:28:42 by cafriem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,9 @@ void	temp_into_arg(t_shell *shell)
 	int	counter;
 
 	counter = 0;
-	while (shell->temp[counter])
+	while (shell->split_pipe[counter])
 	{
-		shell->command[counter].temp = ft_strdup(shell->temp[counter]);
+		shell->command[counter].temp = ft_strdup(shell->split_pipe[counter]);
 		counter++;
 	}
 }
@@ -73,15 +73,18 @@ int	main(void)
 	int			cmd;
 	t_shell		shell;
 
-	start = "< t1 grep yes > r | grep monomo";
-	cmd = splitcount(start, '|');
-	shell.temp = ft_splitmini(start, '|');
+	start = "< 234567 export x=\"cd\" > t2| grep monomo";
+	shell.line = ft_strdup(ft_strtrim(start, " "));
+	cmd = splitcount(shell.line, '|');
+	shell.split_pipe = ft_splitmini(shell.line, '|');
+	check_spmarks(&shell, cmd);
 	shell.command = ft_calloc(cmd, sizeof(t_command));
 	temp_into_arg(&shell);
 	printf("$$$ 0. %s\n", shell.command[0].temp);
 	printf("$$$ 1. %s\n", shell.command[1].temp);
-	printf("$$$ 2. %s\n", shell.temp[2]);
 	printf("$$$ seperating\n");
 	ft_redirect(&shell.command[0]);
+	printf("file = |%s|\n", shell.command[0].redir[0].file);
+	printf("file = |%s|\n", shell.command[0].redir[1].file);
 	// ft_redirecter(string, command);
 }

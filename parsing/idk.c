@@ -7,19 +7,19 @@
 // 		command->redir[command->redir_amount].direct = APPEND;
 // 		if (newstr[w_c][3] != '\0')
 // 		{
-// 			command->temp2 = ft_substr(newstr[w_c], 3, ft_strlen(newstr[w_c]));
+// 			command->split_pipe = ft_substr(newstr[w_c], 3, ft_strlen(newstr[w_c]));
 // 			free (newstr[w_c]);
-// 			newstr[w_c] = ft_strdup(command->temp2);
-// 			free (command->temp2);
+// 			newstr[w_c] = ft_strdup(command->split_pipe);
+// 			free (command->split_pipe);
 // 			redirect_str(newstr[w_c], &command, command->redir_amount);
 // 			w_c++;
 // 		}
 // 		else if (newstr[w_c + 1] && (newstr[w_c + 1][0] != '<' || newstr[w_c + 1][0] != '>'))
 // 		{
-// 			command->temp2 = ft_substr(newstr[w_c], 3, ft_strlen(newstr[w_c]));
+// 			command->split_pipe = ft_substr(newstr[w_c], 3, ft_strlen(newstr[w_c]));
 // 			free (newstr[w_c]);
-// 			newstr[w_c] = ft_strdup(command->temp2);
-// 			free (command->temp2);
+// 			newstr[w_c] = ft_strdup(command->split_pipe);
+// 			free (command->split_pipe);
 // 			redirect_str(newstr[w_c + 1], &command, command->redir_amount);
 // 		}
 // 		command->redir_amount++;

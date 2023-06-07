@@ -6,11 +6,46 @@
 /*   By: cafriem <cafriem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 13:50:16 by cafriem           #+#    #+#             */
-/*   Updated: 2023/05/23 13:50:17 by cafriem          ###   ########.fr       */
+/*   Updated: 2023/06/07 13:47:41 by cafriem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
+
+void	check_spmark2(char *string)
+{
+	int	s_mark;
+	int	counter;
+	int	sp_mark;
+
+	s_mark = 0;
+	sp_mark = 0;
+	counter = 0;
+	while (string[counter])
+	{
+		if (string[counter] == '\'')
+			s_mark++;
+		if (string[counter] == '"')
+			sp_mark++;
+		counter++;
+	}
+	if ((sp_mark % 2 != 0) || (s_mark % 2 != 0))
+	{
+		printf("PARSE ERROR\n");
+		exit (0);
+	}
+}
+
+void	check_spmark(t_shell *shell, int cmd)
+{
+	int	counter;
+
+	while(cmd > counter)
+	{
+		check_spmark2(shell->split_pipe[counter]);
+		counter++;
+	}
+}
 
 int	ft_skip_spmark(const char *string, int start)
 {
@@ -22,12 +57,18 @@ int	ft_skip_spmark(const char *string, int start)
 	sp_mark = 0;
 	counter = start;
 	if (string[counter] == '\'')
+	{
 		s_mark++;
+		counter++;
+	}
 	if (string[counter] == '"')
+	{
 		sp_mark++;
-	counter++;
+		counter++;
+	}
 	while ((sp_mark % 2 != 0))
 	{
+		//add smt for $expansion here
 		if (string[counter] == '"')
 			sp_mark++;
 		counter++;
@@ -69,7 +110,7 @@ char	**ft_splitmini(const char *string, char separator)
 	counter = 0;
 	word_counter = 0;
 	start = 0;
-	main = ft_calloc(splitcount(string, separator) + 1, sizeof(char*));
+	main = ft_calloc(splitcount(string, separator) + 1, sizeof(char *));
 	if (main == NULL)
 		return (NULL);
 	while (string[counter] != '\0')
@@ -85,17 +126,5 @@ char	**ft_splitmini(const char *string, char separator)
 		counter++;
 	}
 	main[word_counter] = ft_strtrim(ft_substr(string, start, (counter - start)), " ");
-	return(main);
+	return (main);
 }
-
-// int	main(void)
-// {
-// 	char	**string;
-
-// 	string = ft_splitmini("Testings yes | antoherdw\"fs|f'd\" ysesir | nono", '|');
-// 	// string = ft_splitmini("Testings yes|antohe ysesir|nono", '|');
-// 	printf("%s\n", string[0]);
-// 	printf("%s\n", string[1]);
-// 	printf("%s\n", string[2]);
-// 	printf("%s\n", string[3]);
-// }
