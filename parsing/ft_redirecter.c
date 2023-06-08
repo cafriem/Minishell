@@ -6,7 +6,7 @@
 /*   By: cafriem <cafriem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 13:50:31 by cafriem           #+#    #+#             */
-/*   Updated: 2023/06/07 13:53:25 by cafriem          ###   ########.fr       */
+/*   Updated: 2023/06/08 16:44:57 by cafriem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,38 @@ int	redirect_counter(char *string)
 // 	}
 // }
 
+char	*filename2(char *string, int start, int amount)
+{
+	int		counter;
+	int		c;
+	char	*newstr;
+
+	counter = start;
+	c = 0;
+	while(counter < (amount + start))
+	{
+		if (string[counter] == '"' || string[counter] == '\"')
+			c++;
+		counter++;
+	}
+	if (c == 0)
+		return (ft_substr(string, start, counter - start));
+	newstr = ft_calloc(amount - c, sizeof(char));
+	counter = start;
+	c = 0;
+	while (counter < (amount + start))
+	{
+		if (string[counter] != '"' || string[counter] != '\"')
+		{
+			newstr[c] = string[counter];
+			c++;
+		}
+		counter++;
+	}
+	printf("string = %s\n", newstr);
+	return (newstr);
+}
+
 char	*filename(t_command *command, char *string, int start)
 {
 	int	counter;
@@ -134,13 +166,18 @@ char	*filename(t_command *command, char *string, int start)
 		else if (string[counter] == ' ')
 		{
 			command->int_temp = counter;
-			return (ft_substr(string, start, counter - start));
+			printf("news = %s\n", filename2(string, start, counter - start));
+			return (filename2(string, start, counter - start));
 		}
 		else
 			counter++;
 	}
-	return (ft_substr(string, start, counter - start));
+	printf("news = %s\n", filename2(string, start, counter - start));
+	command->int_temp = counter;
+	return (filename2(string, start, counter - start));
 }
+
+// fix the " mark for file names
 
 void	redirect_temp(char *string, t_command *command, int start)
 {
@@ -191,7 +228,7 @@ void	redir_temp(char *string, t_command *command)
 		else if (string[counter] == '>' || string[counter] == '<')
 		{
 			redirect_temp(string, command, counter);
-			counter += command->int_temp;
+			counter = command->int_temp;
 		}
 		else
 			counter++;
@@ -201,6 +238,6 @@ void	redir_temp(char *string, t_command *command)
 void	ft_redirect(t_command *command)
 {
 	printf("$$$ redirect strings = %s \n", command->temp);
-	command->redir = ft_calloc(redirect_counter(command->temp), sizeof(t_direct));
+	command->redir = ft_calloc(redirect_counter(command->temp) + 1, sizeof(t_direct));
 	redir_temp(&command->temp[0], command);
 }

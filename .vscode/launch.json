@@ -14,7 +14,8 @@
 			"cwd": "${fileDirname}",
 			"environment": [],
 			"externalConsole": true,
-			"MIMode": "lldb"
+			"MIMode": "lldb",
+			"preLaunchTask": "C/C++: gcc build active file"
 		}
 
 	]
