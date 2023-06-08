@@ -6,7 +6,7 @@
 /*   By: cafriem <cafriem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 12:04:53 by cafriem           #+#    #+#             */
-/*   Updated: 2023/06/08 12:57:59 by cafriem          ###   ########.fr       */
+/*   Updated: 2023/06/08 19:01:23 by cafriem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 // 	}
 // }
 
-// void	ft_env()
+// void	ft_env(t_shell *shell, char *string)
 // {
 // 	int	counter;
 

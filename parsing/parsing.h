@@ -6,7 +6,7 @@
 /*   By: cafriem <cafriem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 15:54:10 by amalbrei          #+#    #+#             */
-/*   Updated: 2023/06/07 13:53:19 by cafriem          ###   ########.fr       */
+/*   Updated: 2023/06/08 19:02:48 by cafriem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,18 +49,17 @@ typedef struct s_env
 
 typedef struct s_direct
 {
-	char				*file;
-	t_state				direct;
+	char				*file; // file name
+	t_state				direct; // what do to with the files
 }	t_direct;
 
 typedef struct s_command
 {
-	char				**cmd_args;
-	char				*temp;
-	char				*split_pipe;
-	int					int_temp;
-	int					redir_amount;
-	t_direct			*redir;
+	char				**cmd_args; // the command, flag and command line
+	char				*temp; // just a temp that i will be using for parsing, you can use it if you want
+	int					int_temp; // just like the char temp
+	int					redir_amount; // the amount of redirects there are in this command
+	t_direct			*redir; // redirects
 }	t_command;
 
 //use ft_cmd_counter for cmd_args
@@ -90,6 +89,5 @@ char	**ft_splitmini(const char *string, char separator); // skips all quotaion m
 
 
 // in case of \ with '$' expansion, dont expand
-// redirects, fix " within file names
 
 #endif

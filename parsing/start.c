@@ -6,7 +6,7 @@
 /*   By: cafriem <cafriem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 13:50:20 by cafriem           #+#    #+#             */
-/*   Updated: 2023/06/08 16:46:36 by cafriem          ###   ########.fr       */
+/*   Updated: 2023/06/08 19:01:39 by cafriem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ int	main(void)
 	t_shell		shell;
 
 	start = "< 23 grep hello > t2 | gremonomo $s >t2";
+	// ft_env(&shell, start);
 	shell.line = ft_strdup(ft_strtrim(start, " "));
 	cmd = splitcount(shell.line, '|');
 	shell.split_pipe = ft_splitmini(shell.line, '|');
