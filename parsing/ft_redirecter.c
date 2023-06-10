@@ -6,7 +6,7 @@
 /*   By: cafriem <cafriem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 13:50:31 by cafriem           #+#    #+#             */
-/*   Updated: 2023/06/08 16:44:57 by cafriem          ###   ########.fr       */
+/*   Updated: 2023/06/09 16:19:56 by cafriem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,7 +166,6 @@ char	*filename(t_command *command, char *string, int start)
 		else if (string[counter] == ' ')
 		{
 			command->int_temp = counter;
-			printf("news = %s\n", filename2(string, start, counter - start));
 			return (filename2(string, start, counter - start));
 		}
 		else

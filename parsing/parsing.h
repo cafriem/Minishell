@@ -6,7 +6,7 @@
 /*   By: cafriem <cafriem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 15:54:10 by amalbrei          #+#    #+#             */
-/*   Updated: 2023/06/08 19:02:48 by cafriem          ###   ########.fr       */
+/*   Updated: 2023/06/09 16:20:45 by cafriem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,10 @@ void	check_spmark(t_shell *shell, int cmd); // checks if any open speachmarks
 int		ft_skip_spmark(const char *string, int start); // skips all quotaion marks
 int		splitcount(const char *string, char separator); //number off commands by pipes
 char	**ft_splitmini(const char *string, char separator); // skips all quotaion marks
+//--------------------ft_env.c-------------//
+void	ft_env(t_shell *shell, char *string);
 
 
-// in case of \ with '$' expansion, dont expand
+// in case of ' with $ expansion, dont expand
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: cafriem <cafriem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 13:50:20 by cafriem           #+#    #+#             */
-/*   Updated: 2023/06/08 19:01:39 by cafriem          ###   ########.fr       */
+/*   Updated: 2023/06/10 14:43:04 by cafriem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,8 @@ int	main(void)
 	int			cmd;
 	t_shell		shell;
 
-	start = "< 23 grep hello > t2 | gremonomo $s >t2";
-	// ft_env(&shell, start);
+	start = "| echo >t2";
+	ft_env(&shell, start);
 	shell.line = ft_strdup(ft_strtrim(start, " "));
 	cmd = splitcount(shell.line, '|');
 	shell.split_pipe = ft_splitmini(shell.line, '|');
@@ -84,8 +84,7 @@ int	main(void)
 	printf("$$$ 0. %s\n", shell.command[0].temp);
 	printf("$$$ 1. %s\n", shell.command[1].temp);
 	printf("$$$ seperating\n");
-	ft_redirect(&shell.command[0]);
-	printf("file = |%s|\n", shell.command[0].redir[0].file);
-	printf("file = |%s|\n", shell.command[0].redir[1].file);
-	// ft_redirecter(string, command);
+	ft_redirect(&shell.command[1]);
+	printf("file = |%s|\n", shell.command[1].redir[0].file);
+	printf("file = |%s|\n", shell.command[1].redir[1].file);
 }
