@@ -6,7 +6,7 @@
 /*   By: cafriem <cafriem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 13:50:20 by cafriem           #+#    #+#             */
-/*   Updated: 2023/06/10 14:43:04 by cafriem          ###   ########.fr       */
+/*   Updated: 2023/06/12 21:15:23 by cafriem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int	main(void)
 	int			cmd;
 	t_shell		shell;
 
-	start = "| echo >t2";
+	start = "echo >t2";
 	ft_env(&shell, start);
 	shell.line = ft_strdup(ft_strtrim(start, " "));
 	cmd = splitcount(shell.line, '|');

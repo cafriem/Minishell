@@ -6,7 +6,7 @@
 /*   By: cafriem <cafriem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 12:04:53 by cafriem           #+#    #+#             */
-/*   Updated: 2023/06/10 13:31:52 by cafriem          ###   ########.fr       */
+/*   Updated: 2023/06/12 17:02:35 by cafriem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,6 @@ char	*ft_strjoinfree(char *str1, char *str2, int flag)
 		free(str2);
 	}
 	return(str3);
-}
-
-int	ft_isalnum_mini(int c)
-{
-	if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')
-		|| (c >= '0' && c <= '9') || c == '_')
-		return (1);
-	return (0);
 }
 
 void	ft_env3(char *string, int start, int end)

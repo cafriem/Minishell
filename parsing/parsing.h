@@ -6,7 +6,7 @@
 /*   By: cafriem <cafriem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 15:54:10 by amalbrei          #+#    #+#             */
-/*   Updated: 2023/06/09 16:20:45 by cafriem          ###   ########.fr       */
+/*   Updated: 2023/06/12 21:22:52 by cafriem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,9 @@ typedef struct s_shell
 	char				*line;
 	char				*oldpwd;
 	char				**split_pipe;
-	char				**temp2;
-	char				*temp1;
+	unsigned long		pos; //Used in Recursive Decent Parsing
+	char				**temp2; //might delete these later
+	char				*temp1; //might delete these later
 	int					exit_code;
 	struct s_env		*env;
 	struct s_env		*dec_env;
@@ -88,6 +89,17 @@ int		splitcount(const char *string, char separator); //number off commands by pi
 char	**ft_splitmini(const char *string, char separator); // skips all quotaion marks
 //--------------------ft_env.c-------------//
 void	ft_env(t_shell *shell, char *string);
+//--------------------ft_isalnum_mini.c-------------//
+int		ft_isalnum_mini(int c); // isalnum with underscore added
+//--------------------ft_env.c-------------//
+void	spaces(t_shell *shell, char *string);
+char	*word(char *string, int start);
+void	io_redirect(t_shell *shell, char *string);
+void	io_list(t_shell *shell, char *string);
+void	simple_command(t_shell *shell, char *string);
+void	pipeline(t_shell *shell, char *string);
+void	match(char *expected, t_shell *shell, char *string);
+
 
 
 // in case of ' with $ expansion, dont expand

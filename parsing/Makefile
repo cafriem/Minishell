@@ -4,10 +4,12 @@ CC = gcc
 
 CFLAGS = -Wall -Wextra -Werror -g
 
-SRCS =	start.c			\
-		ft_splitmini.c	\
-		ft_redirecter.c	\
-		ft_env.c		\
+SRCS =	start.c				\
+		ft_isalnum_mini.c	\
+		ft_splitmini.c		\
+		ft_redirecter.c		\
+		ft_env.c			\
+		rdp.c				\
 
 OBJS = $(SRCS:.c=.o)
 
