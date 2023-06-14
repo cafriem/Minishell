@@ -67,7 +67,7 @@ void	temp_into_arg(t_shell *shell)
 	}
 }
 
-int	main(void)
+int	main(int argc, char *argv[], char *env[])
 {
 	char		*start;
 	int			cmd;
@@ -75,6 +75,7 @@ int	main(void)
 
 	start = "echo >t2";
 	ft_env(&shell, start);
+	recursive_decent_parsing(&shell, start);
 	shell.line = ft_strdup(ft_strtrim(start, " "));
 	cmd = splitcount(shell.line, '|');
 	shell.split_pipe = ft_splitmini(shell.line, '|');

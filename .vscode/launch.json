@@ -5,18 +5,12 @@
 	"version": "0.2.0",
 	"configurations": [
 		{
-			"name": "(lldb) Launch",
-			"type": "cppdbg",
+			"type": "lldb",
 			"request": "launch",
+			"name": "Launch",
 			"program": "${workspaceFolder}/parsing/minishell",
 			"args": [],
-			"stopAtEntry": false,
-			"cwd": "${fileDirname}",
-			"environment": [],
-			"externalConsole": true,
-			"MIMode": "lldb",
-			"preLaunchTask": "C/C++: gcc build active file"
-		}
-
+			"cwd": "${workspaceFolder}"
+		},
 	]
 }

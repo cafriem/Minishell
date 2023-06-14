@@ -72,7 +72,6 @@ void	mini_cpyarr(int argc, char *argv[], char **string);
 int		ft_double_pointer_counter2(char **dp);
 int		ft_operfinder(const char *c);
 //--------------------ft_redirecter.c-------------//
-void	ft_redirect(struct s_command *command); // redirects
 char	*filename(t_command *command, char *string, int start); //gets the file name
 int		redirect_counter(char *string); // redirection counter, mainly for calloc
 int		next_redir(char *string, int start); // moves to the next index with the file name
@@ -92,13 +91,15 @@ void	ft_env(t_shell *shell, char *string);
 //--------------------ft_isalnum_mini.c-------------//
 int		ft_isalnum_mini(int c); // isalnum with underscore added
 //--------------------ft_env.c-------------//
-void	spaces(t_shell *shell, char *string);
-char	*word(char *string, int start);
-void	io_redirect(t_shell *shell, char *string);
-void	io_list(t_shell *shell, char *string);
-void	simple_command(t_shell *shell, char *string);
-void	pipeline(t_shell *shell, char *string);
 void	match(char *expected, t_shell *shell, char *string);
+void	pipeline(t_shell *shell, char *string);
+void	simple_command(t_shell *shell, char *string);
+void	io_list(t_shell *shell, char *string);
+void	cmd_suffix(t_shell *shell, char *string);
+void	io_redirect(t_shell *shell, char *string);
+char	*word(char *string, int start);
+void	spaces(t_shell *shell, char *string);
+void	recursive_decent_parsing(t_shell *shell, char *string);
 
 
 

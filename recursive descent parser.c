@@ -103,7 +103,6 @@ int main()
 		printf("Parsing successful.\n");
 	else
 		fprintf(stderr, "Error: Unexpected token at position %d\n", pos);
-
 	return (0);
 }
 
