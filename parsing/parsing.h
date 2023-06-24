@@ -28,10 +28,10 @@ typedef enum e_mini_state
 
 typedef struct s_shell
 {
-	char				*current_line;
-	char				*line;
+	char				*current_line; //original command line
+	char				*line; // command line after env
 	char				*oldpwd;
-	char				**split_pipe;
+	char				**split_pipe; // split line from line
 	unsigned long		pos; //Used in Recursive Decent Parsing
 	char				**temp2; //might delete these later
 	char				*temp1; //might delete these later
@@ -57,7 +57,7 @@ typedef struct s_direct
 typedef struct s_command
 {
 	char				**cmd_args; // the command, flag and command line
-	char				*temp; // just a temp that i will be using for parsing, you can use it if you want
+	char				*cmd_line; // just a temp that i will be using for parsing, you can use it if you want
 	int					int_temp; // just like the char temp
 	int					redir_amount; // the amount of redirects there are in this command
 	t_direct			*redir; // redirects
@@ -71,7 +71,12 @@ typedef struct s_command
 void	mini_cpyarr(int argc, char *argv[], char **string);
 int		ft_double_pointer_counter2(char **dp);
 int		ft_operfinder(const char *c);
+//--------------------start.c------------------//
+int		ft_opr_counter(const char *c);
+void	temp_into_arg(t_shell *shell); // fills in shell.command.temp and does redirections
+
 //--------------------ft_redirecter.c-------------//
+char	*filename2(char *string, int start, int amount);
 char	*filename(t_command *command, char *string, int start); //gets the file name
 int		redirect_counter(char *string); // redirection counter, mainly for calloc
 int		next_redir(char *string, int start); // moves to the next index with the file name
@@ -81,13 +86,13 @@ void	ft_redirect(t_command *command); // pretty useless 3 line command
 // void	redirect_str(char *string, t_command *command); // *NEW* grabs the struct and does the stuff
 // void	red(char *string, struct s_command *command); // putting redirecs in strucky waky
 //--------------------ft_splitmini.c-------------//
-void	check_spmark2(char *string); // checks if any open speachmarks part 2
-void	check_spmark(t_shell *shell, int cmd); // checks if any open speachmarks
+void	check_spmark(char *string); // checks if any open speachmarks
 int		ft_skip_spmark(const char *string, int start); // skips all quotaion marks
 int		splitcount(const char *string, char separator); //number off commands by pipes
 char	**ft_splitmini(const char *string, char separator); // skips all quotaion marks
 //--------------------ft_env.c-------------//
-void	ft_env(t_shell *shell, char *string);
+char	*ft_strjoinfree(char *str1, char *str2, int flag);
+void	ft_env(t_shell *shell);
 //--------------------ft_isalnum_mini.c-------------//
 int		ft_isalnum_mini(int c); // isalnum with underscore added
 //--------------------ft_env.c-------------//
@@ -100,7 +105,10 @@ void	io_redirect(t_shell *shell, char *string);
 char	*word(char *string, int start);
 void	spaces(t_shell *shell, char *string);
 void	recursive_decent_parsing(t_shell *shell, char *string);
-
+//-------------------ft_cmd_args.c----------------//
+void	ft_cmd_args(t_command *command, char *string);
+int		skip_redirect(char *string, int start);
+char	*filename_skip(char *string, int start);
 
 
 // in case of ' with $ expansion, dont expand

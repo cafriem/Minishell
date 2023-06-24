@@ -79,7 +79,6 @@ char	*filename2(char *string, int start, int amount)
 		}
 		counter++;
 	}
-	printf("string = %s\n", newstr);
 	return (newstr);
 }
 
@@ -98,7 +97,7 @@ char	*filename(t_command *command, char *string, int start)
 	{
 		if (string[counter] == '"' || string[counter] == '\'')
 			counter += ft_skip_spmark(string, counter);
-		else if (string[counter] == ' ')
+		else if (ft_strchr(" <>|", string[counter]) != NULL)
 		{
 			command->int_temp = counter;
 			return (filename2(string, start, counter - start));
@@ -106,7 +105,6 @@ char	*filename(t_command *command, char *string, int start)
 		else
 			counter++;
 	}
-	printf("news = %s\n", filename2(string, start, counter - start));
 	command->int_temp = counter;
 	return (filename2(string, start, counter - start));
 }
@@ -144,9 +142,7 @@ void	redirect_temp(char *string, t_command *command, int start)
 void	redir_temp(char *string, t_command *command)
 {
 	int	counter;
-	int	start;
 
-	start = 0;
 	counter = 0;
 	command->int_temp = 0;
 	command->redir_amount = 0;
@@ -171,7 +167,6 @@ void	redir_temp(char *string, t_command *command)
 
 void	ft_redirect(t_command *command)
 {
-	printf("$$$ redirect strings = %s \n", command->temp);
-	command->redir = ft_calloc(redirect_counter(command->temp) + 1, sizeof(t_direct));
-	redir_temp(&command->temp[0], command);
+	command->redir = ft_calloc(redirect_counter(command->cmd_line) + 1, sizeof(t_direct));
+	redir_temp(command->cmd_line, command);
 }

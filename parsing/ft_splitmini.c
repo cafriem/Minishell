@@ -12,7 +12,7 @@
 
 #include "parsing.h"
 
-void	check_spmark2(char *string)
+void	check_spmark(char *string)
 {
 	int	s_mark;
 	int	counter;
@@ -33,18 +33,6 @@ void	check_spmark2(char *string)
 	{
 		printf("PARSE ERROR\n");
 		exit (0);
-	}
-}
-
-void	check_spmark(t_shell *shell, int cmd)
-{
-	int	counter;
-
-	counter = 0;
-	while(cmd > counter)
-	{
-		check_spmark2(shell->split_pipe[counter]);
-		counter++;
 	}
 }
 

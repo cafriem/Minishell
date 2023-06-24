@@ -5,11 +5,13 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror -g3
 
 SRCS =	start.c				\
+		parsing_start.c		\
 		ft_isalnum_mini.c	\
 		ft_splitmini.c		\
 		ft_redirecter.c		\
-		ft_env.c			\
 		rdp.c				\
+		ft_cmd_args.c		\
+		ft_env.c			\
 
 OBJS = $(SRCS:.c=.o)
 

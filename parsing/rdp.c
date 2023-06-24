@@ -14,7 +14,6 @@
 
 void	match(char *expected, t_shell *shell, char *string)
 {
-	printf("expected : '%s'\n", expected);
 	if (ft_strlen(expected) != 0 && ft_strncmp(&string[shell->pos],
 			expected, ft_strlen(expected)) == 0) 
 		shell->pos += ft_strlen(expected);
@@ -70,7 +69,7 @@ void cmd_suffix(t_shell *shell, char *string)
 		io_list(shell, string);
 		cmd_suffix(shell, string);
 	}
-	else if (ft_strlen(string) != shell->pos && ft_strncmp(&string[shell->pos],
+	else if (string[shell->pos] != '|' && ft_strlen(string) != shell->pos && ft_strncmp(&string[shell->pos],
 		word(string, shell->pos), ft_strlen(word(string, shell->pos))) == 0)
 	{
 		match(word(string, shell->pos), shell, string);
@@ -130,10 +129,14 @@ void	spaces(t_shell *shell, char *string)
 
 void	recursive_decent_parsing(t_shell *shell, char *string)
 {
-	pipeline(&shell, string);
+	shell->pos = 0;
+	pipeline(shell, string);
 
 	if (shell->pos == ft_strlen(string))
 		printf("Parsing successful.\n");
 	else
+	{
 		printf("Error: Unexpected token at position %ld\n", shell->pos);
+		exit(1);
+	}
 }
