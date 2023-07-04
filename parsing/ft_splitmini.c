@@ -14,26 +14,38 @@
 
 void	check_spmark(char *string)
 {
-	int	s_mark;
 	int	counter;
 	int	sp_mark;
 
-	s_mark = 0;
 	sp_mark = 0;
 	counter = 0;
+	printf("Checking SP_MARK\n");
 	while (string[counter])
 	{
 		if (string[counter] == '\'')
-			s_mark++;
-		if (string[counter] == '"')
+		{
 			sp_mark++;
+			while (string[counter] && string[counter] != '\'')
+				counter++;
+			if (string[counter] == '\'')
+				sp_mark++;
+		}
+		if (string[counter] == '\'')
+		{
+			sp_mark++;
+			while (string[counter] && string[counter] != '\'')
+				counter++;
+			if (string[counter] == '\'')
+				sp_mark++;
+		}
 		counter++;
 	}
-	if ((sp_mark % 2 != 0) || (s_mark % 2 != 0))
+	if ((sp_mark % 2 != 0))
 	{
 		printf("PARSE ERROR\n");
 		exit (0);
 	}
+	printf("PASSED SP_CHECKER\n");
 }
 
 int	ft_skip_spmark(const char *string, int start)
@@ -57,7 +69,6 @@ int	ft_skip_spmark(const char *string, int start)
 	}
 	while ((sp_mark % 2 != 0))
 	{
-		//add smt for $expansion here
 		if (string[counter] == '"')
 			sp_mark++;
 		counter++;

@@ -4,8 +4,7 @@ CC = gcc
 
 CFLAGS = -Wall -Wextra -Werror -g3
 
-SRCS =	start.c				\
-		parsing_start.c		\
+SRCS =	parsing_start.c		\
 		ft_isalnum_mini.c	\
 		ft_splitmini.c		\
 		ft_redirecter.c		\
@@ -24,7 +23,7 @@ LIBS =	Libft/libft.a
 
 $(NAME): $(OBJS)
 	make -C Libft
-	$(CC) $(CFLAGS) $(OBJS) $(LIBS) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJS) $(LIBS) -lreadline  -o $(NAME)
 
 all: $(NAME)
 

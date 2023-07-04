@@ -11,6 +11,8 @@
 /* ************************************************************************** */
 
 #include "parsing.h"
+#include <readline/history.h>
+#include <readline/readline.h>
 
 int	ft_opr_counter(const char *c)
 {
@@ -36,8 +38,6 @@ int	ft_opr_counter(const char *c)
 				s_mark++;
 			if (c[i] == '"')
 				sp_mark++;
-			// if (!c[i])
-			// 	return (0);
 		}
 		if ((c[i] == '>' && c[i + 1] == '>') || (c[i] == '<' && c[i + 1] == '<'))
 		{
@@ -69,13 +69,36 @@ void	temp_into_arg(t_shell *shell)
 	}
 }
 
-int	main(void)
+char	*sp_remover(char *str)
+{
+	char	*sp;
+	char	skip;
+	size_t	counter;
+	int	c;
+
+	counter = 0;
+	while (str[counter] && (str[counter] != '\'' && str[counter] != '"'))
+		counter++;
+	skip = str[counter];
+	if (ft_strlen(str) != counter)
+	{
+		sp = ft_substr(str, 0, counter);
+		printf("yesysyeys\n");
+		c = ft_strlen(ft_strchr(str, skip)) - ft_strlen(ft_strrchr(str, skip) + 1);
+		sp = ft_strjoinfree(sp, ft_substr(str, counter + 1, c), 1);
+		sp = ft_strjoinfree(sp, ft_strrchr(str, skip), 1);
+		return(sp);
+	}
+	return(str);
+}
+
+int	main()
 {
 	char		*start;
 	int			cmd;
 	t_shell		shell;
 
-	start = "<012 \"678 10jij\" dhwaihda | < test hellos ";
+	start = ft_strdup("hellos 12\"31234\"567| fugfuygy");
 	recursive_decent_parsing(&shell, start);
 	shell.current_line = ft_strdup(start);
 	check_spmark(shell.current_line);
@@ -92,8 +115,8 @@ int	main(void)
 	printf("cmd_line = |%s|\n", shell.command[1].cmd_line);
 	printf("file = |%s|\n", shell.command[0].redir[0].file);
 	printf("file = |%s|\n", shell.command[1].redir[0].file);
-	printf("command = |%s|\n", shell.command[0].cmd_args[0]);
-	printf("command = |%s|\n", shell.command[0].cmd_args[1]);
-	printf("command = |%s|\n", shell.command[0].cmd_args[2]);
-	printf("command = |%s|\n", shell.command[1].cmd_args[0]);
+	printf("command 0,0= |%s|\n", shell.command[0].cmd_args[0]);
+	printf("command 0,1= |%s|\n", shell.command[0].cmd_args[1]);
+	// printf("command 0,2= |%s|\n", shell.command[0].cmd_args[2]);
+	// printf("command 1,0= |%s|\n", shell.command[1].cmd_args[0]);
 }

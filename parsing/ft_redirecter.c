@@ -53,9 +53,9 @@ int	redirect_counter(char *string)
 
 char	*filename2(char *string, int start, int amount)
 {
+	char	*newstr;
 	int		counter;
 	int		c;
-	char	*newstr;
 
 	counter = start;
 	c = 0;
@@ -86,13 +86,9 @@ char	*filename(t_command *command, char *string, int start)
 {
 	int	counter;
 
-	counter = start;
-	while (string[counter] == ' ')
-	{
+	while (string[start] == ' ')
 		start++;
-		counter++;
-	}
-	start = counter;
+	counter = start;
 	while (string[counter])
 	{
 		if (string[counter] == '"' || string[counter] == '\'')

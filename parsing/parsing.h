@@ -71,10 +71,11 @@ typedef struct s_command
 void	mini_cpyarr(int argc, char *argv[], char **string);
 int		ft_double_pointer_counter2(char **dp);
 int		ft_operfinder(const char *c);
+//everything above this is useless
 //--------------------start.c------------------//
 int		ft_opr_counter(const char *c);
 void	temp_into_arg(t_shell *shell); // fills in shell.command.temp and does redirections
-
+char	*sp_remover(char *str);// removes speechmarks from a string
 //--------------------ft_redirecter.c-------------//
 char	*filename2(char *string, int start, int amount);
 char	*filename(t_command *command, char *string, int start); //gets the file name

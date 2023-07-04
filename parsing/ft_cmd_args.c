@@ -64,11 +64,11 @@ void	ft_cmd_args(t_command *command, char *string)
 		else if (string[counter])
 		{
 			if (command->int_temp == 0)
-				temp = ft_strdup(word(string, counter));
+				temp = ft_strdup(sp_remover(word(string, counter)));
 			else
 			{
 				temp = ft_strjoinfree(temp, " ", 1);
-				temp = ft_strjoinfree(temp, word(string, counter), 1);
+				temp = ft_strjoinfree(temp, sp_remover(word(string, counter)), 1);
 			}
 			command->int_temp++;
 			printf("word = %s\n", word(string, counter));
