@@ -16,31 +16,35 @@ void	check_spmark(char *string)
 {
 	int	counter;
 	int	sp_mark;
+	int	s_mark;
 
 	sp_mark = 0;
 	counter = 0;
+	s_mark = 0;
 	printf("Checking SP_MARK\n");
 	while (string[counter])
 	{
-		if (string[counter] == '\'')
+		if (string[counter] == '"')
 		{
 			sp_mark++;
-			while (string[counter] && string[counter] != '\'')
+			counter++;
+			while (string[counter] && string[counter] != '"')
 				counter++;
-			if (string[counter] == '\'')
+			if (string[counter] == '"')
 				sp_mark++;
 		}
-		if (string[counter] == '\'')
+		else if (string[counter] == '\'')
 		{
-			sp_mark++;
+			s_mark++;
+			counter++;
 			while (string[counter] && string[counter] != '\'')
 				counter++;
 			if (string[counter] == '\'')
-				sp_mark++;
+				s_mark++;
 		}
 		counter++;
 	}
-	if ((sp_mark % 2 != 0))
+	if (sp_mark % 2 != 0 || s_mark % 2 != 0)
 	{
 		printf("PARSE ERROR\n");
 		exit (0);
@@ -50,36 +54,19 @@ void	check_spmark(char *string)
 
 int	ft_skip_spmark(const char *string, int start)
 {
-	int	s_mark;
-	int	counter;
-	int	sp_mark;
+	char	letter;
+	int		counter;
 
-	s_mark = 0;
-	sp_mark = 0;
 	counter = start;
-	if (string[counter] == '\'')
-	{
-		s_mark++;
+	while (string[counter] && string[counter] != '"' && string[counter] != '\'')
 		counter++;
-	}
-	if (string[counter] == '"')
-	{
-		sp_mark++;
+	if (counter == (int)ft_strlen(string))
+		return(counter);
+	letter = string[counter];
+	counter++;
+	while (string[counter] != letter)
 		counter++;
-	}
-	while ((sp_mark % 2 != 0))
-	{
-		if (string[counter] == '"')
-			sp_mark++;
-		counter++;
-	}
-	while ((s_mark % 2 != 0))
-	{
-		if (string[counter] == '\'')
-			s_mark++;
-		counter++;
-	}
-	return (counter - start);
+	return ((counter - start) + 1);
 }
 
 int	splitcount(const char *string, char separator)

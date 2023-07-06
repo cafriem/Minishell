@@ -2,6 +2,7 @@
 	"files.associations": {
 		"parsing.h": "c",
 		"string": "c",
-		"iosfwd": "c"
+		"iosfwd": "c",
+		"libft.h": "c"
 	}
 }

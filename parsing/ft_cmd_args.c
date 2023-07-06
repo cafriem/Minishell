@@ -68,7 +68,7 @@ void	ft_cmd_args(t_command *command, char *string)
 			else
 			{
 				temp = ft_strjoinfree(temp, " ", 1);
-				temp = ft_strjoinfree(temp, sp_remover(word(string, counter)), 1);
+				temp = ft_strjoinfree(temp, sp_remover(word(string, counter)), 3);
 			}
 			command->int_temp++;
 			printf("word = %s\n", word(string, counter));
@@ -77,5 +77,8 @@ void	ft_cmd_args(t_command *command, char *string)
 		else
 			counter++;
 	}
-	command->cmd_args = ft_splitmini(temp, ' ');
+	if (command->int_temp > 0)
+		command->cmd_args = ft_splitmini(temp, ' ');
+	else
+		command->cmd_args = ft_calloc(0, sizeof(char *));
 }

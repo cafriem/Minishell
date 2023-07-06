@@ -83,40 +83,40 @@ char	*sp_remover(char *str)
 	if (ft_strlen(str) != counter)
 	{
 		sp = ft_substr(str, 0, counter);
-		printf("yesysyeys\n");
-		c = ft_strlen(ft_strchr(str, skip)) - ft_strlen(ft_strrchr(str, skip) + 1);
-		sp = ft_strjoinfree(sp, ft_substr(str, counter + 1, c), 1);
-		sp = ft_strjoinfree(sp, ft_strrchr(str, skip), 1);
+		c = ft_strlen(ft_strchr(str, skip)) - ft_strlen(ft_strrchr(str, skip));
+		sp = ft_strjoinfree(sp, ft_substr(str, counter + 1, c - 1), 3);
+		c = ft_strlen(str) - ft_strlen(ft_strrchr(str, skip));
+		sp = ft_strjoinfree(sp, ft_substr(str, c + 1, ft_strlen(str)), 3);
 		return(sp);
 	}
 	return(str);
 }
 
+t_shell		shell;
+
 int	main()
 {
 	char		*start;
 	int			cmd;
-	t_shell		shell;
+	// t_shell		shell;
 
-	start = ft_strdup("hellos 12\"31234\"567| fugfuygy");
+	start = ft_strdup("<11|8");
+	check_spmark(start);
 	recursive_decent_parsing(&shell, start);
 	shell.current_line = ft_strdup(start);
-	check_spmark(shell.current_line);
 	// env stuff
 	shell.split_pipe = ft_splitmini(shell.current_line, '|');
 	cmd = splitcount(shell.current_line, '|');
 	shell.command = ft_calloc(cmd, sizeof(t_command));
 	temp_into_arg(&shell);
+	printf("-----PARSED-----\n");
 	// printf("$$$ 0. %s\n", shell.command[0].temp);
 	// printf("$$$ 1. %s\n", shell.command[1].temp);
 	// printf("$$$ seperating\n");
-	printf("-----PARSED-----\n");
 	printf("cmd_line = |%s|\n", shell.command[0].cmd_line);
 	printf("cmd_line = |%s|\n", shell.command[1].cmd_line);
 	printf("file = |%s|\n", shell.command[0].redir[0].file);
-	printf("file = |%s|\n", shell.command[1].redir[0].file);
 	printf("command 0,0= |%s|\n", shell.command[0].cmd_args[0]);
 	printf("command 0,1= |%s|\n", shell.command[0].cmd_args[1]);
-	// printf("command 0,2= |%s|\n", shell.command[0].cmd_args[2]);
-	// printf("command 1,0= |%s|\n", shell.command[1].cmd_args[0]);
+	printf("command 1,0= |%s|\n", shell.command[1].cmd_args[0]);
 }

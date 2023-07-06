@@ -63,10 +63,7 @@ typedef struct s_command
 	t_direct			*redir; // redirects
 }	t_command;
 
-//use ft_cmd_counter for cmd_args
-//cmd_args = [redirect | command | another redirect]
-
-//< t1 grep yes >t2>te
+extern t_shell	g_shell;
 
 void	mini_cpyarr(int argc, char *argv[], char **string);
 int		ft_double_pointer_counter2(char **dp);
