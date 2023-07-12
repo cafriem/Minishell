@@ -21,7 +21,7 @@ void	check_spmark(char *string)
 	sp_mark = 0;
 	counter = 0;
 	s_mark = 0;
-	printf("Checking SP_MARK\n");
+	printf("SP CHECKER\n");
 	while (string[counter])
 	{
 		if (string[counter] == '"')
@@ -49,7 +49,7 @@ void	check_spmark(char *string)
 		printf("PARSE ERROR\n");
 		exit (0);
 	}
-	printf("PASSED SP_CHECKER\n");
+	printf("PASS SP_CHECKER\n");
 }
 
 int	ft_skip_spmark(const char *string, int start)
@@ -100,10 +100,53 @@ char	**ft_splitmini(const char *string, char separator)
 	main = ft_calloc(splitcount(string, separator) + 1, sizeof(char *));
 	if (main == NULL)
 		return (NULL);
-	while (string[counter] != '\0')
+	while (string[counter])
 	{
 		if (string[counter] == '\'' || string[counter] == '"')
 			counter += ft_skip_spmark(string, counter);
+		if (string[counter] == separator)
+		{
+			main[word_counter] = ft_strtrim(ft_substr(string, start, (counter - start)), " ");
+			start = counter + 1;
+			word_counter++;
+		}
+		counter++;
+	}
+	main[word_counter] = ft_strtrim(ft_substr(string, start, (counter - start)), " ");
+	return (main);
+}
+
+int	splitcount2(const char *string, char separator)
+{
+	int	counter;
+	int	sep;
+
+	sep = 0;
+	counter = 0;
+	while (string[counter])
+	{
+		if (string[counter] == separator)
+			sep++;
+		counter++;
+	}
+	return (sep + 1);
+}
+
+char	**ft_splitmini2(const char *string, char separator)
+{
+	char	**main;
+	int		counter;
+	int		start;
+	int		word_counter;
+
+	counter = 0;
+	word_counter = 0;
+	start = 0;
+	main = ft_calloc(splitcount2(string, separator) + 1, sizeof(char *));
+	if (main == NULL)
+		return (NULL);
+	while (string[counter])
+	{
 		if (string[counter] == separator)
 		{
 			main[word_counter] = ft_strtrim(ft_substr(string, start, (counter - start)), " ");

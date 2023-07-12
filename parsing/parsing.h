@@ -17,6 +17,8 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include "Libft/libft.h"
+# include <readline/history.h>
+# include <readline/readline.h>
 
 typedef enum e_mini_state
 {
@@ -63,14 +65,13 @@ typedef struct s_command
 	t_direct			*redir; // redirects
 }	t_command;
 
-extern t_shell	g_shell;
+extern t_shell	shell;
 
 void	mini_cpyarr(int argc, char *argv[], char **string);
 int		ft_double_pointer_counter2(char **dp);
 int		ft_operfinder(const char *c);
 //everything above this is useless
 //--------------------start.c------------------//
-int		ft_opr_counter(const char *c);
 void	temp_into_arg(t_shell *shell); // fills in shell.command.temp and does redirections
 char	*sp_remover(char *str);// removes speechmarks from a string
 //--------------------ft_redirecter.c-------------//
@@ -88,9 +89,11 @@ void	check_spmark(char *string); // checks if any open speachmarks
 int		ft_skip_spmark(const char *string, int start); // skips all quotaion marks
 int		splitcount(const char *string, char separator); //number off commands by pipes
 char	**ft_splitmini(const char *string, char separator); // skips all quotaion marks
+char	**ft_splitmini2(const char *string, char separator);
+int	splitcount2(const char *string, char separator);
 //--------------------ft_env.c-------------//
 char	*ft_strjoinfree(char *str1, char *str2, int flag);
-void	ft_env(t_shell *shell);
+void	ft_env(t_shell *shell, char *env[]);
 //--------------------ft_isalnum_mini.c-------------//
 int		ft_isalnum_mini(int c); // isalnum with underscore added
 //--------------------ft_env.c-------------//
@@ -107,7 +110,8 @@ void	recursive_decent_parsing(t_shell *shell, char *string);
 void	ft_cmd_args(t_command *command, char *string);
 int		skip_redirect(char *string, int start);
 char	*filename_skip(char *string, int start);
-
+//-------------------ft_cmd_args.c----------------//
+void	ft_env_init(t_env *env, char *tenv[]);
 
 // in case of ' with $ expansion, dont expand
 

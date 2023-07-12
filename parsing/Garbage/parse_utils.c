@@ -187,10 +187,3 @@ int	ft_cmd_counter(const char *c)
 	}
 	return (op_counter);
 }
-
-int main(void)
-{
-	int	malloc;
-
-	printf("num = %d\n", ft_cmd_counter("lsaiuahd>>iuwa ht"));
-}

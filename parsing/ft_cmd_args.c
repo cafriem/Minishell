@@ -71,14 +71,16 @@ void	ft_cmd_args(t_command *command, char *string)
 				temp = ft_strjoinfree(temp, sp_remover(word(string, counter)), 3);
 			}
 			command->int_temp++;
-			printf("word = %s\n", word(string, counter));
 			counter += ft_strlen(word(string, counter));
 		}
 		else
 			counter++;
 	}
-	if (command->int_temp > 0)
-		command->cmd_args = ft_splitmini(temp, ' ');
+	if (command->int_temp > 1)
+		command->cmd_args = ft_splitmini2(temp, ' ');
 	else
-		command->cmd_args = ft_calloc(0, sizeof(char *));
+	{
+		command->cmd_args = ft_calloc(1, sizeof(char *));
+		command->cmd_args[0] = temp;
+	}
 }

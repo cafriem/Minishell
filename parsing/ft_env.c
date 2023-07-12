@@ -62,16 +62,16 @@ void	ft_env2(t_shell *shell, int start)
 	shell->line = ft_strjoinfree(shell->line, end, 3);
 }
 
-void	ft_env(t_shell *shell)
+void	ft_env(t_shell *shell, char *env[])
 {
 	int	counter;
 
 	counter = 0;
-	shell->exit_code = 0;
 	while (shell->current_line[counter])
 	{
 		if (shell->current_line[counter] == '$')
 			ft_env2(shell, counter);
 		counter++;
 	}
+	printf("non = |%s|", env[0]);
 }

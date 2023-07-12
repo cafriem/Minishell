@@ -11,49 +11,6 @@
 /* ************************************************************************** */
 
 #include "parsing.h"
-#include <readline/history.h>
-#include <readline/readline.h>
-
-int	ft_opr_counter(const char *c)
-{
-	int	op_counter;
-	int	sp_mark;
-	int	s_mark;
-	int	i;
-
-	op_counter = 0;
-	sp_mark = 0;
-	s_mark = 0;
-	i = 0;
-	while (c[i])
-	{
-		if (c[i] == '\'')
-			s_mark++;
-		if (c[i] == '"')
-			sp_mark++;
-		while ((s_mark % 2 != 0 || sp_mark % 2 != 0) && c[i])
-		{
-			i++;
-			if (c[i] == '\'')
-				s_mark++;
-			if (c[i] == '"')
-				sp_mark++;
-		}
-		if ((c[i] == '>' && c[i + 1] == '>') || (c[i] == '<' && c[i + 1] == '<'))
-		{
-			op_counter++;
-			i += 2;
-		}
-		else if (c[i] == '>' || c[i] == '<' || c[i] == '|')
-		{
-			op_counter++;
-			i++;
-		}
-		else
-			i++;
-	}
-	return (op_counter);
-}
 
 void	temp_into_arg(t_shell *shell)
 {
@@ -65,6 +22,7 @@ void	temp_into_arg(t_shell *shell)
 		shell->command[counter].cmd_line = ft_strdup(shell->split_pipe[counter]);
 		ft_redirect(&shell->command[counter]);
 		ft_cmd_args(&shell->command[counter], shell->command[counter].cmd_line);
+		// the error is here
 		counter++;
 	}
 }
@@ -92,31 +50,32 @@ char	*sp_remover(char *str)
 	return(str);
 }
 
-t_shell		shell;
 
-int	main()
+int	main(int argc, char *argv[], char *env[])
 {
-	char		*start;
-	int			cmd;
 	// t_shell		shell;
+	// char		*start;
+	// int			cmd;
 
-	start = ft_strdup("<11|8");
-	check_spmark(start);
-	recursive_decent_parsing(&shell, start);
-	shell.current_line = ft_strdup(start);
-	// env stuff
-	shell.split_pipe = ft_splitmini(shell.current_line, '|');
-	cmd = splitcount(shell.current_line, '|');
-	shell.command = ft_calloc(cmd, sizeof(t_command));
-	temp_into_arg(&shell);
-	printf("-----PARSED-----\n");
-	// printf("$$$ 0. %s\n", shell.command[0].temp);
-	// printf("$$$ 1. %s\n", shell.command[1].temp);
-	// printf("$$$ seperating\n");
-	printf("cmd_line = |%s|\n", shell.command[0].cmd_line);
-	printf("cmd_line = |%s|\n", shell.command[1].cmd_line);
-	printf("file = |%s|\n", shell.command[0].redir[0].file);
-	printf("command 0,0= |%s|\n", shell.command[0].cmd_args[0]);
-	printf("command 0,1= |%s|\n", shell.command[0].cmd_args[1]);
-	printf("command 1,0= |%s|\n", shell.command[1].cmd_args[0]);
+	printf("%d", argc);
+	printf("%s\n", argv[0]);
+	ft_env_init(&shell.env, env);
+	// start = ft_strdup("12\"54\'75\"76 >utfu ugiu");
+	// check_spmark(start);
+	// // ft_env(&shell, env);
+	// recursive_decent_parsing(&shell, start);
+	// shell.current_line = ft_strdup(start);
+	// // env stuff
+	// shell.split_pipe = ft_splitmini(shell.current_line, '|');
+	// cmd = splitcount(shell.current_line, '|');
+	// shell.command = ft_calloc(cmd, sizeof(t_command));
+	// temp_into_arg(&shell);
+	// printf("-----PARSED-----\n");
+	// printf("cmd_line = |%s|\n", shell.command[0].cmd_line);
+	// // printf("cmd_line = |%s|\n", shell.command[1].cmd_line);
+	// printf("file = |%s|\n", shell.command[0].redir[0].file);
+	// printf("command 0,0= |%s|\n", shell.command[0].cmd_args[0]);
+	// printf("redirect 0,0= |%s|\n", shell.command[0].redir[0].file);
+	// printf("command 0,1= |%s|\n", shell.command[0].cmd_args[1]);
+	// printf("command 1,0= |%s|\n", shell.command[1].cmd_args[0]);
 }
