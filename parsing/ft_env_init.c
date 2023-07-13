@@ -6,9 +6,9 @@ void	ft_env_loop(t_env *env, char *tenv[], int c)
 	char	**string;
 	t_env	*nenv;
 
-	nenv = calloc(1, sizeof(t_env));
 	if (tenv[c])
 	{
+		nenv = calloc(1, sizeof(t_env));
 		env->next = nenv;
 		string = ft_split(tenv[c], '=');
 		nenv->variable = ft_strdup(string[0]);
@@ -16,13 +16,15 @@ void	ft_env_loop(t_env *env, char *tenv[], int c)
 		free(string[0]);
 		free(string[1]);
 		free(string);
+		printf("%d start = |%s|\n", c, tenv[c]);
 		printf("%d variable = |%s|\n", c, nenv->variable);
 		printf("%d value = |%s|\n", c, nenv->value);
 		c++;
-		ft_env_loop(nenv, tenv, c);
+		if (tenv[c])
+			ft_env_loop(nenv, tenv, c);
+		else
+			nenv->next = NULL;
 	}
-	else
-		env->next = NULL;
 }
 
 void	ft_env_init(t_env *env, char *tenv[])
@@ -32,6 +34,7 @@ void	ft_env_init(t_env *env, char *tenv[])
 	int	c;
 
 	c = 0;
+	env = calloc(1, sizeof(t_env));
 	nenv = calloc(1, sizeof(t_env));
 	if (tenv[c])
 	{
@@ -42,6 +45,7 @@ void	ft_env_init(t_env *env, char *tenv[])
 		free(string[0]);
 		free(string[1]);
 		free(string);
+		printf("%d start = |%s|\n", c, tenv[c]);
 		printf("%d variable = |%s|\n", c, env->variable);
 		printf("%d value = |%s|\n", c, env->value);
 		c++;
@@ -52,6 +56,7 @@ void	ft_env_init(t_env *env, char *tenv[])
 		free(string[0]);
 		free(string[1]);
 		free(string);
+		printf("%d start = |%s|\n", c, tenv[c]);
 		printf("%d variable = |%s|\n", c, nenv->variable);
 		printf("%d value = |%s|\n", c, nenv->value);
 		c++;

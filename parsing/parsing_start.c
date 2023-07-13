@@ -53,13 +53,14 @@ char	*sp_remover(char *str)
 
 int	main(int argc, char *argv[], char *env[])
 {
-	// t_shell		shell;
+	t_shell		shell;
 	// char		*start;
 	// int			cmd;
 
 	printf("%d", argc);
 	printf("%s\n", argv[0]);
-	ft_env_init(&shell.env, env);
+	ft_env_init(shell.env, env); // this should not be in the loop
+	
 	// start = ft_strdup("12\"54\'75\"76 >utfu ugiu");
 	// check_spmark(start);
 	// // ft_env(&shell, env);

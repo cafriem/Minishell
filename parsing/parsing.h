@@ -111,6 +111,7 @@ void	ft_cmd_args(t_command *command, char *string);
 int		skip_redirect(char *string, int start);
 char	*filename_skip(char *string, int start);
 //-------------------ft_cmd_args.c----------------//
+void	ft_env_loop(t_env *env, char *tenv[], int c);
 void	ft_env_init(t_env *env, char *tenv[]);
 
 // in case of ' with $ expansion, dont expand
