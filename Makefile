@@ -15,7 +15,14 @@ SRCS =	parsing_start.c				\
 		parsing/ft_utils.c				\
 		parsing/ft_cmd_args.c		\
 		parsing/ft_env.c			\
-		parsing/ft_env_init.c
+		parsing/ft_env_init.c		\
+		execution/ft_env.c			\
+		execution/builtins/cd.c		\
+		execution/builtins/pwd.c		\
+
+
+
+
 
 OBJS = $(SRCS:.c=.o)
 

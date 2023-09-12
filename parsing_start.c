@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_start.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cafriem <cafriem@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 13:50:20 by cafriem           #+#    #+#             */
-/*   Updated: 2023/09/04 14:49:25 by cafriem          ###   ########.fr       */
+/*   Updated: 2023/09/12 18:31:17 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
+#include "execution/execution.h"
 
 void	temp_into_arg(t_shell *shell)
 {
@@ -58,13 +59,20 @@ void	start_work(t_shell *shell)
 	temp_into_arg(shell);
 	if (shell->fail == 0)
 	{
-		printf("parsing fnished");
+		// printf("parsing fnished");
+		ft_pwd(shell, 0);
+		ft_cd(shell,0);
+		// printf("%s\n",shell->command[0].cmd_args[1]);
+		// add_environment_variable(&(shell->env), "aest","hello");
+		// remove_environment_variable(&(shell->env), "MAIL");
+		ft_env_exc(shell, 0);
 		// execution should start here
 	}
 	else
 		printf("FAIL : CHECK INPUT\n");
 	free_command_args(shell);
 }
+
 
 void	free_command_args(t_shell *shell)
 {
@@ -104,7 +112,7 @@ void	printstruct(t_shell *shell)
 		c = 0;
 		while (c < shell->command[i].no_args)
 		{
-			printf("command %d,%d= |%s|\n", i, c, shell->command[i].cmd_args[c]);
+			printf("command %d,%d= |%s|\n", i, c, shell->command[i].cmd_args[1]);
 			c++;
 		}
 		c = 0;
