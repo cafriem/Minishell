@@ -6,7 +6,7 @@
 /*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 13:50:20 by cafriem           #+#    #+#             */
-/*   Updated: 2023/09/12 18:31:17 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/09/14 12:18:38 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,22 +57,21 @@ void	start_work(t_shell *shell)
 	shell->command = ft_calloc(splitcount
 			(shell->current_line, '|'), sizeof(t_command));
 	temp_into_arg(shell);
+
 	if (shell->fail == 0)
 	{
-		// printf("parsing fnished");
-		ft_pwd(shell, 0);
-		ft_cd(shell,0);
-		// printf("%s\n",shell->command[0].cmd_args[1]);
-		// add_environment_variable(&(shell->env), "aest","hello");
-		// remove_environment_variable(&(shell->env), "MAIL");
+		ft_pwd(shell, 0, 0);
+		ft_cd(shell, 0);
+		ft_unset(shell, 0);
 		ft_env_exc(shell, 0);
-		// execution should start here
+		ft_exit(shell, 0);
+		ft_echo(shell, 0);
+		ft_export(shell, 0);
 	}
 	else
 		printf("FAIL : CHECK INPUT\n");
 	free_command_args(shell);
 }
-
 
 void	free_command_args(t_shell *shell)
 {
@@ -134,12 +133,14 @@ int	main(int argc, char *argv[], char *env[])
 
 	ft_bzero(&shell, sizeof(t_shell));
 	ft_env_init(&shell, env);
+	check_signal();
 	while (argc > 0 && argv[0])
 	{
 		shell.fail = 0;
-		start = readline("Minishell> " );
+		start = readline("Minishell> ");
 		if (start == NULL)
 		{
+			ft_putstr_fd("Minishell> exit\n", STDERR_FILENO);
 			ft_env_free(&shell);
 			return (0);
 		}

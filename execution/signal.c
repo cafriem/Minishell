@@ -1,24 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execut_builtins.c                                  :+:      :+:    :+:   */
+/*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/12 09:04:37 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/09/12 09:10:03 by cmrabet          ###   ########.fr       */
+/*   Created: 2023/09/13 17:14:52 by cmrabet           #+#    #+#             */
+/*   Updated: 2023/09/14 10:24:10 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../parsing.h"
+#include "execution.h"
 
-int	builtin(t_shell *shell)
+void	signal_handler(int sig_num)
 {
-	if (ft_strcmp(shell->command[0].cmd_line, "pwd"))
-		ft_pwd();
-	else if (ft_strcmp(shell->command[0].cmd_line, "pwd"))
-	else
-		return (1);
-	
-	return (0);
+	t_shell	shell;
+
+	if (sig_num == SIGINT)
+	{
+		rl_on_new_line();
+		rl_redisplay();
+		ft_putstr_fd("  \n", STDERR_FILENO);
+		rl_replace_line("", 0);
+		rl_on_new_line();
+		rl_redisplay();
+		shell.exit_code = 1;
+	}
+}
+
+void	check_signal(void)
+{
+	signal(SIGINT, signal_handler);
+	signal(SIGQUIT, SIG_IGN);
 }
