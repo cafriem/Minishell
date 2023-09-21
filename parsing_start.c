@@ -6,7 +6,7 @@
 /*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 13:50:20 by cafriem           #+#    #+#             */
-/*   Updated: 2023/09/14 12:18:38 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/09/21 12:45:40 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,7 @@ void	start_work(t_shell *shell)
 
 	if (shell->fail == 0)
 	{
-		ft_pwd(shell, 0, 0);
-		ft_cd(shell, 0);
-		ft_unset(shell, 0);
-		ft_env_exc(shell, 0);
-		ft_exit(shell, 0);
-		ft_echo(shell, 0);
-		ft_export(shell, 0);
+		execute(shell);
 	}
 	else
 		printf("FAIL : CHECK INPUT\n");
@@ -112,6 +106,7 @@ void	printstruct(t_shell *shell)
 		while (c < shell->command[i].no_args)
 		{
 			printf("command %d,%d= |%s|\n", i, c, shell->command[i].cmd_args[1]);
+			// printf("test  %d %u %s\n", shell->command[i]->no_redir, shell->command[i]->redir[0]->direct, shell->command[i]->redir->file);
 			c++;
 		}
 		c = 0;

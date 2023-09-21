@@ -6,7 +6,7 @@
 /*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 02:01:28 by smokashi          #+#    #+#             */
-/*   Updated: 2023/09/12 14:38:05 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/09/21 12:00:35 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ typedef struct s_shell
 	int					number_commands;
 	int					fail;
 	int					exit_code;
+	int					fd_tmp;
 	struct s_env		*env;
 	struct s_env		*dec_env;
 	struct s_command	*command;
@@ -77,6 +78,8 @@ typedef struct s_command
 	int					int_temp;
 	int					no_redir;
 	int					echooption;
+	int 				fd[2];
+	int					fd_redi;
 	t_direct			*redir;
 }	t_command;
 

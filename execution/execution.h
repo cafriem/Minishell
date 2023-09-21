@@ -6,7 +6,7 @@
 /*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 08:51:51 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/09/14 14:46:20 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/09/21 16:26:44 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,5 +73,38 @@ void	free_export(char **str);
 
 void	signal_handler(int sig);
 void	check_signal(void);
+
+/////////////////////// redirection /////////////////////
+
+void	redirection_dup(t_shell *shell, int cmd_num, int i, int flag);
+int		redirection(t_shell *shell, int cmd_num);
+
+
+
+//////////////////// open files ////////////////////////
+
+int		ft_open(char *str, int flag);
+void	first_cmd(t_shell *shell, int cmd_num);
+void	last_cmd(t_shell *shell, int cmd_num);
+void	middle_cmd(t_shell *shell, int cmd_num);
+void	ft_dup2(t_shell *shell, int cmd_num);
+
+
+///////////////// find path ///////////////////////////
+
+char *find_path(t_shell *shell, char *command);
+
+////////////////// excute ////////////////////////////
+
+void	start_executing(t_shell *shell);
+int		is_builtin(t_shell *shell, int cmd_num);
+int		builtin_one(t_shell *shell, int cmd_num);
+void 	forked_builtin(t_shell *shell, int cmd_num);
+int		close_all_fd(t_shell *shell);
+int		builtin_pipe(t_shell *shell, int cmd_num);
+int		execute(t_shell *shell);
+
+void	exc_cmd(t_shell *shell, int cmd_num);
+
 
 #endif

@@ -25,6 +25,11 @@ SRCS =	parsing_start.c				\
 		execution/builtins/export.c		\
 		execution/builtins/export_utils.c		\
 		execution/signal.c \
+		execution/excute/excute.c \
+		execution/excute/find_path.c \
+		execution/excute/open_files.c \
+		execution/excute/redirection.c
+
 
 
 
