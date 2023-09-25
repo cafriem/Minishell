@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_start.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cafriem <cafriem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 13:50:20 by cafriem           #+#    #+#             */
-/*   Updated: 2023/09/25 15:40:13 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/09/25 16:48:09 by cafriem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,32 +121,18 @@ void	printstruct(t_shell *shell)
 }
 // ignore this norminette, we will delete this when uploading
 
-void ft_shlvl(t_shell *shell)
-{
-	// t_env	*n_env;
-	int val;
-
-	val = ft_atoi(find_variable_val(shell->env, "SHLVL")) + 1;
-	// n_env = shell->env->next;
-	// while(ft_strcmp(n_env->cmd, "SHLVL") != 0)
-	// 	n_env = n_env->next;
-	// free(n_env->val);
-	// n_env->val = ft_strdup(ft_itoa(val));
-	add_environment_variable(&(shell->env), "SHLVL", ft_itoa(val));
-}
-
-
 int	main(int argc, char *argv[], char *env[])
 {
 	t_shell		shell;
 	char		*start;
 
 	start = NULL;
+	rl_replace_line("", 0);
+	rl_on_new_line();
+	rl_redisplay();
 	ft_bzero(&shell, sizeof(t_shell));
 	ft_env_init(&shell, env);
-	ft_shlvl(&shell);
 	check_signal();
-	printf("test  %d",ft_atoi(find_variable_val((shell.env), "SHLVL")));
 	while (argc > 0 && argv[0])
 	{
 		shell.fail = 0;

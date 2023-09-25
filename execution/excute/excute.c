@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   excute.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cafriem <cafriem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 09:02:36 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/09/25 15:29:38 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/09/25 16:20:01 by cafriem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ void check_infile_exc(t_shell *shell, int cmd_num)
 		// 	// add_environment_variable(&(shell->env), "SHLVL", ft_itoa(env_val));
 		// }
 		env = joind_env(shell);
-		printf("test2  %d\n",ft_atoi(find_variable_val((shell->env), "SHLVL")));
+		// printf("test2  %d\n",ft_atoi(find_variable_val((shell->env), "SHLVL")));
 		if (execve(shell->command[cmd_num].cmd_args[0], shell->command[cmd_num].cmd_args, env) < 0)
 		{	
 			perror(shell->command[cmd_num].cmd_args[0]);
