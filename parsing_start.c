@@ -6,7 +6,7 @@
 /*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 13:50:20 by cafriem           #+#    #+#             */
-/*   Updated: 2023/09/21 12:45:40 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/09/25 09:20:06 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,9 @@ int	main(int argc, char *argv[], char *env[])
 		start = readline("Minishell> ");
 		if (start == NULL)
 		{
-			ft_putstr_fd("Minishell> exit\n", STDERR_FILENO);
+			ft_putstr_fd("test\n", STDERR_FILENO);
+			
+			// ft_putstr_fd("Minishell> exit\n", STDERR_FILENO);
 			ft_env_free(&shell);
 			return (0);
 		}

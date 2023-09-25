@@ -6,7 +6,7 @@
 /*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 09:02:36 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/09/21 18:12:16 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/09/25 10:42:59 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,18 +85,38 @@ void	start_executing(t_shell *shell)
 	}
 }
 
+char	*find_variable_val(t_env *env, char *variable)
+{
+
+	while (env != NULL)
+	{
+		if (strcmp(env->cmd, variable) == 0)
+		{
+			free(env->val);
+			return (env->val);
+		}
+		env = env->next;
+	}
+	return (NULL);
+}
+
 void check_infile_exc(t_shell *shell, int cmd_num)
 {
 	char **env;
+	int env_val;
 
-	if (strncmp(shell->command[cmd_num].cmd_args[0], "./", 2) == 0)
+	if (ft_strncmp(shell->command[cmd_num].cmd_args[0], "./", 2) == 0)
 	{
+		// if (ft_strncmp(shell->command[cmd_num].cmd_args[0], "./minishell", ft_strlen(shell->command[cmd_num].cmd_args[0])) == 0)
+		// {
+		// 	env_val = ft_atoi(find_variable_val(shell->env, "SHLVL")) + 1;
+		// 	// add_environment_variable(&(shell->env), "SHLVL", ft_itoa(env_val));
+		// }
 		env = joind_env(shell);
 		if (execve(shell->command[cmd_num].cmd_args[0], shell->command[cmd_num].cmd_args, env) < 0)
 		{
 			perror(shell->command[cmd_num].cmd_args[0]);
 		}
-		printf("check\n");
 		close_all_fd(shell);
 		shell->exit_code = errno;
 		free(env);

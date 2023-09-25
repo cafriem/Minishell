@@ -31,10 +31,6 @@ SRCS =	parsing_start.c				\
 		execution/excute/redirection.c
 
 
-
-
-
-
 OBJS = $(SRCS:.c=.o)
 
 %.o: %.c
@@ -45,15 +41,28 @@ LIBS =	Libft/libft.a
 $(NAME): $(OBJS)
 	make -C Libft
 	$(CC) $(CFLAGS) $(OBJS) $(LIBS) -I/usr/local/opt/readline/include -L/usr/local/opt/readline/lib -lreadline -o $(NAME)
-
+	@printf "$(GR)Minishell ready.\n$(RC)"
 all: $(NAME)
 
 clean:
 	rm -f $(OBJS)
 	make -C Libft clean
+	@echo "$(RE)Object files removed!$(RC)"
 
 fclean: clean
 	rm -f $(NAME)
 	make -C Libft fclean
+	@echo "$(RE)Removing $(NAME) and .o files "
 
 re: fclean all
+
+# Colors
+BA = \033[0;30m
+RE = \033[0;31m
+GR = \033[0;32m
+YE = \033[0;33m
+BL = \033[0;34m
+PU = \033[0;35m
+CY = \033[0;36m
+WH = \033[0;37m
+RC = \033[0m
