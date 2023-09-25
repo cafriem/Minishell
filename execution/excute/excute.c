@@ -6,7 +6,7 @@
 /*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 09:02:36 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/09/25 10:42:59 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/09/25 11:50:52 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ char	*find_variable_val(t_env *env, char *variable)
 void check_infile_exc(t_shell *shell, int cmd_num)
 {
 	char **env;
-	int env_val;
+	// int env_val;
 
 	if (ft_strncmp(shell->command[cmd_num].cmd_args[0], "./", 2) == 0)
 	{
@@ -113,11 +113,15 @@ void check_infile_exc(t_shell *shell, int cmd_num)
 		// 	// add_environment_variable(&(shell->env), "SHLVL", ft_itoa(env_val));
 		// }
 		env = joind_env(shell);
+		printf("%s\n", env[0]);
+		close_all_fd(shell);
 		if (execve(shell->command[cmd_num].cmd_args[0], shell->command[cmd_num].cmd_args, env) < 0)
 		{
+		printf("name:  %s\n",shell->command[cmd_num].cmd_args[0]);
+			
 			perror(shell->command[cmd_num].cmd_args[0]);
 		}
-		close_all_fd(shell);
+		
 		shell->exit_code = errno;
 		free(env);
 		exit(errno);
