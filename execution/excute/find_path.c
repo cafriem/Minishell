@@ -6,7 +6,7 @@
 /*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 09:34:14 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/09/21 17:08:14 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/09/25 12:14:03 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,9 @@ char *find_path(t_shell *shell, char *command)
 	char *absolute_path;
 
 	path = find_env(shell->env, "PATH");
-	if (ft_strrchr(command, '/'))
+	if (ft_strncmp(command, "./", 2))
+		return (command);
+	else if (ft_strrchr(command, '/'))
 	{
 		cmd = ft_split(command, '/');
 		i = 0;

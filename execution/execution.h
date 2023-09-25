@@ -6,7 +6,7 @@
 /*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 08:51:51 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/09/21 16:26:44 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/09/25 14:45:12 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,9 @@ int		builtin_pipe(t_shell *shell, int cmd_num);
 int		execute(t_shell *shell);
 
 void	exc_cmd(t_shell *shell, int cmd_num);
+
+
+char	*find_variable_val(t_env *env, char *variable);
 
 
 #endif
