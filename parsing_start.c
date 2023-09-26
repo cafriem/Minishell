@@ -6,7 +6,7 @@
 /*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 13:50:20 by cafriem           #+#    #+#             */
-/*   Updated: 2023/09/26 09:58:03 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/09/26 10:04:17 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,6 @@ void	printstruct(t_shell *shell)
 	}
 }
 // ignore this norminette, we will delete this when uploading
-
 
 int	main(int argc, char *argv[], char *env[])
 {
