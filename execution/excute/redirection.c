@@ -6,7 +6,7 @@
 /*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 20:29:28 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/09/21 14:21:17 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/09/26 16:45:38 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ void	redirection_dup(t_shell *shell, int cmd_num,int i, int flag)
 		if (dup2(shell->command[cmd_num].fd_redi, STDIN_FILENO) < 0)
 			exit(-1);
 	}
+	else if (shell->command[cmd_num].redir[i].direct == HERE_DOC)
+			here_doc(shell, cmd_num, i);
 	if (shell->command[cmd_num].fd_redi != 0)
 	{
 		close(shell->command[cmd_num].fd_redi);
@@ -39,10 +41,11 @@ int	redirection(t_shell *shell, int cmd_num)
 {
 	int	i;
 
+
 	i = 0;
 	while (i < shell->command[cmd_num].no_redir)
 	{
-		redirection_dup(shell, cmd_num,i, shell->command[cmd_num].redir[i].direct);
+			redirection_dup(shell, cmd_num,i, shell->command[cmd_num].redir[i].direct);
 		i++;
 	}
 	return (1);

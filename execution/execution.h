@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cafriem <cafriem@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 08:51:51 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/09/25 16:37:18 by cafriem          ###   ########.fr       */
+/*   Updated: 2023/09/26 15:38:34 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,4 +110,6 @@ void	exc_cmd(t_shell *shell, int cmd_num);
 char	*find_variable_val(t_env *env, char *variable);
 char	**joind_env(t_shell *shell);
 
+
+int	here_doc(t_shell *shell, int cmd_num, int redi_num);
 #endif

@@ -6,7 +6,7 @@
 /*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 09:01:42 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/09/19 08:50:28 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/09/26 11:22:35 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,29 +35,64 @@ void	change_path(t_shell *shell)
 	}
 }
 
+void absolute_pathcase(t_shell *shell, int cmd_num)
+{
+	char	*home;
+	char	**paths;
+	char 	*ab_path;
 
-// check absoult path case "cd ~/Desktop/ ..."
+	home = getenv("HOME");
+	paths = ft_split(shell->command[cmd_num].cmd_args[1], '~');
+	ab_path = ft_strjoin(home, paths[0]);
+	if (chdir(ab_path) < 0)
+	{
+		shell->exit_code = 1;
+		perror(shell->command[cmd_num].cmd_args[1]);
+	}
+	free(paths[0]);
+	free(paths);
+	free(ab_path);
+}
 
 int	ft_cd(t_shell *shell, int cmd_num)
 {
 	if (ft_strcmp(shell->command[cmd_num].cmd_args[0], "cd") == 0)
 	{
-		if (shell->command[cmd_num].cmd_args[1] == NULL || 
-			ft_strcmp(shell->command[cmd_num].cmd_args[1], "~") == 0)
+		if (shell->command[cmd_num].cmd_args[1] == NULL) 
+		{
+				if (find_variable_val(shell->env, "HOME") == NULL)
+				{
+					shell->exit_code = 1;
+					ft_putstr_fd("minishell: ", STDERR_FILENO);
+					ft_putstr_fd("cd: ", STDERR_FILENO);
+					ft_putstr_fd("HOME not set\n", STDERR_FILENO);
+					return (1);
+				}
+			chdir(getenv("HOME"));
+		}
+		else if (ft_strcmp(shell->command[cmd_num].cmd_args[1], "~") == 0)
 			chdir(getenv("HOME"));
 		else if (ft_strcmp(shell->command[cmd_num].cmd_args[1], "-") == 0)
 		{
 			if (chdir(find_env(shell->env, "OLDPWD")) < 0)
 			{
 				shell->exit_code = 1;
-				perror(shell->command[cmd_num].cmd_args[1]);
+				ft_putstr_fd("minishell: ", STDERR_FILENO);
+				ft_putstr_fd("cd: ", STDERR_FILENO);
+				ft_putstr_fd("OLDPWD not set\n", STDERR_FILENO);
+				return (1);
 			}
 			ft_pwd(shell, 0, 1);
 		}
 		else if (chdir(shell->command[cmd_num].cmd_args[1]) < 0)
 		{
-			shell->exit_code = 1;
-			perror(shell->command[cmd_num].cmd_args[1]);
+			if (ft_strncmp(shell->command[cmd_num].cmd_args[1], "~",1 )== 0)
+				absolute_pathcase(shell, cmd_num);
+			else
+			{	
+				shell->exit_code = 1;
+				perror(shell->command[cmd_num].cmd_args[1]);
+			}
 		}
 		change_path(shell);
 		return (1);

@@ -6,7 +6,7 @@
 /*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 09:02:36 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/09/26 10:03:56 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/09/26 11:42:28 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,30 +118,31 @@ void	forked_child(t_shell *shell, int cmd_num)
 	
 	check_infile_exc(shell, cmd_num);
 	cmd_path = find_path(shell, shell->command[cmd_num].cmd_args[0]);
-	if (execve(cmd_path, shell->command[cmd_num].cmd_args, NULL) < 0)
+	if (execve(cmd_path, shell->command[cmd_num].cmd_args, shell->env_joind) < 0)
 	{
 		ft_putstr_fd("minishell: ", 2);
 		ft_putstr_fd(shell->command[cmd_num].cmd_args[0], 2);
 		ft_putstr_fd(": command not found\n", 2);
+		free(shell->env_joind);
 	}
+	exit(127);
 }
 
 void	exc_cmd(t_shell *shell, int cmd_num)
 {
 	int	id;
-	char **env;
 
 	id = fork();
 	if (id < 0)
 		 perror("fork");
 	else if (id == 0)
 	{
-		env = joind_env(shell);
+		shell->env_joind = joind_env(shell);
 		if (strcmp(shell->command[cmd_num].cmd_args[0],"./minishell") == 0)
 		{
-			execve("./minishell", shell->command[cmd_num].cmd_args, env);
+			execve("./minishell", shell->command[cmd_num].cmd_args, shell->env_joind);
 			perror("execve");
-			free(env);
+			free(shell->env_joind);
 			exit(1);
 		}
 		ft_dup2(shell, cmd_num);

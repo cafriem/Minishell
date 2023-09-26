@@ -6,7 +6,7 @@
 /*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 13:50:20 by cafriem           #+#    #+#             */
-/*   Updated: 2023/09/26 10:04:17 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/09/26 15:34:38 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ void	start_work(t_shell *shell)
 
 	if (shell->fail == 0)
 	{
+		// printstruct(shell);
 		execute(shell);
 	}
 	else
@@ -128,6 +129,7 @@ int	main(int argc, char *argv[], char *env[])
 
 	ft_bzero(&shell, sizeof(t_shell));
 	ft_env_init(&shell, env);
+	remove_environment_variable(&shell.env, "OLDPWD");
 	check_signal();
 
 	while (argc > 0 && argv[0])

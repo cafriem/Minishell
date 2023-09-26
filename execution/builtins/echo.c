@@ -6,11 +6,27 @@
 /*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 11:45:40 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/09/13 17:10:20 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/09/26 17:05:29 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../execution.h"
+
+int	ft_str_ne(char *c)
+{
+	int	i;
+
+	i = 1;
+	if (c[0] != '-')
+		return (1);
+	while (c[i])
+	{
+		if (c[i] != 'n' && c[i] != 'e')
+			return (1);
+		++i;
+	}
+	return (0);
+}
 
 void	ft_echo_2(t_shell *shell, int cmd_num)
 {
@@ -20,7 +36,7 @@ void	ft_echo_2(t_shell *shell, int cmd_num)
 	i = 1;
 	flag = 2;
 	while (i < shell->command[cmd_num].no_args 
-		&& ft_strcmp(shell->command[cmd_num].cmd_args[i], "-n") == 0)
+		&& ft_str_ne(shell->command[cmd_num].cmd_args[i]) == 0)
 	{
 		i++;
 		flag = 1;
