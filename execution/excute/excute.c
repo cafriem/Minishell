@@ -6,11 +6,14 @@
 /*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 09:02:36 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/09/25 15:29:38 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/09/26 09:36:56 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../execution.h"
+
+//WIFISIGNALD  -> WTERMSIG 
+//WISTOPPED -> WSTOPSIG + 128
 
 int	execute(t_shell *shell)
 {
@@ -21,14 +24,15 @@ int	execute(t_shell *shell)
 	dup2(shell->fd_tmp, STDOUT_FILENO);
 	close_all_fd(shell);
 	while (waitpid(-1, &wstatus, 0) > -1)
+	{
 		shell->exit_code = WEXITSTATUS(wstatus);
+	}
 	return (1);
 }
 
 char **joind_env(t_shell *shell)
 {
-	int i;
-	int j;
+	int i;	int j;
 	t_env	*current;
 	t_env	*tmp;
 	char	**joind;
@@ -85,14 +89,10 @@ void	start_executing(t_shell *shell)
 
 char	*find_variable_val(t_env *env, char *variable)
 {
-
 	while (env != NULL)
 	{
 		if (strcmp(env->cmd, variable) == 0)
-		{
-			free(env->val);
 			return (env->val);
-		}
 		env = env->next;
 	}
 	return (NULL);
@@ -100,26 +100,15 @@ char	*find_variable_val(t_env *env, char *variable)
 
 void check_infile_exc(t_shell *shell, int cmd_num)
 {
-	char **env;
-	// int env_val;
-
-	if (ft_strncmp(shell->command[cmd_num].cmd_args[0], "./", 2) == 0)
+	if (ft_strncmp(shell->command[cmd_num].cmd_args[0], "./", 2) == 0 && strcmp(shell->command[cmd_num].cmd_args[0],"./minishell") != 0)
 	{
-		// if (ft_strncmp(shell->command[cmd_num].cmd_args[0], "./minishell", ft_strlen(shell->command[cmd_num].cmd_args[0])) == 0)
-		// {
-		// 	env_val = ft_atoi(find_variable_val(shell->env, "SHLVL")) + 1;
-		// 	// add_environment_variable(&(shell->env), "SHLVL", ft_itoa(env_val));
-		// }
-		env = joind_env(shell);
-		printf("test2  %d\n",ft_atoi(find_variable_val((shell->env), "SHLVL")));
-		if (execve(shell->command[cmd_num].cmd_args[0], shell->command[cmd_num].cmd_args, env) < 0)
+		if (execve(shell->command[cmd_num].cmd_args[0], shell->command[cmd_num].cmd_args, NULL) < 0)
 		{	
 			perror(shell->command[cmd_num].cmd_args[0]);
+			shell->exit_code = errno;
+			close_all_fd(shell);
+			exit(errno);
 		}
-		shell->exit_code = errno;
-		close_all_fd(shell);
-		free(env);
-		exit(errno);
 	}
 }
 
@@ -135,21 +124,26 @@ void	forked_child(t_shell *shell, int cmd_num)
 		ft_putstr_fd(shell->command[cmd_num].cmd_args[0], 2);
 		ft_putstr_fd(": command not found\n", 2);
 	}
-		close_all_fd(shell);
-		shell->exit_code = errno;
-		exit(errno);
-
 }
 
 void	exc_cmd(t_shell *shell, int cmd_num)
 {
 	int	id;
+	char **env;
 
 	id = fork();
 	if (id < 0)
-		exit(-1);
+		 perror("fork");
 	else if (id == 0)
 	{
+		env = joind_env(shell);
+		if (strcmp(shell->command[cmd_num].cmd_args[0],"./minishell") == 0)
+		{
+			execve("./minishell", shell->command[cmd_num].cmd_args, env);
+			perror("execve");
+			free(env);
+			exit(1);
+		}
 		ft_dup2(shell, cmd_num);
 		redirection(shell, cmd_num);
 		close_all_fd(shell);
