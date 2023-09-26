@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cafriem <cafriem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 17:14:52 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/09/14 10:24:10 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/09/25 15:58:12 by cafriem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 void	signal_handler(int sig_num)
 {
-	t_shell	shell;
-
 	if (sig_num == SIGINT)
 	{
 		rl_on_new_line();
@@ -24,7 +22,7 @@ void	signal_handler(int sig_num)
 		rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();
-		shell.exit_code = 1;
+		// shell.exit_code = 1;
 	}
 }
 

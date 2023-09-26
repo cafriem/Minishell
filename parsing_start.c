@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_start.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cafriem <cafriem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 13:50:20 by cafriem           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/09/26 09:38:17 by cmrabet          ###   ########.fr       */
+=======
+/*   Updated: 2023/09/25 16:48:09 by cafriem          ###   ########.fr       */
+>>>>>>> 0d5c63e66e44b5ba9b594bf515e81e568f771524
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,16 +125,29 @@ void	printstruct(t_shell *shell)
 }
 // ignore this norminette, we will delete this when uploading
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 0d5c63e66e44b5ba9b594bf515e81e568f771524
 int	main(int argc, char *argv[], char *env[])
 {
 	t_shell		shell;
 	char		*start;
 
+<<<<<<< HEAD
 	ft_bzero(&shell, sizeof(t_shell));
 	ft_env_init(&shell, env);
 	check_signal();
 
+=======
+	start = NULL;
+	rl_replace_line("", 0);
+	rl_on_new_line();
+	rl_redisplay();
+	ft_bzero(&shell, sizeof(t_shell));
+	ft_env_init(&shell, env);
+	check_signal();
+>>>>>>> 0d5c63e66e44b5ba9b594bf515e81e568f771524
 	while (argc > 0 && argv[0])
 	{
 		shell.fail = 0;

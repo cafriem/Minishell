@@ -6,7 +6,11 @@
 /*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 02:01:09 by smokashi          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/09/25 17:24:34 by cmrabet          ###   ########.fr       */
+=======
+/*   Updated: 2023/09/25 16:42:48 by cafriem          ###   ########.fr       */
+>>>>>>> 0d5c63e66e44b5ba9b594bf515e81e568f771524
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +40,21 @@ void	ft_env_loop(t_env *env, char *tenv[], int c)
 		env->next = nenv;
 		string = ft_split(tenv[c], '=');
 		nenv->cmd = ft_strdup(string[0]);
+<<<<<<< HEAD
 		if (strcmp(string[0], "SHLVL") == 0)
 				string[1][0] += 1;
+=======
+		if (ft_strcmp(string[0], "SHLVL") == 0)
+		{
+			string[1][0] += 1;
+		}
+>>>>>>> 0d5c63e66e44b5ba9b594bf515e81e568f771524
 		if (string[1])
+		{
+			printf("%s=", string[0]);
+			printf("%s\n", string[1]);
 			nenv->val = ft_strdup(string[1]);
+		}
 		if (ft_double_pointer_counter2(string) > 1)
 			ft_env_val_long(nenv, string);
 		ft_freesplit(string);
