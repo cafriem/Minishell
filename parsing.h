@@ -6,7 +6,7 @@
 /*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 02:01:28 by smokashi          #+#    #+#             */
-/*   Updated: 2023/09/26 10:44:37 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/09/27 14:14:39 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef struct s_shell
 	char				*current_line;
 	char				*oldpwd;
 	char				**split_pipe;
+	int					hd;
 	unsigned long		pos;
 	unsigned long		rdp_temp;
 	char				*rdp_word;

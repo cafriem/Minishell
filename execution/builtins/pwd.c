@@ -6,7 +6,7 @@
 /*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 08:42:58 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/09/14 11:43:06 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/10/04 09:56:51 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,27 @@ int	ft_pwd(t_shell *shell, int cmd_num, int flag)
 		if (pwd == NULL)
 		{
 			perror("Minishell: ");
+			printf("i am here\n");
 			return (1);
 		}
-		ft_putendl_fd(pwd, STDOUT_FILENO);
+		ft_putstr_fd(pwd, STDOUT_FILENO);
+		ft_putchar_fd('\n', STDOUT_FILENO);
 		free(pwd);
 	}
 	return (0);
+}
+
+void	change_path(t_shell *shell)
+{
+	char	*pwd_value;
+	char	*path;
+
+	pwd_value = find_env(shell->env, "PWD");
+	if (pwd_value)
+	{
+		path = getcwd(NULL, 0);
+		update_env(shell, pwd_value, path);
+		free(path);
+		path = NULL;
+	}
 }

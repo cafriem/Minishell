@@ -6,7 +6,7 @@
 /*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 08:51:51 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/09/26 15:38:34 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/10/05 09:43:14 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,10 @@
 
 # include "../parsing.h"
 # include <signal.h>
+
+/*----------------------------- BUILTIN ---------------------------------
+|																		 |
+------------------------------- BUILTIN --------------------------------*/
 
 ///////////////////////// env ///////////////////////
 
@@ -28,12 +32,15 @@ char	*find_env(t_env *env, char *variable);
 ///////////////////////// pwd ///////////////////////
 
 int		ft_pwd(t_shell *shell, int cmd_num, int flag);
+void	change_path(t_shell *shell);
 
 ///////////////////////// cd ///////////////////////
 
 void	update_env(t_shell *shell, char *old_pwd, char *new_pwd);
-void	change_path(t_shell *shell);
+void	absolute_pathcase(t_shell *shell, int cmd_num);
+void	err_msg(t_shell *shell, int flag);
 int		ft_cd(t_shell *shell, int cmd_num);
+int		ft_cd2(t_shell *shell, int cmd_num);
 
 ///////////////////////// unset ///////////////////////
 
@@ -74,12 +81,17 @@ void	free_export(char **str);
 void	signal_handler(int sig);
 void	check_signal(void);
 
+/*----------------------------- EXECUTION -------------------------------
+|																		 |
+------------------------------- EXECUTION--------------------------------*/
+
 /////////////////////// redirection /////////////////////
 
-void	redirection_dup(t_shell *shell, int cmd_num, int i, int flag);
+int		redirection_dup(t_shell *shell, int cmd_num, int i, int flag);
+int		heredoc_pos(t_shell *shell, int cmd_num);
+void	here_doc_redi(t_shell *shell, int cmd_num);
+void	is_heredoc(t_shell *shell, int cmd_num, int i);
 int		redirection(t_shell *shell, int cmd_num);
-
-
 
 //////////////////// open files ////////////////////////
 
@@ -89,27 +101,45 @@ void	last_cmd(t_shell *shell, int cmd_num);
 void	middle_cmd(t_shell *shell, int cmd_num);
 void	ft_dup2(t_shell *shell, int cmd_num);
 
-
 ///////////////// find path ///////////////////////////
 
-char *find_path(t_shell *shell, char *command);
+void	check_stat(char *command);
+char	*find_path3_2(char *command);
+char	*find_path3(char *command);
+char	*find_path2(char *command);
+char	*find_path(char *command);
 
 ////////////////// excute ////////////////////////////
 
-void	start_executing(t_shell *shell);
-int		is_builtin(t_shell *shell, int cmd_num);
-int		builtin_one(t_shell *shell, int cmd_num);
-void 	forked_builtin(t_shell *shell, int cmd_num);
-int		close_all_fd(t_shell *shell);
-int		builtin_pipe(t_shell *shell, int cmd_num);
 int		execute(t_shell *shell);
-
+void	start_executing(t_shell *shell);
+void	forked_child(t_shell *shell, int cmd_num);
 void	exc_cmd(t_shell *shell, int cmd_num);
 
 
-char	*find_variable_val(t_env *env, char *variable);
+
+////////////////// excute2 ////////////////////////////
+
+int		builtin_one(t_shell *shell, int cmd_num);
+void	forked_builtin(t_shell *shell, int cmd_num);
+int		builtin_pipe(t_shell *shell, int cmd_num);
+int		is_builtin(t_shell *shell, int cmd_num);
+void	check_infile_exc(t_shell *shell, int cmd_num);
+
+////////////////// excute2_utils//////////////////////////
+
+int		env_len(t_shell *shell);
 char	**joind_env(t_shell *shell);
+char	*find_variable_val(t_env *env, char *variable);
+int		close_all_fd(t_shell *shell);
+void	fd_herdoc_closer(int *fd);
 
+////////////////// here_doc//////////////////////////
 
-int	here_doc(t_shell *shell, int cmd_num, int redi_num);
+void	get_readstr(char **str, int fd);
+void	get_readstr2(char **str);
+int		heredoc_exc2(t_shell *shell, int p_fd[2], int cmd_num, int redi_num);
+int		here_doc3(t_shell *shell, int cmd_num, int redi_num);
+int		heredoc_exc(t_shell *shell, int cmd_num, int i);
+
 #endif

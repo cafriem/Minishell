@@ -6,7 +6,7 @@
 /*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 13:50:20 by cafriem           #+#    #+#             */
-/*   Updated: 2023/09/26 15:34:38 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/10/04 10:18:28 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,8 @@ void	start_work(t_shell *shell)
 	shell->command = ft_calloc(splitcount
 			(shell->current_line, '|'), sizeof(t_command));
 	temp_into_arg(shell);
-
 	if (shell->fail == 0)
 	{
-		// printstruct(shell);
 		execute(shell);
 	}
 	else
@@ -107,14 +105,13 @@ void	printstruct(t_shell *shell)
 		while (c < shell->command[i].no_args)
 		{
 			printf("command %d,%d= |%s|\n", i, c, shell->command[i].cmd_args[1]);
-			// printf("test  %d %u %s\n", shell->command[i]->no_redir, shell->command[i]->redir[0]->direct, shell->command[i]->redir->file);
 			c++;
 		}
 		c = 0;
 		while (c < shell->command[i].no_redir)
 		{
-			printf("redir  %d,%d = |%s|\n", i, c, shell->command[i].redir[c].file);
-			printf("direct %d,%d = |%u|\n", i, c, shell->command[i].redir[c].direct);
+			printf("redir  %d,%d = |%s|\n", i, c, 
+				shell->command[i].redir[c].file);
 			c++;
 		}
 		i++;
@@ -131,14 +128,13 @@ int	main(int argc, char *argv[], char *env[])
 	ft_env_init(&shell, env);
 	remove_environment_variable(&shell.env, "OLDPWD");
 	check_signal();
-
 	while (argc > 0 && argv[0])
 	{
 		shell.fail = 0;
-		start = readline("Minishell> ");
+		start = readline("\033[1;35mminishell> \033[0m");
 		if (start == NULL)
 		{
-			ft_putstr_fd("Minishell> exit\n", STDERR_FILENO);
+			ft_putstr_fd("\033[1;35mMinishell> exit\033[0m\n", STDERR_FILENO);
 			ft_env_free(&shell);
 			return (0);
 		}

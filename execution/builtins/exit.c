@@ -6,7 +6,7 @@
 /*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 10:00:36 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/09/21 15:38:54 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/10/04 10:28:30 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ int	ft_str_isnum(char *c)
 	int	i;
 
 	i = 0;
+	if (c[i] == '+' || c[i] == '-')
+		i++;
 	while (c[i])
 	{
 		if (!ft_isdigit(c[i]))

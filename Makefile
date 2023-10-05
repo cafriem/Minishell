@@ -29,7 +29,12 @@ SRCS =	parsing_start.c				\
 		execution/excute/find_path.c \
 		execution/excute/open_files.c \
 		execution/excute/redirection.c \
-		execution/excute/here_doc.c
+		execution/excute/heredoc.c		\
+		execution/excute/excute2.c		\
+		execution/excute/excute_utils.c		\
+
+
+
 
 
 OBJS = $(SRCS:.c=.o)
