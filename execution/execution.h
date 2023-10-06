@@ -6,7 +6,7 @@
 /*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 08:51:51 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/10/05 09:43:14 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/10/06 13:18:32 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	change_path(t_shell *shell);
 
 void	update_env(t_shell *shell, char *old_pwd, char *new_pwd);
 void	absolute_pathcase(t_shell *shell, int cmd_num);
-void	err_msg(t_shell *shell, int flag);
+void	err_msg(int flag);
 int		ft_cd(t_shell *shell, int cmd_num);
 int		ft_cd2(t_shell *shell, int cmd_num);
 
@@ -46,7 +46,7 @@ int		ft_cd2(t_shell *shell, int cmd_num);
 
 int		ft_unset(t_shell *shell, int cmd_num);
 void	remove_environment_variable(t_env **env, char *variable);
-void	unset_utils(t_shell *shell, char *var);
+void	unset_utils(char *var);
 
 ///////////////////////// exit ///////////////////////
 
@@ -54,7 +54,7 @@ int		ft_exit(t_shell *shell, int cmd_num);
 int		ft_str_isnum(char *c);
 void	free_exit(t_shell *shell);
 void	exit_utils2(t_shell *shell, char *arg);
-void	exit_utils(t_shell *shell);
+void	exit_utils(void);
 
 ///////////////////////// echo ///////////////////////
 
@@ -71,7 +71,7 @@ void	swap_var(t_env *env, t_env	*tmp);
 
 ///////////////////////// export_utils ///////////////////////
 
-void	export_utils(t_shell *shell, char *var);
+void	export_utils(char *var);
 char	**split_export(char *str);
 char	*ft_strncpy(char *s1, char *s2, int n);
 void	free_export(char **str);
@@ -115,8 +115,6 @@ int		execute(t_shell *shell);
 void	start_executing(t_shell *shell);
 void	forked_child(t_shell *shell, int cmd_num);
 void	exc_cmd(t_shell *shell, int cmd_num);
-
-
 
 ////////////////// excute2 ////////////////////////////
 

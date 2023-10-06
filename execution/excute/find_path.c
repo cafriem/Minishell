@@ -6,7 +6,7 @@
 /*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 09:34:14 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/10/05 09:19:17 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/10/06 14:43:41 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	check_stat(char *command)
 			ft_putstr_fd("minishell: ", STDERR_FILENO);
 			ft_putstr_fd(command, STDERR_FILENO);
 			ft_putstr_fd(": Permission denied\n", STDERR_FILENO);
-			exit (127);
+			exit (126);
 		}
 	}
 }

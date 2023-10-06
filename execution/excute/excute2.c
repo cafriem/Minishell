@@ -6,7 +6,7 @@
 /*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 09:02:36 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/10/04 10:32:01 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/10/06 15:17:18 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,10 @@ void	forked_builtin(t_shell *shell, int cmd_num)
 		exit (0);
 	}
 	else if (ft_exit(shell, cmd_num))
-		exit(shell->exit_code);
+		exit(exit_code);
 	close_all_fd(shell);
-	exit(-1);
+	exit_code = 1;
+	exit(1);
 }
 
 int	builtin_pipe(t_shell *shell, int cmd_num)
@@ -51,9 +52,8 @@ int	builtin_pipe(t_shell *shell, int cmd_num)
 			ft_dup2(shell, cmd_num);
 		redirection(shell, cmd_num);
 		forked_builtin(shell, cmd_num);
-		close_all_fd(shell);
 	}
-	return (1);
+	return (0);
 }
 
 int	is_builtin(t_shell *shell, int cmd_num)
@@ -72,13 +72,13 @@ int	is_builtin(t_shell *shell, int cmd_num)
 void	check_infile_exc(t_shell *shell, int cmd_num)
 {
 	if (ft_strncmp(shell->command[cmd_num].cmd_args[0], "./", 2) == 0 
-		&& strcmp(shell->command[cmd_num].cmd_args[0],"./minishell") != 0)
+		&& strcmp(shell->command[cmd_num].cmd_args[0], "./minishell") != 0)
 	{
 		if (execve(shell->command[cmd_num].cmd_args[0], 
 				shell->command[cmd_num].cmd_args, NULL) < 0)
 		{
 			perror(shell->command[cmd_num].cmd_args[0]);
-			shell->exit_code = errno;
+			exit_code = errno;
 			close_all_fd(shell);
 			exit(errno);
 		}

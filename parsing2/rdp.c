@@ -75,6 +75,4 @@ void	recursive_decent_parsing(t_shell *shell, char *string)
 		shell->fail = 1;
 		printf("Error: Unexpected token at position %ld\n", shell->pos);
 	}
-	if (shell->current_line[0] == '\0')
-		shell->fail = 0;
 }

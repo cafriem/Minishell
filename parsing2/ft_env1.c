@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_env.c                                           :+:      :+:    :+:   */
+/*   ft_env1.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -34,9 +34,9 @@ char	*ft_env3(t_shell *shell, char *string)
 	t_env	*done;
 
 	done = shell->env;
-	if (string[0] == '?')
+	if (ft_strcmp(string, "?") == 0)
 		return (ft_strjoinfree(ft_itoa(exit_code), ft_substr(string, 1,
-				ft_strlen(string)), 3));
+					ft_strlen(string)), 3));
 	while (done->next != NULL)
 	{
 		if (ft_strcmp(string, done->cmd) == 0)
@@ -56,7 +56,8 @@ void	ft_env2(t_shell *shell, int start)
 	char	*string;
 
 	counter = start + 1;
-	if (shell->current_line[counter] == '?')
+	if (shell->current_line[counter] == '?'
+		&& ft_isalnum_mini(shell->current_line[counter + 1]) == 0)
 		counter++;
 	while (ft_isalnum_mini(shell->current_line[counter]) == 1)
 		counter++;
@@ -74,23 +75,6 @@ void	ft_env2(t_shell *shell, int start)
 	}
 	free(final);
 }
-int	ft_skip_word(t_shell *shell, int counter)
-{
-	counter += 2;
-	while (shell->current_line[counter]
-		&& shell->current_line[counter] == ' ')
-		counter++;
-	while (shell->current_line[counter]
-		&& shell->current_line[counter] != ' ')
-	{
-		if (shell->current_line[counter] == '"'
-			&& shell->current_line[counter + 1] == '\'')
-			counter += ft_skip_spmark(shell->current_line, counter);
-		else
-			counter++;
-	}
-	return (counter);
-}
 
 void	ft_env(t_shell *shell)
 {
@@ -106,11 +90,8 @@ void	ft_env(t_shell *shell)
 			counter++;
 			sp_counter++;
 		}
-		else if (shell->current_line[counter] == '<'
-			&& shell->current_line[counter + 1] == '<')
-			counter = ft_skip_word(shell, counter);
 		else if (shell->current_line[counter] == '\'' && sp_counter % 2 == 0)
-			counter = ft_skip_spmark(shell->current_line, counter);
+			counter += ft_skip_spmark(shell->current_line, counter);
 		else if (shell->current_line[counter] == '$')
 		{
 			ft_env2(shell, counter);
@@ -122,4 +103,3 @@ void	ft_env(t_shell *shell)
 			break ;
 	}
 }
-// changes end here//

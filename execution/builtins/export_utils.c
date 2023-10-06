@@ -6,7 +6,7 @@
 /*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 14:48:38 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/10/03 17:59:45 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/10/06 09:33:15 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,9 @@ void	free_export(char **str)
 	free(str);
 }
 
-void	export_utils(t_shell *shell, char *var)
+void	export_utils(char *var)
 {
-	shell->exit_code = 1;
+	exit_code = 1;
 	ft_putstr_fd("minishell: ", STDERR_FILENO);
 	ft_putstr_fd("export: ", STDERR_FILENO);
 	ft_putchar_fd('`', STDERR_FILENO);

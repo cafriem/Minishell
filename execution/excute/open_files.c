@@ -6,7 +6,7 @@
 /*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 20:30:14 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/10/05 09:50:18 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/10/06 14:09:03 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,14 @@ int	ft_open(char *str, int flag)
 		fd = open(str, O_RDWR | O_CREAT | O_TRUNC, 0644);
 	else if (flag == APPEND)
 		fd = open(str, O_RDWR | O_CREAT | O_APPEND, 0644);
-	printf("iam here\n");
 	if (fd < 0)
 	{
+		exit_code = 1;
 		ft_putstr_fd("minishell: ", STDERR_FILENO);
 		ft_putstr_fd(str, STDERR_FILENO);
 		ft_putstr_fd(": No such file or directory\n", STDERR_FILENO);
-		exit (-1);
+		exit (1);
 	}
-	printf("iam here\n");
 	return (fd);
 }
 

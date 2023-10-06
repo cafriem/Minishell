@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_start.c                                    :+:      :+:    :+:   */
+/*   parsing_start2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 13:50:20 by cafriem           #+#    #+#             */
-/*   Updated: 2023/10/06 09:05:44 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/10/06 08:57:36 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,7 @@ void	temp_into_arg(t_shell *shell)
 		ft_cmd_args(&shell->command[counter], shell->command[counter].cmd_line);
 		ft_cmd_args_sp(&shell->command[counter]);
 		ft_redirect(&shell->command[counter]);
-		if (shell->command[counter].cmd_args[0] == NULL
-			&& shell->command[counter].cmd_line[0] != '\0')
+		if (shell->command[counter].cmd_args[0] == NULL)
 			shell->fail = 1;
 		counter++;
 	}
@@ -59,7 +58,10 @@ void	start_work(t_shell *shell)
 			(shell->current_line, '|'), sizeof(t_command));
 	temp_into_arg(shell);
 	if (shell->fail == 0)
+	{
+		printf("test\n");
 		execute(shell);
+	}
 	else
 		printf("FAIL : CHECK INPUT\n");
 	free_command_args(shell);
@@ -103,15 +105,14 @@ void	printstruct(t_shell *shell)
 		c = 0;
 		while (c < shell->command[i].no_args)
 		{
-			printf("command %d,%d= |%s|\n", i, c, shell->command[i].cmd_args[c]);
-			// printf("test  %d %u %s\n", shell->command[i]->no_redir, shell->command[i]->redir[0]->direct, shell->command[i]->redir->file);
+			printf("command %d,%d= |%s|\n", i, c, shell->command[i].cmd_args[1]);
 			c++;
 		}
 		c = 0;
 		while (c < shell->command[i].no_redir)
 		{
-			printf("redir  %d,%d = |%s|\n", i, c, shell->command[i].redir[c].file);
-			printf("direct %d,%d = |%u|\n", i, c, shell->command[i].redir[c].direct);
+			printf("redir  %d,%d = |%s|\n", i, c, 
+				shell->command[i].redir[c].file);
 			c++;
 		}
 		i++;
@@ -128,7 +129,7 @@ int	main(int argc, char *argv[], char *env[])
 	ft_env_init(&shell, env);
 	remove_environment_variable(&shell.env, "OLDPWD");
 	check_signal();
-
+	printf("test\n");
 	while (argc > 0 && argv[0])
 	{
 		shell.fail = 0;

@@ -6,7 +6,7 @@
 /*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 20:29:28 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/10/05 09:48:15 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/10/06 14:01:23 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	redirection_dup(t_shell *shell, int cmd_num, int i, int flag)
 			exit(-1);
 		}
 	}
-	else if (flag == RE_INPUT && !is_builtin(shell, cmd_num))
+	else if (flag == RE_INPUT)
 	{
 		if (dup2(shell->command[cmd_num].fd_redi, STDIN_FILENO) < 0)
 			exit(-1);

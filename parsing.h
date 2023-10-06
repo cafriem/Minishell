@@ -6,7 +6,7 @@
 /*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 02:01:28 by smokashi          #+#    #+#             */
-/*   Updated: 2023/09/27 14:14:39 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/10/06 09:26:17 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@
 # include <errno.h>
 # include <sys/types.h>
 # include <sys/wait.h>
+
+int	exit_code;
 
 typedef enum e_mini_state
 {
@@ -45,7 +47,6 @@ typedef struct s_shell
 	char				*rdp_word;
 	int					number_commands;
 	int					fail;
-	int					exit_code;
 	int					fd_tmp;
 	char				**env_joind;
 	struct s_env		*env;
