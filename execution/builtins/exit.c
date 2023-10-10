@@ -6,23 +6,28 @@
 /*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 10:00:36 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/10/06 09:32:54 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/10/10 14:06:19 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../execution.h"
 
-void	exit_utils(void)
+void	exit_utils(t_shell *shell, int cmd_num)
 {
-	exit_code = 1;
-	ft_putstr_fd("minishell: ", STDERR_FILENO);
-	ft_putstr_fd("exit: ", STDERR_FILENO);
-	ft_putstr_fd("too many arguments\n", STDERR_FILENO);
+	if (ft_str_isnum(shell->command[cmd_num].cmd_args[1]) != 0)
+		exit_utils2(shell, shell->command[cmd_num].cmd_args[1]);
+	else
+	{
+		shell->exit_code = 1;
+		ft_putstr_fd("minishell: ", STDERR_FILENO);
+		ft_putstr_fd("exit: ", STDERR_FILENO);
+		ft_putstr_fd("too many arguments\n", STDERR_FILENO);
+	}
 }
 
 void	exit_utils2(t_shell *shell, char *arg)
 {
-	exit_code = 255;
+	shell->exit_code = 255;
 	ft_putstr_fd("minishell: ", STDERR_FILENO);
 	ft_putstr_fd("exit: ", STDERR_FILENO);
 	ft_putstr_fd(arg, STDERR_FILENO);
@@ -34,7 +39,7 @@ void	free_exit(t_shell *shell)
 {
 	free_command_args(shell);
 	ft_env_free(shell);
-	exit(exit_code);
+	exit(shell->exit_code);
 }
 
 int	ft_str_isnum(char *c)
@@ -60,12 +65,12 @@ int	ft_exit(t_shell *shell, int cmd_num)
 	{
 		ft_putstr_fd("exit\n", STDOUT_FILENO);
 		if (shell->command[cmd_num].no_args > 2)
-			exit_utils();
+			exit_utils(shell, cmd_num);
 		else if (shell->command[cmd_num].no_args == 2)
 		{
 			if (ft_str_isnum(shell->command[cmd_num].cmd_args[1]) == 0)
 			{
-				exit_code = ft_atoi(shell->command[cmd_num].cmd_args[1]);
+				shell->exit_code = ft_atoi(shell->command[cmd_num].cmd_args[1]);
 				free_exit(shell);
 			}
 			else

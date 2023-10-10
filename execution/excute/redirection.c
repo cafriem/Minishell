@@ -6,16 +6,16 @@
 /*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 20:29:28 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/10/06 14:01:23 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/10/10 12:43:29 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../execution.h"
 
-int	redirection_dup(t_shell *shell, int cmd_num, int i, int flag)
+void	redirection_dup(t_shell *shell, int cmd_num, int i, int flag)
 {
 	shell->command[cmd_num].fd_redi = 
-		ft_open(shell->command[cmd_num].redir[i].file, flag);
+		ft_open(shell, shell->command[cmd_num].redir[i].file, flag);
 	if (flag == APPEND || flag == RE_OUTPUT) 
 	{
 		if (dup2(shell->command[cmd_num].fd_redi, STDOUT_FILENO) < 0)
@@ -34,7 +34,6 @@ int	redirection_dup(t_shell *shell, int cmd_num, int i, int flag)
 		close(shell->command[cmd_num].fd_redi);
 		shell->command[cmd_num].fd_redi = 0;
 	}
-	return (0);
 }
 
 int	heredoc_pos(t_shell *shell, int cmd_num)
@@ -74,7 +73,7 @@ void	here_doc_redi(t_shell *shell, int cmd_num)
 void	is_heredoc(t_shell *shell, int cmd_num, int i)
 {
 	shell->command[cmd_num].fd_redi = 
-		ft_open(shell->command[cmd_num].redir[i].file, RE_INPUT);
+		ft_open(shell, shell->command[cmd_num].redir[i].file, RE_INPUT);
 	if (dup2(shell->command[cmd_num].fd_redi, STDIN_FILENO) < 0)
 		exit(-1);
 	if (unlink(shell->command[cmd_num].redir[i].file) == -1) 
@@ -86,7 +85,7 @@ void	is_heredoc(t_shell *shell, int cmd_num, int i)
 	}
 }
 
-int	redirection(t_shell *shell, int cmd_num)
+void	redirection(t_shell *shell, int cmd_num)
 {
 	int	i;
 
@@ -103,5 +102,4 @@ int	redirection(t_shell *shell, int cmd_num)
 				shell->command[cmd_num].redir[i].direct);
 		i++;
 	}
-	return (0);
 }

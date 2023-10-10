@@ -6,7 +6,7 @@
 /*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 08:53:19 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/10/06 09:31:45 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/10/10 12:40:45 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	ft_unset(t_shell *shell, int cmd_num)
 		while (i < shell->command[cmd_num].no_args)
 		{
 			if (ft_strchr(shell->command[cmd_num].cmd_args[i], '='))
-				unset_utils(shell->command[cmd_num].cmd_args[i]);
+				unset_utils(shell, shell->command[cmd_num].cmd_args[i]);
 			else if (environment_variable_exists(shell->env, 
 					shell->command[cmd_num].cmd_args[i]))
 				remove_environment_variable(&(shell->env), 
@@ -59,9 +59,9 @@ void	remove_environment_variable(t_env **env, char *variable)
 	}
 }
 
-void	unset_utils(char *var)
+void	unset_utils(t_shell *shell, char *var)
 {
-	exit_code = 1;
+	shell->exit_code = 1;
 	ft_putstr_fd("minishell: ", STDERR_FILENO);
 	ft_putstr_fd("unset: ", STDERR_FILENO);
 	ft_putchar_fd('`', STDERR_FILENO);

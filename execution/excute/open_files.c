@@ -6,13 +6,13 @@
 /*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 20:30:14 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/10/06 14:09:03 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/10/10 12:42:49 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../execution.h"
 
-int	ft_open(char *str, int flag)
+int	ft_open(t_shell *shell, char *str, int flag)
 {
 	int	fd;
 
@@ -25,7 +25,7 @@ int	ft_open(char *str, int flag)
 		fd = open(str, O_RDWR | O_CREAT | O_APPEND, 0644);
 	if (fd < 0)
 	{
-		exit_code = 1;
+		shell->exit_code = 1;
 		ft_putstr_fd("minishell: ", STDERR_FILENO);
 		ft_putstr_fd(str, STDERR_FILENO);
 		ft_putstr_fd(": No such file or directory\n", STDERR_FILENO);

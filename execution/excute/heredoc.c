@@ -6,7 +6,7 @@
 /*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 14:36:21 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/10/06 09:30:02 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/10/10 12:37:19 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,10 @@ int	heredoc_exc(t_shell *shell, int cmd_num, int i)
 
 	pipe(fd);
 	heredoc_exc2(shell, fd, cmd_num, i);
-	exit_code = WEXITSTATUS(status);
+	shell->exit_code = WEXITSTATUS(status);
 	if (is_builtin(shell, cmd_num) == 0)
 		dup2(fd[1], 0);
 	if (is_builtin(shell, cmd_num) == 1)
 		fd_herdoc_closer(fd);
-	return (exit_code);
+	return (shell->exit_code);
 }

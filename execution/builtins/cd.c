@@ -6,7 +6,7 @@
 /*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 09:01:42 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/10/06 09:31:16 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/10/10 12:40:09 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	absolute_pathcase(t_shell *shell, int cmd_num)
 	ab_path = ft_strjoin(home, paths[0]);
 	if (chdir(ab_path) < 0)
 	{
-		exit_code = 1;
+		shell->exit_code = 1;
 		perror(shell->command[cmd_num].cmd_args[1]);
 	}
 	free(paths[0]);
@@ -39,9 +39,9 @@ void	absolute_pathcase(t_shell *shell, int cmd_num)
 	free(ab_path);
 }
 
-void	err_msg(int flag)
+void	err_msg(t_shell *shell, int flag)
 {
-	exit_code = 1;
+	shell->exit_code = 1;
 	if (flag == 1)
 	{
 		ft_putstr_fd("minishell: ", STDERR_FILENO);
@@ -64,7 +64,7 @@ int	ft_cd2(t_shell *shell, int cmd_num)
 	{
 		if (chdir(find_env(shell->env, "OLDPWD")) < 0)
 		{
-			err_msg(2);
+			err_msg(shell, 2);
 			return (1);
 		}
 		ft_pwd(shell, 0, 1);
@@ -75,7 +75,7 @@ int	ft_cd2(t_shell *shell, int cmd_num)
 			absolute_pathcase(shell, cmd_num);
 		else
 		{
-			exit_code = 1;
+			shell->exit_code = 1;
 			ft_putstr_fd("minishell: ", STDERR_FILENO);
 			ft_putstr_fd("cd: ", STDERR_FILENO);
 			perror(shell->command[cmd_num].cmd_args[1]);
@@ -93,7 +93,7 @@ int	ft_cd(t_shell *shell, int cmd_num)
 		{
 			if (find_variable_val(shell->env, "HOME") == NULL)
 			{
-				err_msg(1);
+				err_msg(shell, 1);
 				return (1);
 			}
 			chdir(getenv("HOME"));

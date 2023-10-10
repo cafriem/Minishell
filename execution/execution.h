@@ -6,7 +6,7 @@
 /*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 08:51:51 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/10/06 13:18:32 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/10/10 14:16:46 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	change_path(t_shell *shell);
 
 void	update_env(t_shell *shell, char *old_pwd, char *new_pwd);
 void	absolute_pathcase(t_shell *shell, int cmd_num);
-void	err_msg(int flag);
+void	err_msg(t_shell *shell, int flag);
 int		ft_cd(t_shell *shell, int cmd_num);
 int		ft_cd2(t_shell *shell, int cmd_num);
 
@@ -46,7 +46,7 @@ int		ft_cd2(t_shell *shell, int cmd_num);
 
 int		ft_unset(t_shell *shell, int cmd_num);
 void	remove_environment_variable(t_env **env, char *variable);
-void	unset_utils(char *var);
+void	unset_utils(t_shell *shell, char *var);
 
 ///////////////////////// exit ///////////////////////
 
@@ -54,7 +54,7 @@ int		ft_exit(t_shell *shell, int cmd_num);
 int		ft_str_isnum(char *c);
 void	free_exit(t_shell *shell);
 void	exit_utils2(t_shell *shell, char *arg);
-void	exit_utils(void);
+void	exit_utils(t_shell *shell, int cmd_num);
 
 ///////////////////////// echo ///////////////////////
 
@@ -71,7 +71,7 @@ void	swap_var(t_env *env, t_env	*tmp);
 
 ///////////////////////// export_utils ///////////////////////
 
-void	export_utils(char *var);
+void	export_utils(t_shell *shell, char *var);
 char	**split_export(char *str);
 char	*ft_strncpy(char *s1, char *s2, int n);
 void	free_export(char **str);
@@ -87,15 +87,15 @@ void	check_signal(void);
 
 /////////////////////// redirection /////////////////////
 
-int		redirection_dup(t_shell *shell, int cmd_num, int i, int flag);
+void	redirection_dup(t_shell *shell, int cmd_num, int i, int flag);
 int		heredoc_pos(t_shell *shell, int cmd_num);
 void	here_doc_redi(t_shell *shell, int cmd_num);
 void	is_heredoc(t_shell *shell, int cmd_num, int i);
-int		redirection(t_shell *shell, int cmd_num);
+void	redirection(t_shell *shell, int cmd_num);
 
 //////////////////// open files ////////////////////////
 
-int		ft_open(char *str, int flag);
+int		ft_open(t_shell *shell, char *str, int flag);
 void	first_cmd(t_shell *shell, int cmd_num);
 void	last_cmd(t_shell *shell, int cmd_num);
 void	middle_cmd(t_shell *shell, int cmd_num);
@@ -118,9 +118,8 @@ void	exc_cmd(t_shell *shell, int cmd_num);
 
 ////////////////// excute2 ////////////////////////////
 
-int		builtin_one(t_shell *shell, int cmd_num);
 void	forked_builtin(t_shell *shell, int cmd_num);
-int		builtin_pipe(t_shell *shell, int cmd_num);
+void	builtin_pipe(t_shell *shell, int cmd_num);
 int		is_builtin(t_shell *shell, int cmd_num);
 void	check_infile_exc(t_shell *shell, int cmd_num);
 

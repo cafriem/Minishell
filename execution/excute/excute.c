@@ -6,7 +6,7 @@
 /*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 09:02:36 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/10/06 15:18:09 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/10/10 15:02:31 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int	execute(t_shell *shell)
 {
+	int		status;
+
 	shell->fd_tmp = dup(STDOUT_FILENO);
 	start_executing(shell);
 	dup2(shell->fd_tmp, STDOUT_FILENO);
@@ -23,8 +25,13 @@ int	execute(t_shell *shell)
 		close (shell->fd_tmp);
 		shell->fd_tmp = 0;
 	}
-	while (waitpid(-1, &exit_code, 0) > -1)
-		exit_code = WEXITSTATUS(exit_code);
+	while (waitpid(-1, &status, 0) > 0)
+	{
+		if (status == 127)
+			shell->exit_code = 127;
+		else if (WIFEXITED(status))
+			shell->exit_code = WEXITSTATUS(status);
+	}
 	return (1);
 }
 
@@ -48,9 +55,7 @@ void	start_executing(t_shell *shell)
 		else if (is_builtin(shell, cmd_num))
 			builtin_pipe(shell, cmd_num);
 		else
-		{
 			exc_cmd(shell, cmd_num);
-		}
 		cmd_num++;
 	}
 }
@@ -69,7 +74,7 @@ void	forked_child(t_shell *shell, int cmd_num)
 		ft_putstr_fd(": command not found\n", 2);
 		free(shell->env_joind);
 	}
-	exit_code = 127;
+	shell->exit_code = 127;
 	exit(127);
 }
 
@@ -90,7 +95,7 @@ void	exc_cmd(t_shell *shell, int cmd_num)
 			ft_putstr_fd("minishell: ", 2);
 			perror("execve");
 			free(shell->env_joind);
-			exit(1);
+			exit(errno);
 		}
 		if (shell->number_commands != 1)
 			ft_dup2(shell, cmd_num);

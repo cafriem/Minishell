@@ -6,7 +6,7 @@
 /*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 02:01:09 by smokashi          #+#    #+#             */
-/*   Updated: 2023/10/06 09:30:02 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/10/10 15:11:42 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	ft_env_init(t_shell *shell, char *tenv[])
 {
 	char	**string;
 
-	exit_code = 0;
+	shell->exit_code = 0;
 	shell->env = ft_calloc(1, sizeof(t_env));
 	shell->dec_env = ft_calloc(1, sizeof(t_env));
 	if (tenv[0])

@@ -6,7 +6,7 @@
 /*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 13:50:20 by cafriem           #+#    #+#             */
-/*   Updated: 2023/10/06 09:05:44 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/10/10 14:52:48 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,6 @@ int	main(int argc, char *argv[], char *env[])
 	ft_env_init(&shell, env);
 	remove_environment_variable(&shell.env, "OLDPWD");
 	check_signal();
-
 	while (argc > 0 && argv[0])
 	{
 		shell.fail = 0;

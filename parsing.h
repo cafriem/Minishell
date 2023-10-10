@@ -6,7 +6,7 @@
 /*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 02:01:28 by smokashi          #+#    #+#             */
-/*   Updated: 2023/10/06 09:26:17 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/10/10 13:16:10 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 
-int	exit_code;
+int	exit_signal;
 
 typedef enum e_mini_state
 {
@@ -48,6 +48,7 @@ typedef struct s_shell
 	int					number_commands;
 	int					fail;
 	int					fd_tmp;
+	int					exit_code;
 	char				**env_joind;
 	struct s_env		*env;
 	struct s_env		*dec_env;

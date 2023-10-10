@@ -6,7 +6,7 @@
 /*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 11:45:40 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/10/06 09:30:02 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/10/10 12:48:16 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,7 @@ void	ft_echo_2(t_shell *shell, int cmd_num)
 	}
 	while (i < shell->command[cmd_num].no_args)
 	{
-		if (ft_strcmp(shell->command[cmd_num].cmd_args[i], "$?") == 0)
-			ft_putnbr_fd(exit_code, STDOUT_FILENO);
-		else
-			ft_putstr_fd(shell->command[cmd_num].cmd_args[i], STDOUT_FILENO);
+		ft_putstr_fd(shell->command[cmd_num].cmd_args[i], STDOUT_FILENO);
 		if (i < shell->command[cmd_num].no_args - 1)
 			ft_putchar_fd(' ', STDOUT_FILENO);
 		i++;
@@ -66,7 +63,7 @@ int	ft_echo(t_shell *shell, int cmd_num)
 			return (1);
 		}
 		ft_echo_2(shell, cmd_num);
-		exit_code = 0;
+		shell->exit_code = 0;
 		return (1);
 	}
 	return (0);

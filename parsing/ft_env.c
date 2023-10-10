@@ -6,7 +6,7 @@
 /*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 12:04:53 by cafriem           #+#    #+#             */
-/*   Updated: 2023/10/06 09:30:02 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/10/10 12:37:19 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	*ft_env3(t_shell *shell, char *string)
 
 	done = shell->env;
 	if (string[0] == '?')
-		return (ft_strjoinfree(ft_itoa(exit_code), ft_substr(string, 1,
+		return (ft_strjoinfree(ft_itoa(shell->exit_code), ft_substr(string, 1,
 				ft_strlen(string)), 3));
 	while (done->next != NULL)
 	{
