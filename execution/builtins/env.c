@@ -6,7 +6,7 @@
 /*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:48:59 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/10/10 12:09:23 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/10/12 16:26:25 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 int	ft_env_exc(t_shell *shell, int cmd_num)
 {
 	t_env	*env;
+
 	if (ft_strcmp(shell->command[cmd_num].cmd_args[0], "env") == 0)
 	{
 		env = shell->env;

@@ -6,7 +6,7 @@
 /*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 08:51:51 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/10/10 14:16:46 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/10/12 16:13:15 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,8 @@ void	free_export(char **str);
 
 void	signal_handler(int sig);
 void	check_signal(void);
+void	set_signal(void);
+void	signal_handler2(int sig_num);
 
 /*----------------------------- EXECUTION -------------------------------
 |																		 |
@@ -88,8 +90,8 @@ void	check_signal(void);
 /////////////////////// redirection /////////////////////
 
 void	redirection_dup(t_shell *shell, int cmd_num, int i, int flag);
-int		heredoc_pos(t_shell *shell, int cmd_num);
-void	here_doc_redi(t_shell *shell, int cmd_num);
+void	here_doc_redi2(t_shell *shell, int cmd_num, int lst_redi_pos);
+int		here_doc_redi(t_shell *shell, int cmd_num);
 void	is_heredoc(t_shell *shell, int cmd_num, int i);
 void	redirection(t_shell *shell, int cmd_num);
 
@@ -133,8 +135,8 @@ void	fd_herdoc_closer(int *fd);
 
 ////////////////// here_doc//////////////////////////
 
-void	get_readstr(char **str, int fd);
-void	get_readstr2(char **str);
+void	get_readstr(char **str, int fd, int flag);
+int		heredoc_pos(t_shell *shell, int cmd_num);
 int		heredoc_exc2(t_shell *shell, int p_fd[2], int cmd_num, int redi_num);
 int		here_doc3(t_shell *shell, int cmd_num, int redi_num);
 int		heredoc_exc(t_shell *shell, int cmd_num, int i);

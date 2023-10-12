@@ -6,7 +6,7 @@
 /*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 09:02:36 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/10/10 15:02:31 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/10/12 15:51:32 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,11 @@ void	start_executing(t_shell *shell)
 	while (cmd_num < shell->number_commands 
 		&& shell->command[cmd_num].cmd_args[0])
 	{
-		here_doc_redi(shell, cmd_num);
+		if (here_doc_redi(shell, cmd_num) == 200)
+		{
+			exit_signal = 1;
+			break ;
+		}
 		if (cmd_num != shell->number_commands - 1)
 		{
 			if (pipe(shell->command[cmd_num].fd) == -1)
