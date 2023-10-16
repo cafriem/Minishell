@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   excute.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cafriem <cafriem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 09:02:36 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/10/12 15:51:32 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/10/16 12:35:08 by cafriem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ int	execute(t_shell *shell)
 {
 	int		status;
 
-	shell->fd_tmp = dup(STDOUT_FILENO);
+	// shell->fd_tmp = dup(STDOUT_FILENO);
 	start_executing(shell);
-	dup2(shell->fd_tmp, STDOUT_FILENO);
+	// dup2(shell->fd_tmp, STDOUT_FILENO);
 	close_all_fd(shell);
 	if (shell->fd_tmp != 0)
 	{
@@ -91,9 +91,9 @@ void	exc_cmd(t_shell *shell, int cmd_num)
 		perror("fork");
 	else if (id == 0)
 	{
-		shell->env_joind = joind_env(shell);
 		if (strcmp(shell->command[cmd_num].cmd_args[0], "./minishell") == 0)
 		{
+			shell->env_joind = joind_env(shell);
 			execve("./minishell", shell->command[cmd_num].cmd_args, 
 				shell->env_joind);
 			ft_putstr_fd("minishell: ", 2);

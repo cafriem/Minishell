@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cafriem <cafriem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 12:04:53 by cafriem           #+#    #+#             */
-/*   Updated: 2023/10/10 12:37:19 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/10/16 18:27:11 by cafriem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	*ft_env3(t_shell *shell, char *string)
 	done = shell->env;
 	if (string[0] == '?')
 		return (ft_strjoinfree(ft_itoa(shell->exit_code), ft_substr(string, 1,
-				ft_strlen(string)), 3));
+			ft_strlen(string)), 3));
 	while (done->next != NULL)
 	{
 		if (ft_strcmp(string, done->cmd) == 0)
@@ -110,7 +110,7 @@ void	ft_env(t_shell *shell)
 			&& shell->current_line[counter + 1] == '<')
 			counter = ft_skip_word(shell, counter);
 		else if (shell->current_line[counter] == '\'' && sp_counter % 2 == 0)
-			counter = ft_skip_spmark(shell->current_line, counter);
+			counter += ft_skip_spmark(shell->current_line, counter);
 		else if (shell->current_line[counter] == '$')
 		{
 			ft_env2(shell, counter);

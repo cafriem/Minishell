@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_path.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cafriem <cafriem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 09:34:14 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/10/12 17:18:33 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/10/16 12:28:35 by cafriem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,10 +90,14 @@ char	*find_path2(char *command)
 			absolute_path = ft_strjoin(tmp_absolute_path, command);
 			free(tmp_absolute_path);
 			if (access(absolute_path, F_OK) == 0)
+			{
+				ft_freesplit(path_split);
 				return (absolute_path);
+			}
 			free(absolute_path);
 			i++;
 		}
+		ft_freesplit(path_split);
 		check_stat(command);
 	}
 	return (command);

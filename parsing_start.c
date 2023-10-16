@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_start.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cafriem <cafriem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 13:50:20 by cafriem           #+#    #+#             */
-/*   Updated: 2023/10/10 14:52:48 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/10/16 18:46:57 by cafriem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ void	temp_into_arg(t_shell *shell)
 		ft_cmd_args_sp(&shell->command[counter]);
 		ft_redirect(&shell->command[counter]);
 		if (shell->command[counter].cmd_args[0] == NULL
-			&& shell->command[counter].cmd_line[0] != '\0')
+			&& shell->command[counter].cmd_line[0] != '\0'
+			&& shell->command[counter].no_redir == 0)
 			shell->fail = 1;
 		counter++;
 	}
@@ -63,6 +64,7 @@ void	start_work(t_shell *shell)
 	else
 		printf("FAIL : CHECK INPUT\n");
 	free_command_args(shell);
+	ft_env_free(shell);
 }
 
 void	free_command_args(t_shell *shell)
@@ -86,6 +88,7 @@ void	free_command_args(t_shell *shell)
 	}
 	free(shell->command);
 	free(shell->current_line);
+	ft_freesplit(shell->env_joind);
 	ft_freesplit(shell->split_pipe);
 }
 
@@ -117,7 +120,6 @@ void	printstruct(t_shell *shell)
 		i++;
 	}
 }
-// ignore this norminette, we will delete this when uploading
 
 int	main(int argc, char *argv[], char *env[])
 {
@@ -147,3 +149,4 @@ int	main(int argc, char *argv[], char *env[])
 		ft_setup(&shell, start);
 	}
 }
+//newest version 16-10-2023
