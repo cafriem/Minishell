@@ -21,7 +21,7 @@ int	ft_env_exc(t_shell *shell, int cmd_num)
 		env = shell->env;
 		while (env)
 		{
-			if (ft_strlen(env->val) != 0)
+			if (env->val != NULL)
 			{
 				ft_putstr_fd(env->cmd, STDOUT_FILENO);
 				ft_putchar_fd('=', STDOUT_FILENO);
@@ -37,13 +37,14 @@ int	ft_env_exc(t_shell *shell, int cmd_num)
 
 void	update_environment_variable(t_env *env, char *variable, char *new_value)
 {
-	if (ft_strlen(new_value) != 0)
+	if (new_value)
 	{
 		while (env != NULL)
 		{
 			if (strcmp(env->cmd, variable) == 0)
 			{
-				free(env->val);
+				if (env->val)
+					free(env->val);
 				env->val = strdup(new_value); 
 				return ;
 			}

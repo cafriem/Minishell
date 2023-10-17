@@ -91,9 +91,9 @@ void	exc_cmd(t_shell *shell, int cmd_num)
 		perror("fork");
 	else if (id == 0)
 	{
+		shell->env_joind = joind_env(shell);
 		if (strcmp(shell->command[cmd_num].cmd_args[0], "./minishell") == 0)
 		{
-			shell->env_joind = joind_env(shell);
 			execve("./minishell", shell->command[cmd_num].cmd_args, 
 				shell->env_joind);
 			ft_putstr_fd("minishell: ", 2);
@@ -107,4 +107,5 @@ void	exc_cmd(t_shell *shell, int cmd_num)
 		close_all_fd(shell);
 		forked_child(shell, cmd_num);
 	}
+	free(shell->env_joind);
 }

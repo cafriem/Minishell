@@ -64,7 +64,7 @@ void	start_work(t_shell *shell)
 	else
 		printf("FAIL : CHECK INPUT\n");
 	free_command_args(shell);
-	ft_env_free(shell);
+	// ft_env_free(shell);
 }
 
 void	free_command_args(t_shell *shell)

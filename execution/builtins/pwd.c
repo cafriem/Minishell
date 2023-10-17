@@ -40,9 +40,10 @@ void	change_path(t_shell *shell)
 	char	*path;
 
 	pwd_value = find_env(shell->env, "PWD");
+	path = NULL;
 	if (pwd_value)
 	{
-		path = getcwd(NULL, 0);
+		path = getcwd(path, 0);
 		update_env(shell, pwd_value, path);
 		free(path);
 		path = NULL;

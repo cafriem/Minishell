@@ -16,8 +16,6 @@ void	update_env(t_shell *shell, char *old_pwd, char *new_pwd)
 {
 	add_environment_variable(&(shell->env), "OLDPWD", old_pwd);
 	add_environment_variable(&(shell->env), "PWD", new_pwd);
-	add_environment_variable(&(shell->dec_env), "OLDPWD", old_pwd);
-	add_environment_variable(&(shell->dec_env), "PWD", new_pwd);
 }
 
 void	absolute_pathcase(t_shell *shell, int cmd_num)
@@ -62,12 +60,21 @@ int	ft_cd2(t_shell *shell, int cmd_num)
 		chdir(getenv("HOME"));
 	else if (ft_strcmp(shell->command[cmd_num].cmd_args[1], "-") == 0)
 	{
-		if (chdir(find_env(shell->env, "OLDPWD")) < 0)
+		if (find_env(shell->env, "OLDPWD"))
+		{
+			if (chdir(find_env(shell->env, "OLDPWD")) < 0)
+			{
+				err_msg(shell, 2);
+				return (1);
+			}
+			ft_pwd(shell, 0, 1);
+		}
+		else
 		{
 			err_msg(shell, 2);
 			return (1);
 		}
-		ft_pwd(shell, 0, 1);
+		change_path(shell);
 	}
 	else if (chdir(shell->command[cmd_num].cmd_args[1]) < 0)
 	{
@@ -96,6 +103,7 @@ int	ft_cd(t_shell *shell, int cmd_num)
 				err_msg(shell, 1);
 				return (1);
 			}
+		printf("test\n");
 			chdir(getenv("HOME"));
 		}
 		else if (ft_cd2(shell, cmd_num) == 1)

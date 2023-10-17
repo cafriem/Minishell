@@ -1,5 +1,5 @@
 # valgrind --quiet --track-fds=yes ./minishell
-valgrind --suppressions=/home/vscode/src/valgrind_readline_leaks_ignore.txt --leak-check=full --trace-children=yes --show-leak-kinds=all --track-origins=yes --track-fds=yes ./minishell
+valgrind --suppressions=/workspaces/Minishell/valgrind_readline_leaks_ignore.txt ./minishell
 # valgrind --quiet --track-fds=yes ./minishell
 # valgrind --tool=memcheck --tool=callgrind --num-callers=20 --track-fds=yes --error-exitcode=1 ./minishell
 # valgrind -q --trace-children=yes  --track-fds=yes ./minishell

@@ -25,8 +25,10 @@ int	ft_unset(t_shell *shell, int cmd_num)
 				unset_utils(shell, shell->command[cmd_num].cmd_args[i]);
 			else if (environment_variable_exists(shell->env, 
 					shell->command[cmd_num].cmd_args[i]))
+					{
 				remove_environment_variable(&(shell->env), 
 					shell->command[cmd_num].cmd_args[i]);
+					}
 			i++;
 		}
 		return (1);
