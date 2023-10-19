@@ -69,6 +69,8 @@ int	here_doc_redi(t_shell *shell, int cmd_num)
 	else if (pid == 0)
 	{
 		here_doc_redi2(shell, cmd_num, lst_redi_pos);
+		free_command_args(shell);
+		ft_env_free(shell);
 		exit (0);
 	}
 	if (waitpid(pid, &status, 0) > -1)

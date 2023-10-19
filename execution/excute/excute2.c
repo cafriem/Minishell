@@ -19,12 +19,20 @@ void	forked_builtin(t_shell *shell, int cmd_num)
 		ft_echo(shell, cmd_num) || ft_export(shell, cmd_num))
 	{
 		close_all_fd(shell);
+		free_command_args(shell);
+		ft_env_free(shell);
 		exit (0);
 	}
 	else if (ft_exit(shell, cmd_num))
+	{
+		free_command_args(shell);
+		ft_env_free(shell);
 		exit(shell->exit_code);
+	}
 	close_all_fd(shell);
 	shell->exit_code = 1;
+	free_command_args(shell);
+	ft_env_free(shell);
 	exit(1);
 }
 
