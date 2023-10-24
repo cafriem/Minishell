@@ -64,7 +64,6 @@ void	start_work(t_shell *shell)
 	else
 		printf("FAIL : CHECK INPUT\n");
 	free_command_args(shell);
-	// ft_env_free(shell);
 }
 
 void	free_command_args(t_shell *shell)
@@ -134,6 +133,11 @@ int	main(int argc, char *argv[], char *env[])
 	{
 		shell.fail = 0;
 		start = readline("\033[1;35mminishell> \033[0m");
+			if (exit_signal == 1)
+		{
+			shell.exit_code = 1;
+			exit_signal = 0;
+		}
 		if (start == NULL)
 		{
 			ft_putstr_fd("\033[1;35mMinishell> exit\033[0m\n", STDERR_FILENO);

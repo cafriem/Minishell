@@ -103,7 +103,6 @@ int	ft_cd(t_shell *shell, int cmd_num)
 				err_msg(shell, 1);
 				return (1);
 			}
-		printf("test\n");
 			chdir(getenv("HOME"));
 		}
 		else if (ft_cd2(shell, cmd_num) == 1)

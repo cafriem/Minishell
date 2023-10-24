@@ -12,7 +12,7 @@
 
 #include "../execution.h"
 
-void	check_stat(char *command)
+void	check_stat(t_shell *shell, char *command)
 {
 	struct stat	filestat;
 
@@ -23,6 +23,7 @@ void	check_stat(char *command)
 			ft_putstr_fd("minishell: ", STDERR_FILENO);
 			ft_putstr_fd(command, STDERR_FILENO);
 			ft_putstr_fd(": is a directory\n", STDERR_FILENO);
+			free_exit_child(shell, 1);
 			exit (127);
 		}
 		else if (!((filestat.st_mode & S_IRUSR) 
@@ -31,23 +32,25 @@ void	check_stat(char *command)
 			ft_putstr_fd("minishell: ", STDERR_FILENO);
 			ft_putstr_fd(command, STDERR_FILENO);
 			ft_putstr_fd(": Permission denied\n", STDERR_FILENO);
+			free_exit_child(shell, 1);
 			exit (126);
 		}
 	}
 }
 
-char	*find_path3_2(char *command)
+char	*find_path3_2(t_shell *shell, char *command)
 {
-	check_stat(command);
+	check_stat(shell, command);
 	if (access(command, F_OK) == 0)
 		return (command);
 	ft_putstr_fd("minishell: ", STDERR_FILENO);
 	ft_putstr_fd(command, STDERR_FILENO);
 	ft_putstr_fd(": No such file or directory\n", STDERR_FILENO);
+	free_exit_child(shell, 1);
 	exit (127);
 }
 
-char	*find_path3(char *command)
+char	*find_path3(t_shell *shell, char *command)
 {
 	char	**path_split;
 	int		i;
@@ -68,10 +71,10 @@ char	*find_path3(char *command)
 			free(absolute_path);
 		}
 	}
-	return (find_path3_2(command));
+	return (find_path3_2(shell, command));
 }
 
-char	*find_path2(char *command)
+char	*find_path2(t_shell *shell, char *command)
 {
 	int		i;
 	char	*path;
@@ -98,16 +101,16 @@ char	*find_path2(char *command)
 			i++;
 		}
 		ft_freesplit(path_split);
-		check_stat(command);
+		check_stat(shell, command);
 	}
 	return (command);
 }
 
-char	*find_path(char *command)
+char	*find_path(t_shell *shell, char *command)
 {
 	if (ft_strrchr(command, '/'))
-		return (find_path3(command));
+		return (find_path3(shell, command));
 	else
-		return (find_path2(command));
+		return (find_path2(shell, command));
 	return (command);
 }

@@ -89,11 +89,11 @@ void	signal_handler2(int sig_num);
 
 /////////////////////// redirection /////////////////////
 
-void	redirection_dup(t_shell *shell, int cmd_num, int i, int flag);
-void	here_doc_redi2(t_shell *shell, int cmd_num, int lst_redi_pos);
+int		redirection_dup(t_shell *shell, int cmd_num, int i, int flag);
+int		here_doc_redi2(t_shell *shell, int cmd_num, int lst_redi_pos);
 int		here_doc_redi(t_shell *shell, int cmd_num);
 void	is_heredoc(t_shell *shell, int cmd_num, int i);
-void	redirection(t_shell *shell, int cmd_num);
+int		redirection(t_shell *shell, int cmd_num);
 
 //////////////////// open files ////////////////////////
 
@@ -105,11 +105,11 @@ void	ft_dup2(t_shell *shell, int cmd_num);
 
 ///////////////// find path ///////////////////////////
 
-void	check_stat(char *command);
-char	*find_path3_2(char *command);
-char	*find_path3(char *command);
-char	*find_path2(char *command);
-char	*find_path(char *command);
+void	check_stat(t_shell *shell, char *command);
+char	*find_path3_2(t_shell *shell, char *command);
+char	*find_path3(t_shell *shell, char *command);
+char	*find_path2(t_shell *shell, char *command);
+char	*find_path(t_shell *shell, char *command);
 
 ////////////////// excute ////////////////////////////
 
@@ -121,17 +121,19 @@ void	exc_cmd(t_shell *shell, int cmd_num);
 ////////////////// excute2 ////////////////////////////
 
 void	forked_builtin(t_shell *shell, int cmd_num);
-void	builtin_pipe(t_shell *shell, int cmd_num);
+int		builtin_pipe(t_shell *shell, int cmd_num);
 int		is_builtin(t_shell *shell, int cmd_num);
 void	check_infile_exc(t_shell *shell, int cmd_num);
+void	free_exit_child(t_shell *shell, int flag);
 
 ////////////////// excute2_utils//////////////////////////
 
 int		env_len(t_shell *shell);
 char	**joind_env(t_shell *shell);
 char	*find_variable_val(t_env *env, char *variable);
-int		close_all_fd(t_shell *shell);
+void	close_all_fd(t_shell *shell);
 void	fd_herdoc_closer(int *fd);
+void	free_joind(char **env_joind);
 
 ////////////////// here_doc//////////////////////////
 

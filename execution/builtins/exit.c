@@ -60,6 +60,7 @@ int	ft_str_isnum(char *c)
 
 int	ft_exit(t_shell *shell, int cmd_num)
 {
+	close_all_fd(shell);
 	if (ft_strcmp(shell->command[cmd_num].cmd_args[0], "exit") == 0 
 		&& shell->number_commands == 1)
 	{

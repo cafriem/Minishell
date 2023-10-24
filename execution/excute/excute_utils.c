@@ -64,7 +64,7 @@ char	*find_variable_val(t_env *env, char *variable)
 	return (NULL);
 }
 
-int	close_all_fd(t_shell *shell)
+void	close_all_fd(t_shell *shell)
 {
 	int	i;
 
@@ -81,14 +81,13 @@ int	close_all_fd(t_shell *shell)
 			close (shell->command[i].fd[1]);
 			shell->command[i].fd[1] = 0;
 		}
-		if (shell->command[i].fd_redi != 0)
-		{
-			close (shell->command[i].fd_redi);
-			shell->command[i].fd_redi = 0;
-		}
 		i++;
 	}
-	return (1);
+	if (shell->fd_tmp != 0)
+	{
+		close (shell->fd_tmp);
+		shell->fd_tmp = 0;
+	}
 }
 
 void	fd_herdoc_closer(int *fd)
@@ -103,4 +102,14 @@ void	fd_herdoc_closer(int *fd)
 		close(fd[0]);
 		fd[0] = 0;
 	}
+}
+
+void free_joind(char **env_joind)
+{
+	int i;
+
+	i = 0;
+	while(env_joind[i++])
+		free(env_joind[i]);
+	free(env_joind);
 }

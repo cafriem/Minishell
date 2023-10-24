@@ -29,7 +29,12 @@ int	ft_open(t_shell *shell, char *str, int flag)
 		ft_putstr_fd("minishell: ", STDERR_FILENO);
 		ft_putstr_fd(str, STDERR_FILENO);
 		ft_putstr_fd(": No such file or directory\n", STDERR_FILENO);
-		exit (1);
+		if (shell->number_commands > 1)
+		{
+			free_exit_child(shell, 2);
+			exit (1);
+		}
+		return (-1);
 	}
 	return (fd);
 }

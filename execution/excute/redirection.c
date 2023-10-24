@@ -12,10 +12,12 @@
 
 #include "../execution.h"
 
-void	redirection_dup(t_shell *shell, int cmd_num, int i, int flag)
+int	redirection_dup(t_shell *shell, int cmd_num, int i, int flag)
 {
 	shell->command[cmd_num].fd_redi = 
 		ft_open(shell, shell->command[cmd_num].redir[i].file, flag);
+	if (shell->command[cmd_num].fd_redi == -1 && (shell->number_commands == 1 || shell->command[cmd_num].cmd_args[0] == NULL))
+		return (-1);
 	if (flag == APPEND || flag == RE_OUTPUT) 
 	{
 		if (dup2(shell->command[cmd_num].fd_redi, STDOUT_FILENO) < 0)
@@ -24,7 +26,7 @@ void	redirection_dup(t_shell *shell, int cmd_num, int i, int flag)
 			exit(-1);
 		}
 	}
-	else if (flag == RE_INPUT)
+	else if (flag == RE_INPUT && shell->command[cmd_num].cmd_args[0] != NULL && !is_builtin(shell, cmd_num))
 	{
 		if (dup2(shell->command[cmd_num].fd_redi, STDIN_FILENO) < 0)
 			exit(-1);
@@ -34,9 +36,10 @@ void	redirection_dup(t_shell *shell, int cmd_num, int i, int flag)
 		close(shell->command[cmd_num].fd_redi);
 		shell->command[cmd_num].fd_redi = 0;
 	}
+	return (0);
 }
 
-void	here_doc_redi2(t_shell *shell, int cmd_num, int lst_redi_pos)
+int	here_doc_redi2(t_shell *shell, int cmd_num, int lst_redi_pos)
 {
 	int	i;
 
@@ -49,10 +52,11 @@ void	here_doc_redi2(t_shell *shell, int cmd_num, int lst_redi_pos)
 			if (i != lst_redi_pos)
 				here_doc3(shell, cmd_num, i);
 			else
-				exit(heredoc_exc(shell, cmd_num, i));
+				return(heredoc_exc(shell, cmd_num, i));
 		}
 		i++;
 	}
+	return (0);
 }
 
 int	here_doc_redi(t_shell *shell, int cmd_num)
@@ -69,8 +73,7 @@ int	here_doc_redi(t_shell *shell, int cmd_num)
 	else if (pid == 0)
 	{
 		here_doc_redi2(shell, cmd_num, lst_redi_pos);
-		free_command_args(shell);
-		ft_env_free(shell);
+		free_exit_child(shell, 2);
 		exit (0);
 	}
 	if (waitpid(pid, &status, 0) > -1)
@@ -88,8 +91,11 @@ void	is_heredoc(t_shell *shell, int cmd_num, int i)
 		open(shell->command[cmd_num].redir[i].file, O_RDWR, 0777);
 	if (shell->command[cmd_num].fd_redi != -1)
 	{
-		if (dup2(shell->command[cmd_num].fd_redi, STDIN_FILENO) < 0)
-			exit(-1);
+		if (shell->number_commands > 1)
+		{
+			if (dup2(shell->command[cmd_num].fd_redi, STDIN_FILENO) < 0)
+				exit(-1);
+		}
 		if (unlink(shell->command[cmd_num].redir[i].file) == -1) 
 			perror("unlink");
 		if (shell->command[cmd_num].fd_redi != 0)
@@ -100,7 +106,7 @@ void	is_heredoc(t_shell *shell, int cmd_num, int i)
 	}
 }
 
-void	redirection(t_shell *shell, int cmd_num)
+int	redirection(t_shell *shell, int cmd_num)
 {
 	int	i;
 
@@ -110,10 +116,13 @@ void	redirection(t_shell *shell, int cmd_num)
 		if (shell->command[cmd_num].redir[i].direct == HERE_DOC)
 			is_heredoc(shell, cmd_num, i);
 		else if (shell->command[cmd_num].redir[i].direct == APPEND || 
-			shell->command[cmd_num].redir[i].direct == RE_INPUT || 
+			shell->command[cmd_num].redir[i].direct == RE_INPUT ||
 			shell->command[cmd_num].redir[i].direct == RE_OUTPUT)
-			redirection_dup(shell, cmd_num, i, 
-				shell->command[cmd_num].redir[i].direct);
+			{
+			if (redirection_dup(shell, cmd_num, i, shell->command[cmd_num].redir[i].direct) == -1)
+					return (-1);
+			}
 		i++;
 	}
+	return (0);
 }
