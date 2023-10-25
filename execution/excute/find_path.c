@@ -6,7 +6,7 @@
 /*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 09:34:14 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/10/25 11:11:10 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/10/25 11:53:26 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,12 @@ char	*find_path3_2(t_shell *shell, char *command)
 	exit (127);
 }
 
-char	*find_path3(t_shell *shell, char *command)
+char	*find_path3(t_shell *shell, char *command, char **cmd)
 {
 	char	**path_split;
 	int		i;
-	char	**cmd;
 	char	*absolute_path;
 
-	cmd = ft_split(command, '/');
 	i = -1;
 	if (getenv("PATH"))
 	{
@@ -81,23 +79,21 @@ char	*find_path3(t_shell *shell, char *command)
 	return (find_path3_2(shell, command));
 }
 
-char	*find_path2(t_shell *shell, char *command)
+char	*find_path2(t_shell *shell, char *command, char *path)
 {
 	int		i;
-	char	*path;
 	char	**path_split;
 	char	*absolute_path;
 
 	i = 0;
-	path = find_variable_val(shell->env, "PATH");
 	if (path)
 	{
 		path_split = ft_split(path, ':');
 		while (path_split[i++])
 		{
-			absolute_path = 
-				ft_strjoinfree(ft_strjoin(path_split[i], "/"), command, 1);
-			if (absolute_path )
+			absolute_path
+				= ft_strjoinfree(ft_strjoin(path_split[i], "/"), command, 1);
+			if (absolute_path)
 			{
 				if (access(absolute_path, F_OK) == 0)
 				{
@@ -108,16 +104,24 @@ char	*find_path2(t_shell *shell, char *command)
 			free(absolute_path);
 		}
 		ft_freesplit(path_split);
-		check_stat(shell, command);
 	}
 	return (find_path3_2(shell, command));
 }
 
 char	*find_path(t_shell *shell, char *command)
 {
+	char	*path;
+	char	**cmd;
+
 	if (ft_strrchr(command, '/'))
-		return (find_path3(shell, command));
+	{
+		cmd = ft_split(command, '/');
+		return (find_path3(shell, command, cmd));
+	}
 	else
-		return (find_path2(shell, command));
+	{
+		path = find_variable_val(shell->env, "PATH");
+		return (find_path2(shell, command, path));
+	}
 	return (command);
 }

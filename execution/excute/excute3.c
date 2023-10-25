@@ -6,7 +6,7 @@
 /*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 09:02:36 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/10/25 10:57:36 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/10/25 11:47:26 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ int	check_red(t_shell *shell)
 	int	j;
 
 	i = 0;
-
 	while (i < shell->number_commands)
 	{
 		j = 0;
@@ -46,8 +45,8 @@ int	check_red(t_shell *shell)
 	return (0);
 }
 
-void path_free_split(char **cmd, char **path_split)
+void	path_free_split(char **cmd, char **path_split)
 {
-		ft_freesplit(cmd);
-		ft_freesplit(path_split);
+	ft_freesplit(cmd);
+	ft_freesplit(path_split);
 }

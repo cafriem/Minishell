@@ -6,7 +6,7 @@
 /*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 08:51:51 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/10/25 10:57:34 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/10/25 11:51:53 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ void	ft_dup2(t_shell *shell, int cmd_num);
 void	check_stat(t_shell *shell, char *command);
 char	*find_path3_2(t_shell *shell, char *command);
 char	*find_path3(t_shell *shell, char *command);
-char	*find_path2(t_shell *shell, char *command);
+char	*find_path2(t_shell *shell, char *command, char *path);
 char	*find_path(t_shell *shell, char *command);
 
 ////////////////// excute ////////////////////////////
