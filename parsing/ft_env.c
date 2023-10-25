@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cafriem <cafriem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 12:04:53 by cafriem           #+#    #+#             */
-/*   Updated: 2023/10/25 10:13:26 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/10/25 14:10:13 by cafriem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,12 +93,10 @@ int	ft_skip_word(t_shell *shell, int counter)
 	return (counter);
 }
 
-void	ft_env(t_shell *shell)
+void	ft_env(t_shell *shell, int counter)
 {
-	int	counter;
 	int	sp_counter;
 
-	counter = 0;
 	sp_counter = 0;
 	while (shell->current_line[counter])
 	{

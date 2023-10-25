@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cafriem <cafriem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 02:01:28 by smokashi          #+#    #+#             */
-/*   Updated: 2023/10/25 10:30:23 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/10/25 14:10:02 by cafriem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ int		splitcount(const char *string, char separator);
 char	**ft_splitmini(const char *string, char separator);
 //--------------------ft_env.c-------------//
 char	*ft_strjoinfree(char *str1, char *str2, int flag);
-void	ft_env(t_shell *shell);
+void	ft_env(t_shell *shell, int counter);
 //--------------------ft_isalnum_mini.c-------------//
 int		ft_isalnum_mini(int c);
 //--------------------ft_env.c-------------//

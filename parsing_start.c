@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_start.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cafriem <cafriem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 13:50:20 by cafriem           #+#    #+#             */
-/*   Updated: 2023/10/25 10:29:36 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/10/25 14:20:55 by cafriem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	ft_setup(t_shell *shell, char *start)
 	check_spmark (shell, start);
 	shell->current_line = ft_strdup (start);
 	free(start);
-	ft_env (shell);
+	ft_env (shell, 0);
 	if (shell->fail == 0)
 		recursive_decent_parsing (shell, shell->current_line);
 	if (shell->fail == 1)
@@ -91,35 +91,6 @@ void	free_command_args(t_shell *shell)
 	ft_freesplit(shell->split_pipe);
 }
 
-void	printstruct(t_shell *shell)
-{
-	int	i;
-	int	c;
-
-	i = 0;
-	printf("-----PARSED-----\n");
-	printf("num of commands = |%d|\n", shell->number_commands);
-	while (i < shell->number_commands)
-	{
-		printf("cmd_line %d = |%s|\n", i, shell->command[i].cmd_line);
-		c = 0;
-		while (c < shell->command[i].no_args)
-		{
-			printf("command %d,%d= |%s|\n", 
-				i, c, shell->command[i].cmd_args[c]);
-			c++;
-		}
-		c = 0;
-		while (c < shell->command[i].no_redir)
-		{
-			printf("redir  %d,%d = |%s|\n", i, c, shell->command[i].redir[c].file);
-			printf("direct %d,%d = |%u|\n", i, c, shell->command[i].redir[c].direct);
-			c++;
-		}
-		i++;
-	}
-}
-
 int	main(int argc, char *argv[], char *env[])
 {
 	t_shell		shell;
@@ -127,17 +98,12 @@ int	main(int argc, char *argv[], char *env[])
 
 	ft_bzero(&shell, sizeof(t_shell));
 	ft_env_init(&shell, env);
-	remove_environment_variable(&shell.env, "OLDPWD");
-	check_signal();
+	ft_signal(&shell, 1);
 	while (argc > 0 && argv[0])
 	{
 		shell.fail = 0;
 		start = readline("\033[1;35mminishell> \033[0m");
-		if (g_exit_signal == 1)
-		{
-			shell.exit_code = 1;
-			g_exit_signal = 0;
-		}
+		ft_signal(&shell, 2);
 		if (start == NULL)
 		{
 			ft_putstr_fd("\033[1;35mMinishell> exit\033[0m\n", STDERR_FILENO);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cafriem <cafriem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 08:51:51 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/10/25 11:51:53 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/10/25 14:20:45 by cafriem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ void	signal_handler(int sig);
 void	check_signal(void);
 void	set_signal(void);
 void	signal_handler2(int sig_num);
+void	ft_signal(t_shell *shell, int flag);
 
 /*----------------------------- EXECUTION -------------------------------
 |																		 |

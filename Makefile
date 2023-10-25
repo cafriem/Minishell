@@ -47,7 +47,7 @@ LIBS =	Libft/libft.a
 
 $(NAME): $(OBJS)
 	make -C Libft
-	$(CC) $(CFLAGS) $(OBJS) $(LIBS) -I/usr/local/opt/readline/include -L/usr/local/opt/readline/lib -lreadline -o $(NAME)
+	$(CC) $(CFLAGS) -I/usr/local/include -I/usr/local/opt/readline/include $(OBJS) $(LIBS) -L/usr/local/lib -L/usr/local/opt/readline/lib -lreadline -o $(NAME)
 	@printf "$(GR)Minishell ready.\n$(RC)"
 all: $(NAME)
 
