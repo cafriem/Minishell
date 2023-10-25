@@ -39,8 +39,8 @@ void	start_executing(t_shell *shell)
 {
 	int	cmd_num;
 
-	cmd_num = 0;
-	while (cmd_num++ < shell->number_commands)
+	cmd_num = -1;
+	while (++cmd_num < shell->number_commands)
 	{
 		if (here_doc_redi(shell, cmd_num) == 200)
 		{

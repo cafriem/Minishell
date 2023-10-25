@@ -31,6 +31,7 @@ int	check_red(t_shell *shell)
 	int	j;
 
 	i = 0;
+
 	while (i < shell->number_commands)
 	{
 		j = 0;
@@ -43,4 +44,10 @@ int	check_red(t_shell *shell)
 		i++;
 	}
 	return (0);
+}
+
+void path_free_split(char **cmd, char **path_split)
+{
+		ft_freesplit(cmd);
+		ft_freesplit(path_split);
 }

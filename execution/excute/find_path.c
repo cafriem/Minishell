@@ -41,11 +41,8 @@ void	check_stat(t_shell *shell, char *command)
 char	*find_path3_2(t_shell *shell, char *command)
 {
 	check_stat(shell, command);
-	if (command != NULL)
-	{
-		if (access(command, F_OK) == 0)
-			return (command);
-	}
+	if (access(command, F_OK) == 0)
+		return (command);
 	ft_putstr_fd("minishell: ", STDERR_FILENO);
 	ft_putstr_fd(command, STDERR_FILENO);
 	ft_putstr_fd(": No such file or directory\n", STDERR_FILENO);
@@ -73,16 +70,14 @@ char	*find_path3(t_shell *shell, char *command)
 			{
 				if (access(absolute_path, F_OK) == 0)
 				{
-					ft_freesplit(cmd);
-					ft_freesplit(path_split);
+					path_free_split(cmd, path_split);
 					return (absolute_path);
 				}
 			}
 			free(absolute_path);
 		}
 	}
-	ft_freesplit(path_split);
-	ft_freesplit(cmd);
+	path_free_split(cmd, path_split);
 	return (find_path3_2(shell, command));
 }
 
@@ -91,29 +86,31 @@ char	*find_path2(t_shell *shell, char *command)
 	int		i;
 	char	*path;
 	char	**path_split;
-	char	*tmp_absolute_path;
 	char	*absolute_path;
 
 	i = 0;
-	path = getenv("PATH");
+	path = find_variable_val(shell->env, "PATH");
 	if (path)
 	{
 		path_split = ft_split(path, ':');
 		while (path_split[i++])
 		{
-			tmp_absolute_path = ft_strjoin(path_split[i], "/");
-			absolute_path = ft_strjoinfree(tmp_absolute_path, command, 1);
-			if (access(absolute_path, F_OK) == 0)
+			absolute_path = 
+				ft_strjoinfree(ft_strjoin(path_split[i], "/"), command, 1);
+			if (absolute_path )
 			{
-				ft_freesplit(path_split);
-				return (absolute_path);
+				if (access(absolute_path, F_OK) == 0)
+				{
+					ft_freesplit(path_split);
+					return (absolute_path);
+				}
 			}
 			free(absolute_path);
 		}
 		ft_freesplit(path_split);
 		check_stat(shell, command);
 	}
-	return (command);
+	return (find_path3_2(shell, command));
 }
 
 char	*find_path(t_shell *shell, char *command)

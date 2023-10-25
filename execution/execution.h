@@ -131,6 +131,7 @@ void	free_exit_child(t_shell *shell);
 
 int		builtin_1(t_shell *shell, int cmd_num);
 int		check_red(t_shell *shell);
+void	path_free_split(char **cmd, char **path_split);
 
 ////////////////// excute2_utils//////////////////////////
 
