@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cafriem <cafriem@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 09:01:42 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/10/16 18:46:27 by cafriem          ###   ########.fr       */
+/*   Updated: 2023/10/25 10:36:10 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	absolute_pathcase(t_shell *shell, int cmd_num)
 	free(ab_path);
 }
 
-void	err_msg(t_shell *shell, int flag)
+int	err_msg(t_shell *shell, int flag, int cmd_num)
 {
 	shell->exit_code = 1;
 	if (flag == 1)
@@ -52,6 +52,14 @@ void	err_msg(t_shell *shell, int flag)
 		ft_putstr_fd("cd: ", STDERR_FILENO);
 		ft_putstr_fd("OLDPWD not set\n", STDERR_FILENO);
 	}
+	else if (flag == 3)
+	{
+		shell->exit_code = 1;
+		ft_putstr_fd("minishell: ", STDERR_FILENO);
+		ft_putstr_fd("cd: ", STDERR_FILENO);
+		perror(shell->command[cmd_num].cmd_args[1]);
+	}
+	return (1);
 }
 
 int	ft_cd2(t_shell *shell, int cmd_num)
@@ -63,17 +71,11 @@ int	ft_cd2(t_shell *shell, int cmd_num)
 		if (find_env(shell->env, "OLDPWD"))
 		{
 			if (chdir(find_env(shell->env, "OLDPWD")) < 0)
-			{
-				err_msg(shell, 2);
-				return (1);
-			}
+				return (err_msg(shell, 2, cmd_num));
 			ft_pwd(shell, 0, 1);
 		}
 		else
-		{
-			err_msg(shell, 2);
-			return (1);
-		}
+			return (err_msg(shell, 2, cmd_num));
 		change_path(shell);
 	}
 	else if (chdir(shell->command[cmd_num].cmd_args[1]) < 0)
@@ -81,13 +83,7 @@ int	ft_cd2(t_shell *shell, int cmd_num)
 		if (ft_strncmp(shell->command[cmd_num].cmd_args[1], "~", 1) == 0)
 			absolute_pathcase(shell, cmd_num);
 		else
-		{
-			shell->exit_code = 1;
-			ft_putstr_fd("minishell: ", STDERR_FILENO);
-			ft_putstr_fd("cd: ", STDERR_FILENO);
-			perror(shell->command[cmd_num].cmd_args[1]);
-			return (1);
-		}
+			return (err_msg(shell, 3, cmd_num));
 	}
 	return (0);
 }
@@ -96,13 +92,10 @@ int	ft_cd(t_shell *shell, int cmd_num)
 {
 	if (ft_strcmp(shell->command[cmd_num].cmd_args[0], "cd") == 0)
 	{
-		if (shell->command[cmd_num].cmd_args[1] == NULL) 
+		if (shell->command[cmd_num].cmd_args[1] == NULL)
 		{
 			if (find_variable_val(shell->env, "HOME") == NULL)
-			{
-				err_msg(shell, 1);
-				return (1);
-			}
+				return (err_msg(shell, 1, cmd_num));
 			chdir(getenv("HOME"));
 		}
 		else if (ft_cd2(shell, cmd_num) == 1)

@@ -6,7 +6,7 @@
 /*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 08:53:19 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/10/10 12:40:45 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/10/25 10:22:49 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ int	ft_unset(t_shell *shell, int cmd_num)
 		{
 			if (ft_strchr(shell->command[cmd_num].cmd_args[i], '='))
 				unset_utils(shell, shell->command[cmd_num].cmd_args[i]);
-			else if (environment_variable_exists(shell->env, 
+			else if (environment_variable_exists(shell->env,
 					shell->command[cmd_num].cmd_args[i]))
-				remove_environment_variable(&(shell->env), 
+				remove_environment_variable(&(shell->env),
 					shell->command[cmd_num].cmd_args[i]);
 			i++;
 		}

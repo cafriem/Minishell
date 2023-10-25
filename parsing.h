@@ -6,7 +6,7 @@
 /*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 02:01:28 by smokashi          #+#    #+#             */
-/*   Updated: 2023/10/10 13:16:10 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/10/25 10:30:23 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 
-int	exit_signal;
+int	g_exit_signal;
 
 typedef enum e_mini_state
 {
@@ -82,7 +82,7 @@ typedef struct s_command
 	int					int_temp;
 	int					no_redir;
 	int					echooption;
-	int 				fd[2];
+	int					fd[2];
 	int					fd_redi;
 	t_direct			*redir;
 }	t_command;

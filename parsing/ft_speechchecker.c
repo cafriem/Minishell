@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_speechchecker.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cafriem <cafriem@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 02:01:16 by smokashi          #+#    #+#             */
-/*   Updated: 2023/09/04 14:30:45 by cafriem          ###   ########.fr       */
+/*   Updated: 2023/10/25 10:12:22 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,8 @@ int	ft_skip_spmark(const char *string, int start)
 	int		counter;
 
 	counter = start;
-	while (string[counter] && string[counter] != '"' && string[counter] != '\'')
+	while (string[counter] && string[counter] != '"'
+		&& string[counter] != '\'')
 		counter++;
 	if (counter == (int)ft_strlen(string))
 		return (counter);

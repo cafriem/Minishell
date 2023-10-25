@@ -6,7 +6,7 @@
 /*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 14:36:21 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/10/12 16:13:35 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/10/25 10:18:13 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	heredoc_exc2(t_shell *shell, int p_fd[2], int cmd_num, int redi_num)
 	int		fd;
 
 	str = readline("> ");
-	fd = open(shell->command[cmd_num].redir[redi_num].file, 
+	fd = open(shell->command[cmd_num].redir[redi_num].file,
 			O_RDWR | O_CREAT | O_TRUNC, 0644);
 	while (str && ft_strcmp(str, shell->command[cmd_num].redir[redi_num].file))
 	{

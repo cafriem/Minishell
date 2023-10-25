@@ -6,7 +6,7 @@
 /*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 08:51:51 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/10/12 16:13:15 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/10/25 10:57:34 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 ///////////////////////// env ///////////////////////
 
 int		ft_env_exc(t_shell *shell, int cmd_num);
-void	update_environment_variable(t_env *env, 
+void	update_environment_variable(t_env *env,
 			char *variable, char *new_value);
 void	add_environment_variable(t_env **env, char *variable, char *value);
 int		environment_variable_exists(t_env *env, char *variable);
@@ -38,7 +38,7 @@ void	change_path(t_shell *shell);
 
 void	update_env(t_shell *shell, char *old_pwd, char *new_pwd);
 void	absolute_pathcase(t_shell *shell, int cmd_num);
-void	err_msg(t_shell *shell, int flag);
+int		err_msg(t_shell *shell, int flag, int cmd_num);
 int		ft_cd(t_shell *shell, int cmd_num);
 int		ft_cd2(t_shell *shell, int cmd_num);
 
@@ -115,6 +115,7 @@ char	*find_path(t_shell *shell, char *command);
 
 int		execute(t_shell *shell);
 void	start_executing(t_shell *shell);
+void	start_executing2(t_shell *shell, int cmd_num, int flag);
 void	forked_child(t_shell *shell, int cmd_num);
 void	exc_cmd(t_shell *shell, int cmd_num);
 
@@ -124,7 +125,12 @@ void	forked_builtin(t_shell *shell, int cmd_num);
 int		builtin_pipe(t_shell *shell, int cmd_num);
 int		is_builtin(t_shell *shell, int cmd_num);
 void	check_infile_exc(t_shell *shell, int cmd_num);
-void  free_exit_child(t_shell *shell);
+void	free_exit_child(t_shell *shell);
+
+////////////////// excute3 ////////////////////////////
+
+int		builtin_1(t_shell *shell, int cmd_num);
+int		check_red(t_shell *shell);
 
 ////////////////// excute2_utils//////////////////////////
 

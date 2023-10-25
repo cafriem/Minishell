@@ -6,7 +6,7 @@
 /*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:48:59 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/10/12 16:26:25 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/10/25 10:31:58 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	update_environment_variable(t_env *env, char *variable, char *new_value)
 			{
 				if (env->val)
 					free(env->val);
-				env->val = strdup(new_value); 
+				env->val = strdup(new_value);
 				return ;
 			}
 			env = env->next;

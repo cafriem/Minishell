@@ -6,7 +6,7 @@
 /*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 10:00:36 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/10/12 10:11:50 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/10/25 10:23:07 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	ft_str_isnum(char *c)
 int	ft_exit(t_shell *shell, int cmd_num)
 {
 	close_all_fd(shell);
-	if (ft_strcmp(shell->command[cmd_num].cmd_args[0], "exit") == 0 
+	if (ft_strcmp(shell->command[cmd_num].cmd_args[0], "exit") == 0
 		&& shell->number_commands == 1)
 	{
 		ft_putstr_fd("exit\n", STDOUT_FILENO);

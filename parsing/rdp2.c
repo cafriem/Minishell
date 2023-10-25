@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rdp2.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cafriem <cafriem@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 02:02:14 by smokashi          #+#    #+#             */
-/*   Updated: 2023/09/04 14:30:45 by cafriem          ###   ########.fr       */
+/*   Updated: 2023/10/25 10:04:15 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	match(char *expected, t_shell *shell, char *string)
 {
 	if (ft_strlen(expected) != 0 && ft_strncmp(&string[shell->pos],
-			expected, ft_strlen(expected)) == 0) 
+			expected, ft_strlen(expected)) == 0)
 		shell->pos += ft_strlen(expected);
 	else
 	{

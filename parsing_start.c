@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_start.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cafriem <cafriem@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 13:50:20 by cafriem           #+#    #+#             */
-/*   Updated: 2023/10/16 18:46:57 by cafriem          ###   ########.fr       */
+/*   Updated: 2023/10/25 10:29:36 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,8 +105,8 @@ void	printstruct(t_shell *shell)
 		c = 0;
 		while (c < shell->command[i].no_args)
 		{
-			printf("command %d,%d= |%s|\n", i, c, shell->command[i].cmd_args[c]);
-			// printf("test  %d %u %s\n", shell->command[i]->no_redir, shell->command[i]->redir[0]->direct, shell->command[i]->redir->file);
+			printf("command %d,%d= |%s|\n", 
+				i, c, shell->command[i].cmd_args[c]);
 			c++;
 		}
 		c = 0;
@@ -133,10 +133,10 @@ int	main(int argc, char *argv[], char *env[])
 	{
 		shell.fail = 0;
 		start = readline("\033[1;35mminishell> \033[0m");
-			if (exit_signal == 1)
+		if (g_exit_signal == 1)
 		{
 			shell.exit_code = 1;
-			exit_signal = 0;
+			g_exit_signal = 0;
 		}
 		if (start == NULL)
 		{

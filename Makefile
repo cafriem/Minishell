@@ -31,6 +31,7 @@ SRCS =	parsing_start.c				\
 		execution/excute/redirection.c \
 		execution/excute/heredoc.c		\
 		execution/excute/excute2.c		\
+		execution/excute/excute3.c		\
 		execution/excute/excute_utils.c		\
 
 

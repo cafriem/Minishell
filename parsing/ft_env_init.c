@@ -6,7 +6,7 @@
 /*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 02:01:09 by smokashi          #+#    #+#             */
-/*   Updated: 2023/10/10 15:11:42 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/10/25 10:12:42 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	ft_env_loop(t_env *env, char *tenv[], int c)
 		string = ft_split(tenv[c], '=');
 		nenv->cmd = ft_strdup(string[0]);
 		if (strcmp(string[0], "SHLVL") == 0)
-				string[1][0] += 1;
+			string[1][0] += 1;
 		if (string[1])
 			nenv->val = ft_strdup(string[1]);
 		if (ft_double_pointer_counter2(string) > 1)

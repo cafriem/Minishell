@@ -6,7 +6,7 @@
 /*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 14:48:38 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/10/10 12:41:59 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/10/25 10:23:17 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	ft_export(t_shell *shell, int cmd_num)
 			{
 				str_export = split_export(shell->command[cmd_num].cmd_args[i]);
 				if (check_var(str_export[0]) == 0)
-					add_environment_variable(&(shell->env), 
+					add_environment_variable(&(shell->env),
 						str_export[0], str_export[1]);
 				else
 					export_utils(shell, str_export[0]);
@@ -72,7 +72,7 @@ void	swap_var(t_env *env, t_env	*tmp)
 			free(temp_val);
 			env = tmp;
 		}
-		else 
+		else
 			env = env->next;
 	}
 }

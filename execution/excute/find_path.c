@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_path.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cafriem <cafriem@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 09:34:14 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/10/16 12:28:35 by cafriem          ###   ########.fr       */
+/*   Updated: 2023/10/25 11:11:10 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	check_stat(t_shell *shell, char *command)
 
 	if (stat(command, &filestat) == 0)
 	{
-		if ((filestat.st_mode & 0170000) == 0040000) 
+		if ((filestat.st_mode & 0170000) == 0040000)
 		{
 			ft_putstr_fd("minishell: ", STDERR_FILENO);
 			ft_putstr_fd(command, STDERR_FILENO);
@@ -26,7 +26,7 @@ void	check_stat(t_shell *shell, char *command)
 			free_exit_child(shell);
 			exit (127);
 		}
-		else if (!((filestat.st_mode & S_IRUSR) 
+		else if (!((filestat.st_mode & S_IRUSR)
 				&& (filestat.st_mode & S_IXUSR)))
 		{
 			ft_putstr_fd("minishell: ", STDERR_FILENO);
@@ -67,8 +67,8 @@ char	*find_path3(t_shell *shell, char *command)
 		path_split = ft_split(getenv("PATH"), ':');
 		while (path_split[++i])
 		{
-			absolute_path = 
-				ft_strjoinfree(ft_strjoin(path_split[i], "/"), cmd[1], 1);
+			absolute_path
+				= ft_strjoinfree(ft_strjoin(path_split[i], "/"), cmd[1], 1);
 			if (absolute_path != NULL)
 			{
 				if (access(absolute_path, F_OK) == 0)
@@ -99,18 +99,16 @@ char	*find_path2(t_shell *shell, char *command)
 	if (path)
 	{
 		path_split = ft_split(path, ':');
-		while (path_split[i])
+		while (path_split[i++])
 		{
 			tmp_absolute_path = ft_strjoin(path_split[i], "/");
-			absolute_path = ft_strjoin(tmp_absolute_path, command);
-			free(tmp_absolute_path);
+			absolute_path = ft_strjoinfree(tmp_absolute_path, command, 1);
 			if (access(absolute_path, F_OK) == 0)
 			{
 				ft_freesplit(path_split);
 				return (absolute_path);
 			}
 			free(absolute_path);
-			i++;
 		}
 		ft_freesplit(path_split);
 		check_stat(shell, command);

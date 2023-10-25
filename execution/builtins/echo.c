@@ -6,7 +6,7 @@
 /*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 11:45:40 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/10/10 12:48:16 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/10/25 10:23:36 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	ft_echo_2(t_shell *shell, int cmd_num)
 
 	i = 1;
 	flag = 2;
-	while (i < shell->command[cmd_num].no_args 
+	while (i < shell->command[cmd_num].no_args
 		&& ft_str_ne(shell->command[cmd_num].cmd_args[i]) == 0)
 	{
 		i++;

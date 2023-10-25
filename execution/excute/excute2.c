@@ -6,7 +6,7 @@
 /*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 09:02:36 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/10/10 18:03:27 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/10/25 10:26:33 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	forked_builtin(t_shell *shell, int cmd_num)
 {
-	if (ft_pwd(shell, cmd_num, 0) || ft_cd(shell, cmd_num) || 
-		ft_unset(shell, cmd_num) || ft_env_exc(shell, cmd_num) || 
-		ft_echo(shell, cmd_num) || ft_export(shell, cmd_num))
+	if (ft_pwd(shell, cmd_num, 0) || ft_cd(shell, cmd_num)
+		|| ft_unset(shell, cmd_num) || ft_env_exc(shell, cmd_num)
+		|| ft_echo(shell, cmd_num) || ft_export(shell, cmd_num))
 	{
 		free_exit_child(shell);
 		exit (0);
@@ -31,7 +31,7 @@ void	forked_builtin(t_shell *shell, int cmd_num)
 int	builtin_pipe(t_shell *shell, int cmd_num)
 {
 	int	id;
-	int status;
+	int	status;
 
 	id = fork();
 	if (id < 0)
@@ -54,12 +54,12 @@ int	is_builtin(t_shell *shell, int cmd_num)
 {
 	if (shell->command[cmd_num].cmd_args[0] != NULL)
 	{
-		if (ft_strcmp(shell->command[cmd_num].cmd_args[0], "pwd") == 0 || 
-			ft_strcmp(shell->command[cmd_num].cmd_args[0], "cd") == 0 || 
-			ft_strcmp(shell->command[cmd_num].cmd_args[0], "unset") == 0 || 
-			ft_strcmp(shell->command[cmd_num].cmd_args[0], "env") == 0 || 
-			ft_strcmp(shell->command[cmd_num].cmd_args[0], "exit") == 0 || 
-			ft_strcmp(shell->command[cmd_num].cmd_args[0], "echo") == 0
+		if (ft_strcmp(shell->command[cmd_num].cmd_args[0], "pwd") == 0
+			|| ft_strcmp(shell->command[cmd_num].cmd_args[0], "cd") == 0
+			|| ft_strcmp(shell->command[cmd_num].cmd_args[0], "unset") == 0
+			|| ft_strcmp(shell->command[cmd_num].cmd_args[0], "env") == 0
+			|| ft_strcmp(shell->command[cmd_num].cmd_args[0], "exit") == 0
+			|| ft_strcmp(shell->command[cmd_num].cmd_args[0], "echo") == 0
 			|| ft_strcmp(shell->command[cmd_num].cmd_args[0], "export") == 0)
 			return (1);
 	}
@@ -68,10 +68,10 @@ int	is_builtin(t_shell *shell, int cmd_num)
 
 void	check_infile_exc(t_shell *shell, int cmd_num)
 {
-	if (ft_strncmp(shell->command[cmd_num].cmd_args[0], "./", 2) == 0 
+	if (ft_strncmp(shell->command[cmd_num].cmd_args[0], "./", 2) == 0
 		&& strcmp(shell->command[cmd_num].cmd_args[0], "./minishell") != 0)
 	{
-		if (execve(shell->command[cmd_num].cmd_args[0], 
+		if (execve(shell->command[cmd_num].cmd_args[0],
 				shell->command[cmd_num].cmd_args, shell->env_joind) < 0)
 		{
 			perror(shell->command[cmd_num].cmd_args[0]);
@@ -82,7 +82,7 @@ void	check_infile_exc(t_shell *shell, int cmd_num)
 	}
 }
 
-void free_exit_child(t_shell *shell)
+void	free_exit_child(t_shell *shell)
 {
 	close_all_fd(shell);
 	free_command_args(shell);
