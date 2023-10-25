@@ -103,13 +103,3 @@ void	fd_herdoc_closer(int *fd)
 		fd[0] = 0;
 	}
 }
-
-void free_joind(char **env_joind)
-{
-	int i;
-
-	i = 0;
-	while(env_joind[i++])
-		free(env_joind[i]);
-	free(env_joind);
-}

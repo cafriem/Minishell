@@ -124,7 +124,7 @@ void	forked_builtin(t_shell *shell, int cmd_num);
 int		builtin_pipe(t_shell *shell, int cmd_num);
 int		is_builtin(t_shell *shell, int cmd_num);
 void	check_infile_exc(t_shell *shell, int cmd_num);
-void	free_exit_child(t_shell *shell, int flag);
+void  free_exit_child(t_shell *shell);
 
 ////////////////// excute2_utils//////////////////////////
 
@@ -133,7 +133,6 @@ char	**joind_env(t_shell *shell);
 char	*find_variable_val(t_env *env, char *variable);
 void	close_all_fd(t_shell *shell);
 void	fd_herdoc_closer(int *fd);
-void	free_joind(char **env_joind);
 
 ////////////////// here_doc//////////////////////////
 

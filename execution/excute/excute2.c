@@ -18,12 +18,12 @@ void	forked_builtin(t_shell *shell, int cmd_num)
 		ft_unset(shell, cmd_num) || ft_env_exc(shell, cmd_num) || 
 		ft_echo(shell, cmd_num) || ft_export(shell, cmd_num))
 	{
-		free_exit_child(shell, 2);
+		free_exit_child(shell);
 		exit (0);
 	}
 	else if (ft_exit(shell, cmd_num))
 		exit(shell->exit_code);
-	free_exit_child(shell, 2);
+	free_exit_child(shell);
 	shell->exit_code = 1;
 	exit(1);
 }
@@ -76,28 +76,15 @@ void	check_infile_exc(t_shell *shell, int cmd_num)
 		{
 			perror(shell->command[cmd_num].cmd_args[0]);
 			shell->exit_code = errno;
-			free_command_args(shell);
-			ft_env_free(shell);
-			free_joind(shell->env_joind);
-			close_all_fd(shell);
+			free_exit_child(shell);
 			exit(errno);
 		}
 	}
 }
 
-void free_exit_child(t_shell *shell, int flag)
+void free_exit_child(t_shell *shell)
 {
-	if (flag == 1)
-	{
-		close_all_fd(shell);
-		free_joind(shell->env_joind);
-		free_command_args(shell);
-		ft_env_free(shell);
-	}
-	if (flag == 2)
-	{
-		close_all_fd(shell);
-		free_command_args(shell);
-		ft_env_free(shell);
-	}
+	close_all_fd(shell);
+	free_command_args(shell);
+	ft_env_free(shell);
 }

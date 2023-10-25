@@ -115,6 +115,7 @@ void	start_executing(t_shell *shell)
 void	forked_child(t_shell *shell, int cmd_num)
 {
 	char	*cmd_path;
+	(void)cmd_path;
 
 	shell->env_joind = joind_env(shell);
 	check_infile_exc(shell, cmd_num);
@@ -126,7 +127,7 @@ void	forked_child(t_shell *shell, int cmd_num)
 		ft_putstr_fd(shell->command[cmd_num].cmd_args[0], 2);
 		ft_putstr_fd(": command not found\n", 2);
 	}
-	free_exit_child(shell, 1);
+	free_exit_child(shell);
 	shell->exit_code = 127;
 	exit(127);
 }
@@ -147,12 +148,13 @@ void	exc_cmd(t_shell *shell, int cmd_num)
 				shell->env_joind);
 			ft_putstr_fd("minishell: ", 2);
 			perror("execve");
-			free_exit_child(shell, 1);
+			free_exit_child(shell);
 			exit(errno);
 		}
 		if (shell->number_commands != 1)
 			ft_dup2(shell, cmd_num);
 		redirection(shell, cmd_num);
+		close_all_fd(shell);
 		forked_child(shell, cmd_num);
 	}
 }

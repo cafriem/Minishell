@@ -23,7 +23,7 @@ void	check_stat(t_shell *shell, char *command)
 			ft_putstr_fd("minishell: ", STDERR_FILENO);
 			ft_putstr_fd(command, STDERR_FILENO);
 			ft_putstr_fd(": is a directory\n", STDERR_FILENO);
-			free_exit_child(shell, 1);
+			free_exit_child(shell);
 			exit (127);
 		}
 		else if (!((filestat.st_mode & S_IRUSR) 
@@ -32,7 +32,7 @@ void	check_stat(t_shell *shell, char *command)
 			ft_putstr_fd("minishell: ", STDERR_FILENO);
 			ft_putstr_fd(command, STDERR_FILENO);
 			ft_putstr_fd(": Permission denied\n", STDERR_FILENO);
-			free_exit_child(shell, 1);
+			free_exit_child(shell);
 			exit (126);
 		}
 	}
@@ -41,12 +41,15 @@ void	check_stat(t_shell *shell, char *command)
 char	*find_path3_2(t_shell *shell, char *command)
 {
 	check_stat(shell, command);
-	if (access(command, F_OK) == 0)
-		return (command);
+	if (command != NULL)
+	{
+		if (access(command, F_OK) == 0)
+			return (command);
+	}
 	ft_putstr_fd("minishell: ", STDERR_FILENO);
 	ft_putstr_fd(command, STDERR_FILENO);
 	ft_putstr_fd(": No such file or directory\n", STDERR_FILENO);
-	free_exit_child(shell, 1);
+	free_exit_child(shell);
 	exit (127);
 }
 
@@ -66,11 +69,20 @@ char	*find_path3(t_shell *shell, char *command)
 		{
 			absolute_path = 
 				ft_strjoinfree(ft_strjoin(path_split[i], "/"), cmd[1], 1);
-			if (access(absolute_path, F_OK) == 0)
-				return (absolute_path);
+			if (absolute_path != NULL)
+			{
+				if (access(absolute_path, F_OK) == 0)
+				{
+					ft_freesplit(cmd);
+					ft_freesplit(path_split);
+					return (absolute_path);
+				}
+			}
 			free(absolute_path);
 		}
 	}
+	ft_freesplit(path_split);
+	ft_freesplit(cmd);
 	return (find_path3_2(shell, command));
 }
 

@@ -31,7 +31,7 @@ int	ft_open(t_shell *shell, char *str, int flag)
 		ft_putstr_fd(": No such file or directory\n", STDERR_FILENO);
 		if (shell->number_commands > 1)
 		{
-			free_exit_child(shell, 2);
+			free_exit_child(shell);
 			exit (1);
 		}
 		return (-1);
