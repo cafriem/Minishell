@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cafriem <cafriem@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 17:14:52 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/10/25 14:51:30 by cafriem          ###   ########.fr       */
+/*   Updated: 2023/10/25 15:36:03 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	signal_handler(int sig_num)
 		rl_on_new_line();
 		rl_redisplay();
 		ft_putstr_fd("  \n", STDERR_FILENO);
-		// rl_replace_line("", 0);
+		rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();
 	}
@@ -33,7 +33,7 @@ void	signal_handler2(int sig_num)
 	rl_on_new_line();
 	rl_redisplay();
 	ft_putstr_fd("  \n", STDERR_FILENO);
-	// rl_replace_line("", 0);
+	rl_replace_line("", 0);
 	exit(200);
 }
 

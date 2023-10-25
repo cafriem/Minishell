@@ -6,7 +6,7 @@
 /*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 02:01:09 by smokashi          #+#    #+#             */
-/*   Updated: 2023/10/25 10:12:42 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/10/25 17:52:18 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,20 +54,25 @@ void	ft_env_loop(t_env *env, char *tenv[], int c)
 void	ft_env_init(t_shell *shell, char *tenv[])
 {
 	char	**string;
+	// char	*pwd;
 
 	shell->exit_code = 0;
-	shell->env = ft_calloc(1, sizeof(t_env));
-	shell->dec_env = ft_calloc(1, sizeof(t_env));
 	if (tenv[0])
 	{
+		shell->env = ft_calloc(1, sizeof(t_env));
 		string = ft_split(tenv[0], '=');
 		shell->env->cmd = ft_strdup(string[0]);
 		shell->env->val = ft_strdup(string[1]);
-		shell->dec_env->cmd = ft_strdup(string[0]);
-		shell->dec_env->val = ft_strdup(string[1]);
 		ft_freesplit(string);
 		ft_env_loop(shell->env, tenv, 1);
-		ft_env_loop(shell->dec_env, tenv, 1);
+	}
+	else
+	{
+		// pwd = NULL;
+		// shell->env = ft_calloc(1, sizeof(t_env));
+		// add_environment_variable(&(shell->env), "PWD", getcwd(pwd, 0));
+		// add_environment_variable(&(shell->env), "SHLVL", "1");
+		// add the missing env "env -i bash"
 	}
 }
 
@@ -91,9 +96,4 @@ void	ft_env_free(t_shell *shell)
 	free(shell->env->val);
 	ft_env_free_loop(shell->env->next);
 	free(shell->env);
-	free(shell->dec_env->cmd);
-	if (shell->dec_env->val)
-		free(shell->dec_env->val);
-	ft_env_free_loop(shell->dec_env->next);
-	free(shell->dec_env);
 }

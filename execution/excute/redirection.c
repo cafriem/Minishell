@@ -6,7 +6,7 @@
 /*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 20:29:28 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/10/25 10:49:09 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/10/25 15:15:57 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void	is_heredoc(t_shell *shell, int cmd_num, int i)
 		= open(shell->command[cmd_num].redir[i].file, O_RDWR, 0777);
 	if (shell->command[cmd_num].fd_redi != -1)
 	{
-		if (shell->number_commands > 1)
+		if (shell->number_commands > 1 || (!is_builtin(shell, cmd_num)))
 		{
 			if (dup2(shell->command[cmd_num].fd_redi, STDIN_FILENO) < 0)
 				exit(-1);
