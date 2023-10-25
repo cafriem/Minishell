@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_path.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cafriem <cafriem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 09:34:14 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/10/25 11:53:26 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/10/25 14:53:19 by cafriem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,9 @@ char	*find_path3(t_shell *shell, char *command, char **cmd)
 	char	*absolute_path;
 
 	i = -1;
+	path_split = ft_split(getenv("PATH"), ':');
 	if (getenv("PATH"))
 	{
-		path_split = ft_split(getenv("PATH"), ':');
 		while (path_split[++i])
 		{
 			absolute_path
