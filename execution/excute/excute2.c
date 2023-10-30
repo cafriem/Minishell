@@ -6,7 +6,7 @@
 /*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 09:02:36 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/10/25 10:26:33 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/10/30 12:20:06 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,22 @@
 
 void	forked_builtin(t_shell *shell, int cmd_num)
 {
-	if (ft_pwd(shell, cmd_num, 0) || ft_cd(shell, cmd_num)
-		|| ft_unset(shell, cmd_num) || ft_env_exc(shell, cmd_num)
-		|| ft_echo(shell, cmd_num) || ft_export(shell, cmd_num))
-	{
-		free_exit_child(shell);
-		exit (0);
-	}
-	else if (ft_exit(shell, cmd_num))
-		exit(shell->exit_code);
+	if (ft_strcmp(shell->command[cmd_num].cmd_args[0], "pwd") == 0)
+		shell->exit_code = ft_pwd(shell, cmd_num, 0);
+	else if (ft_strcmp(shell->command[cmd_num].cmd_args[0], "cd") == 0)
+		shell->exit_code = ft_cd(shell, cmd_num);
+	else if (ft_strcmp(shell->command[cmd_num].cmd_args[0], "unset") == 0)
+		shell->exit_code = ft_unset(shell, cmd_num);
+	else if (ft_strcmp(shell->command[cmd_num].cmd_args[0], "env") == 0)
+		shell->exit_code = ft_env_exc(shell, cmd_num);
+	else if (ft_strcmp(shell->command[cmd_num].cmd_args[0], "echo") == 0)
+		shell->exit_code = ft_echo(shell, cmd_num);
+	else if (ft_strcmp(shell->command[cmd_num].cmd_args[0], "export") == 0)
+		shell->exit_code = ft_export(shell, cmd_num);
+	else if (ft_strcmp(shell->command[cmd_num].cmd_args[0], "exit") == 0)
+		shell->exit_code = ft_exit(shell, cmd_num);
 	free_exit_child(shell);
-	shell->exit_code = 1;
-	exit(1);
+	exit(shell->exit_code);
 }
 
 int	builtin_pipe(t_shell *shell, int cmd_num)
@@ -45,7 +49,10 @@ int	builtin_pipe(t_shell *shell, int cmd_num)
 		forked_builtin(shell, cmd_num);
 	}
 	if (waitpid(id, &status, 0) > -1)
+	{
+		shell->exit_code = WEXITSTATUS(status);
 		return (WEXITSTATUS(status));
+	}
 	close_all_fd(shell);
 	return (0);
 }

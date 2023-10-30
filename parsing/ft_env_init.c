@@ -6,11 +6,12 @@
 /*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 02:01:09 by smokashi          #+#    #+#             */
-/*   Updated: 2023/10/25 17:52:18 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/10/30 12:19:48 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../parsing.h"
+#include "../execution/execution.h"
 
 void	ft_env_val_long(t_env *nenv, char **string)
 {
@@ -54,7 +55,7 @@ void	ft_env_loop(t_env *env, char *tenv[], int c)
 void	ft_env_init(t_shell *shell, char *tenv[])
 {
 	char	**string;
-	// char	*pwd;
+	char	*pwd;
 
 	shell->exit_code = 0;
 	if (tenv[0])
@@ -68,11 +69,10 @@ void	ft_env_init(t_shell *shell, char *tenv[])
 	}
 	else
 	{
-		// pwd = NULL;
-		// shell->env = ft_calloc(1, sizeof(t_env));
-		// add_environment_variable(&(shell->env), "PWD", getcwd(pwd, 0));
-		// add_environment_variable(&(shell->env), "SHLVL", "1");
-		// add the missing env "env -i bash"
+		pwd = NULL;
+		add_environment_variable(&(shell->env), "PWD", getcwd(pwd, 0));
+		add_environment_variable(&(shell->env), "SHLVL", "1");
+		add_environment_variable(&(shell->env), "_", "/usr/bin/env");
 	}
 }
 

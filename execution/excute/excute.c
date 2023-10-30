@@ -6,7 +6,7 @@
 /*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 09:02:36 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/10/25 17:40:11 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/10/30 11:50:39 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ void	start_executing2(t_shell *shell, int cmd_num, int flag)
 {
 	if (flag == 1)
 	{
+		if (shell->command[cmd_num].cmd_args[0] == NULL)
+			shell->exit_code = 0;
 		if (cmd_num != shell->number_commands - 1)
 			if (pipe(shell->command[cmd_num].fd) == -1)
 				exit(-1);
