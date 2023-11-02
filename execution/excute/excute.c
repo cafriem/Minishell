@@ -6,7 +6,7 @@
 /*   By: cafriem <cafriem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 09:02:36 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/11/02 13:21:25 by cafriem          ###   ########.fr       */
+/*   Updated: 2023/11/02 15:15:19 by cafriem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,19 @@ int	execute(t_shell *shell)
 		close (shell->fd_tmp);
 		shell->fd_tmp = 0;
 	}
-	while (waitpid(-1, &status, 0) > 0)
+
+	int	cmd_num;
+
+	cmd_num = -1;
+	while (++cmd_num < shell->number_commands)
 	{
-		if (status == 127)
-			shell->exit_code = 127;
-		else if (WIFEXITED(status))
-			shell->exit_code = WEXITSTATUS(status);
+		while (waitpid(shell->command[cmd_num].pid, &status, 0) > 0)
+		{
+			if (status == 127)
+				shell->exit_code = 127;
+			else if (WIFEXITED(status))
+				shell->exit_code = WEXITSTATUS(status);
+		}
 	}
 	return (1);
 }
@@ -109,12 +116,10 @@ void	forked_child(t_shell *shell, int cmd_num)
 
 void	exc_cmd(t_shell *shell, int cmd_num)
 {
-	int	id;
-
-	id = fork();
-	if (id < 0)
+	shell->command[cmd_num].pid = fork();
+	if (shell->command[cmd_num].pid < 0)
 		perror("fork");
-	else if (id == 0)
+	else if (shell->command[cmd_num].pid == 0)
 	{
 		if (strcmp(shell->command[cmd_num].cmd_args[0], "./minishell") == 0)
 		{

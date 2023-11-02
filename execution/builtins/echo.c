@@ -6,7 +6,7 @@
 /*   By: cafriem <cafriem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 11:45:40 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/11/02 12:27:13 by cafriem          ###   ########.fr       */
+/*   Updated: 2023/11/02 14:23:41 by cafriem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ int	ft_echo(t_shell *shell, int cmd_num)
 			ft_putchar_fd('\n', STDOUT_FILENO);
 		}
 		ft_echo_2(shell, cmd_num);
-		shell->exit_code = 0;
 	}
 	return (0);
 }

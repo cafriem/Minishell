@@ -6,7 +6,7 @@
 /*   By: cafriem <cafriem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 09:02:36 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/11/02 13:46:56 by cafriem          ###   ########.fr       */
+/*   Updated: 2023/11/02 15:14:32 by cafriem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,10 @@ void	forked_builtin(t_shell *shell, int cmd_num)
 
 void	builtin_pipe(t_shell *shell, int cmd_num)
 {
-	int	id;
-
-	id = fork();
-	if (id < 0)
+	shell->command[cmd_num].pid = fork();
+	if (shell->command[cmd_num].pid < 0)
 		exit(-1);
-	else if (id == 0)
+	else if (shell->command[cmd_num].pid == 0)
 	{
 		if (shell->number_commands != 1)
 			ft_dup2(shell, cmd_num);
@@ -76,9 +74,7 @@ void	check_infile_exc(t_shell *shell, int cmd_num)
 	{
 		if (execve(shell->command[cmd_num].cmd_args[0],
 				shell->command[cmd_num].cmd_args, shell->env_joind) < 0)
-		{
 			check_stat(shell, shell->command[cmd_num].cmd_args[0]);
-		}
 	}
 }
 

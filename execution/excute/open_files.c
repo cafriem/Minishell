@@ -6,7 +6,7 @@
 /*   By: cafriem <cafriem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 20:30:14 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/11/02 12:43:19 by cafriem          ###   ########.fr       */
+/*   Updated: 2023/11/02 14:15:00 by cafriem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,7 @@ int	ft_open(t_shell *shell, char *str, int flag)
 	{
 		shell->exit_code = 1;
 		ft_putstr_fd("minishell: ", STDERR_FILENO);
-		ft_putstr_fd(str, STDERR_FILENO);
-		ft_putstr_fd(": No such file or directory\n", STDERR_FILENO);
+		perror(str);
 		if (shell->number_commands > 1)
 		{
 			free_exit_child(shell);

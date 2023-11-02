@@ -1,5 +1,7 @@
 {
 	"files.associations": {
-		"execution.h": "c"
+		"execution.h": "c",
+		"__locale": "c",
+		"locale": "c"
 	}
 }
