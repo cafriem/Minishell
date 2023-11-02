@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   excute2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cafriem <cafriem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 09:02:36 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/10/30 12:20:06 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/11/02 13:22:44 by cafriem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,9 @@ void	forked_builtin(t_shell *shell, int cmd_num)
 	exit(shell->exit_code);
 }
 
-int	builtin_pipe(t_shell *shell, int cmd_num)
+void	builtin_pipe(t_shell *shell, int cmd_num)
 {
 	int	id;
-	int	status;
 
 	id = fork();
 	if (id < 0)
@@ -44,17 +43,14 @@ int	builtin_pipe(t_shell *shell, int cmd_num)
 	{
 		if (shell->number_commands != 1)
 			ft_dup2(shell, cmd_num);
-		redirection(shell, cmd_num);
+		if (redirection(shell, cmd_num) == -1)
+		{
+			free_exit_child(shell);
+			exit(1);
+		}
 		close_all_fd(shell);
 		forked_builtin(shell, cmd_num);
 	}
-	if (waitpid(id, &status, 0) > -1)
-	{
-		shell->exit_code = WEXITSTATUS(status);
-		return (WEXITSTATUS(status));
-	}
-	close_all_fd(shell);
-	return (0);
 }
 
 int	is_builtin(t_shell *shell, int cmd_num)
@@ -84,7 +80,7 @@ void	check_infile_exc(t_shell *shell, int cmd_num)
 			perror(shell->command[cmd_num].cmd_args[0]);
 			shell->exit_code = errno;
 			free_exit_child(shell);
-			exit(errno);
+			exit(126);
 		}
 	}
 }

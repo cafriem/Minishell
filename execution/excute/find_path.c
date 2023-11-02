@@ -6,7 +6,7 @@
 /*   By: cafriem <cafriem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 09:34:14 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/10/25 14:53:19 by cafriem          ###   ########.fr       */
+/*   Updated: 2023/11/02 13:27:23 by cafriem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	check_stat(t_shell *shell, char *command)
 			ft_putstr_fd(command, STDERR_FILENO);
 			ft_putstr_fd(": is a directory\n", STDERR_FILENO);
 			free_exit_child(shell);
-			exit (127);
+			exit (126);
 		}
 		else if (!((filestat.st_mode & S_IRUSR)
 				&& (filestat.st_mode & S_IXUSR)))
@@ -41,7 +41,7 @@ void	check_stat(t_shell *shell, char *command)
 char	*find_path3_2(t_shell *shell, char *command)
 {
 	check_stat(shell, command);
-	if (access(command, F_OK) == 0)
+	if (access(command, F_OK) != 0)
 		return (command);
 	ft_putstr_fd("minishell: ", STDERR_FILENO);
 	ft_putstr_fd(command, STDERR_FILENO);

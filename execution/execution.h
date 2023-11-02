@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cafriem <cafriem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 08:51:51 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/10/30 11:03:21 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/11/02 13:04:25 by cafriem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ void	exc_cmd(t_shell *shell, int cmd_num);
 ////////////////// excute2 ////////////////////////////
 
 void	forked_builtin(t_shell *shell, int cmd_num);
-int		builtin_pipe(t_shell *shell, int cmd_num);
+void		builtin_pipe(t_shell *shell, int cmd_num);
 int		is_builtin(t_shell *shell, int cmd_num);
 void	check_infile_exc(t_shell *shell, int cmd_num);
 void	free_exit_child(t_shell *shell);

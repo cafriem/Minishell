@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cafriem <cafriem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 11:45:40 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/10/25 10:23:36 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/11/02 12:27:13 by cafriem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,9 @@ int	ft_echo(t_shell *shell, int cmd_num)
 		{
 			ft_putchar_fd('\0', STDOUT_FILENO);
 			ft_putchar_fd('\n', STDOUT_FILENO);
-			return (1);
 		}
 		ft_echo_2(shell, cmd_num);
 		shell->exit_code = 0;
-		return (1);
 	}
 	return (0);
 }

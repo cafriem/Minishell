@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   excute.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cafriem <cafriem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 09:02:36 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/10/30 11:50:39 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/11/02 13:21:25 by cafriem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,11 @@ void	exc_cmd(t_shell *shell, int cmd_num)
 		}
 		if (shell->number_commands != 1)
 			ft_dup2(shell, cmd_num);
-		redirection(shell, cmd_num);
+		if (redirection(shell, cmd_num) == -1)
+		{
+			free_exit_child(shell);
+			exit(1);
+		}
 		close_all_fd(shell);
 		forked_child(shell, cmd_num);
 	}
