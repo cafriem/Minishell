@@ -6,7 +6,7 @@
 /*   By: cafriem <cafriem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 09:34:14 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/11/02 13:27:23 by cafriem          ###   ########.fr       */
+/*   Updated: 2023/11/02 13:49:39 by cafriem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	check_stat(t_shell *shell, char *command)
 {
 	struct stat	filestat;
 
-	if (stat(command, &filestat) == 0)
+	if (stat(command, &filestat) == 0 && ft_strrchr(command, '/'))
 	{
 		if ((filestat.st_mode & 0170000) == 0040000)
 		{
@@ -41,13 +41,17 @@ void	check_stat(t_shell *shell, char *command)
 char	*find_path3_2(t_shell *shell, char *command)
 {
 	check_stat(shell, command);
-	if (access(command, F_OK) != 0)
+	if (access(command, F_OK) == 0)
 		return (command);
-	ft_putstr_fd("minishell: ", STDERR_FILENO);
-	ft_putstr_fd(command, STDERR_FILENO);
-	ft_putstr_fd(": No such file or directory\n", STDERR_FILENO);
-	free_exit_child(shell);
-	exit (127);
+	if (ft_strrchr(command, '/'))
+	{
+		ft_putstr_fd("minishell: ", STDERR_FILENO);
+		ft_putstr_fd(command, STDERR_FILENO);
+		ft_putstr_fd(": No such file or directory\n", STDERR_FILENO);
+		free_exit_child(shell);
+		exit (127);
+	}
+	return (command);
 }
 
 char	*find_path3(t_shell *shell, char *command, char **cmd)

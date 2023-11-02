@@ -6,7 +6,7 @@
 /*   By: cafriem <cafriem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 09:02:36 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/11/02 13:22:44 by cafriem          ###   ########.fr       */
+/*   Updated: 2023/11/02 13:46:56 by cafriem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,10 +77,7 @@ void	check_infile_exc(t_shell *shell, int cmd_num)
 		if (execve(shell->command[cmd_num].cmd_args[0],
 				shell->command[cmd_num].cmd_args, shell->env_joind) < 0)
 		{
-			perror(shell->command[cmd_num].cmd_args[0]);
-			shell->exit_code = errno;
-			free_exit_child(shell);
-			exit(126);
+			check_stat(shell, shell->command[cmd_num].cmd_args[0]);
 		}
 	}
 }
