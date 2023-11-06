@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cafriem <cafriem@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 02:01:28 by smokashi          #+#    #+#             */
-/*   Updated: 2023/11/02 15:13:26 by cafriem          ###   ########.fr       */
+/*   Updated: 2023/11/06 09:16:05 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct s_shell
 	int					number_commands;
 	int					fail;
 	int					fd_tmp;
+	char				*pwd_tmp;
 	unsigned int		exit_code;
 	char				**env_joind;
 	struct s_env		*env;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cafriem <cafriem@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 08:51:51 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/11/02 13:04:25 by cafriem          ###   ########.fr       */
+/*   Updated: 2023/11/06 18:04:19 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int		ft_cd2(t_shell *shell, int cmd_num);
 
 int		ft_unset(t_shell *shell, int cmd_num);
 void	remove_environment_variable(t_env **env, char *variable);
-void	unset_utils(t_shell *shell, char *var);
+int		unset_utils(t_shell *shell, char *var);
 
 ///////////////////////// exit ///////////////////////
 
@@ -79,6 +79,7 @@ void	free_export(char **str);
 ///////////////////////// signal ///////////////////////
 
 void	signal_handler(int sig);
+void	check_signal(void);
 void	check_signal(void);
 void	set_signal(void);
 void	signal_handler2(int sig_num);
@@ -123,7 +124,7 @@ void	exc_cmd(t_shell *shell, int cmd_num);
 ////////////////// excute2 ////////////////////////////
 
 void	forked_builtin(t_shell *shell, int cmd_num);
-void		builtin_pipe(t_shell *shell, int cmd_num);
+void	builtin_pipe(t_shell *shell, int cmd_num);
 int		is_builtin(t_shell *shell, int cmd_num);
 void	check_infile_exc(t_shell *shell, int cmd_num);
 void	free_exit_child(t_shell *shell);
@@ -149,5 +150,8 @@ int		heredoc_pos(t_shell *shell, int cmd_num);
 int		heredoc_exc2(t_shell *shell, int p_fd[2], int cmd_num, int redi_num);
 int		here_doc3(t_shell *shell, int cmd_num, int redi_num);
 int		heredoc_exc(t_shell *shell, int cmd_num, int i);
+
+void save_tmp_pwd(t_shell *shell);
+
 
 #endif

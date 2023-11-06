@@ -6,7 +6,7 @@
 /*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:48:59 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/10/25 10:31:58 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/11/03 11:32:31 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	ft_env_exc(t_shell *shell, int cmd_num)
 		env = shell->env;
 		while (env)
 		{
-			if (env->val != NULL)
+			if (ft_strlen(env->val))
 			{
 				ft_putstr_fd(env->cmd, STDOUT_FILENO);
 				ft_putchar_fd('=', STDOUT_FILENO);

@@ -6,7 +6,7 @@
 /*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 08:42:58 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/10/10 12:37:19 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/11/06 16:00:03 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,23 @@ int	ft_pwd(t_shell *shell, int cmd_num, int flag)
 	if (ft_strcmp(shell->command[cmd_num].cmd_args[0], "pwd") == 0 || flag == 1)
 	{
 		pwd = getcwd(pwd, 0);
-		if (pwd == NULL)
+		if (pwd == NULL && flag == 0)
 		{
-			perror("Minishell: ");
-			shell->exit_code = 1;
-			exit (1);
+			ft_putstr_fd(shell->pwd_tmp, STDOUT_FILENO);
+			ft_putchar_fd('\n', STDOUT_FILENO);
+			return (1);
+		}
+		else if (pwd == NULL && flag == 1)
+		{
+			pwd = ft_strjoin(shell->pwd_tmp, "/..");
+			shell->pwd_tmp = ft_strdup(pwd);
+			ft_putstr_fd("cd: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory\n", STDOUT_FILENO);
+			free(pwd);
+			return (1);
 		}
 		ft_putstr_fd(pwd, STDOUT_FILENO);
 		ft_putchar_fd('\n', STDOUT_FILENO);
 		free(pwd);
-		return (1);
 	}
 	return (0);
 }

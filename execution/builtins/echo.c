@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cafriem <cafriem@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 11:45:40 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/11/02 14:23:41 by cafriem          ###   ########.fr       */
+/*   Updated: 2023/11/03 10:58:01 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,7 @@ int	ft_echo(t_shell *shell, int cmd_num)
 	if (ft_strcmp(shell->command[cmd_num].cmd_args[0], "echo") == 0)
 	{
 		if (shell->command[cmd_num].no_args == 1)
-		{
 			ft_putchar_fd('\0', STDOUT_FILENO);
-			ft_putchar_fd('\n', STDOUT_FILENO);
-		}
 		ft_echo_2(shell, cmd_num);
 	}
 	return (0);

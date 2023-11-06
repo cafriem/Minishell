@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   excute2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cafriem <cafriem@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 09:02:36 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/11/02 15:14:32 by cafriem          ###   ########.fr       */
+/*   Updated: 2023/11/06 18:04:53 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	is_builtin(t_shell *shell, int cmd_num)
 void	check_infile_exc(t_shell *shell, int cmd_num)
 {
 	if (ft_strncmp(shell->command[cmd_num].cmd_args[0], "./", 2) == 0
-		&& strcmp(shell->command[cmd_num].cmd_args[0], "./minishell") != 0)
+		&& ft_strcmp(shell->command[cmd_num].cmd_args[0], "./minishell") != 0)
 	{
 		if (execve(shell->command[cmd_num].cmd_args[0],
 				shell->command[cmd_num].cmd_args, shell->env_joind) < 0)

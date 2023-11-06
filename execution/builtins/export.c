@@ -6,7 +6,7 @@
 /*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 14:48:38 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/10/25 10:23:17 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/11/03 11:47:04 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	swap_var(t_env *env, t_env	*tmp)
 	char	*temp;
 	char	*temp_val;
 
-	while (env->next)
+	while (env && env->next)
 	{
 		if (ft_strncmp(env->cmd, env->next->cmd, 1) > 0)
 		{
@@ -83,7 +83,7 @@ void	print_export(t_env *env)
 	while (env)
 	{
 		ft_putstr_fd("declare -x ", STDOUT_FILENO);
-		if (ft_strlen(env->val) != 0)
+		if (ft_strlen(env->val))
 		{
 			ft_putstr_fd(env->cmd, STDOUT_FILENO);
 			ft_putchar_fd('=', STDOUT_FILENO);

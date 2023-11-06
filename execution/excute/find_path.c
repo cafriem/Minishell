@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_path.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cafriem <cafriem@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 09:34:14 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/11/02 13:59:44 by cafriem          ###   ########.fr       */
+/*   Updated: 2023/11/06 14:14:59 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char	*find_path3_2(t_shell *shell, char *command)
 {
 	check_stat(shell, command);
 	if (access(command, F_OK) == 0)
-		return (command);
+		return (NULL);
 	if (ft_strrchr(command, '/'))
 	{
 		ft_putstr_fd("minishell: ", STDERR_FILENO);
@@ -51,7 +51,7 @@ char	*find_path3_2(t_shell *shell, char *command)
 		free_exit_child(shell);
 		exit (127);
 	}
-	return (command);
+	return (NULL);
 }
 
 char	*find_path3(t_shell *shell, char *command, char **cmd)
@@ -127,5 +127,5 @@ char	*find_path(t_shell *shell, char *command)
 		path = find_variable_val(shell->env, "PATH");
 		return (find_path2(shell, command, path));
 	}
-	return (command);
+	return (NULL);
 }

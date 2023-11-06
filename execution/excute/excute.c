@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   excute.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cafriem <cafriem@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 09:02:36 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/11/02 15:15:19 by cafriem          ###   ########.fr       */
+/*   Updated: 2023/11/06 18:05:08 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,9 @@
 int	execute(t_shell *shell)
 {
 	int		status;
+	int		cmd_num;
 
+	cmd_num = -1;
 	shell->fd_tmp = dup(STDOUT_FILENO);
 	start_executing(shell);
 	dup2(shell->fd_tmp, STDOUT_FILENO);
@@ -25,10 +27,6 @@ int	execute(t_shell *shell)
 		close (shell->fd_tmp);
 		shell->fd_tmp = 0;
 	}
-
-	int	cmd_num;
-
-	cmd_num = -1;
 	while (++cmd_num < shell->number_commands)
 	{
 		while (waitpid(shell->command[cmd_num].pid, &status, 0) > 0)
@@ -39,6 +37,7 @@ int	execute(t_shell *shell)
 				shell->exit_code = WEXITSTATUS(status);
 		}
 	}
+	check_signal();
 	return (1);
 }
 
@@ -102,13 +101,11 @@ void	forked_child(t_shell *shell, int cmd_num)
 	shell->env_joind = joind_env(shell);
 	check_infile_exc(shell, cmd_num);
 	cmd_path = find_path(shell, shell->command[cmd_num].cmd_args[0]);
-	if (execve(cmd_path, shell->command[cmd_num].cmd_args,
-			shell->env_joind) < 0)
-	{
-		ft_putstr_fd("minishell: ", 2);
-		ft_putstr_fd(shell->command[cmd_num].cmd_args[0], 2);
-		ft_putstr_fd(": command not found\n", 2);
-	}
+	if (cmd_path != NULL)
+		execve(cmd_path, shell->command[cmd_num].cmd_args, shell->env_joind);
+	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd(shell->command[cmd_num].cmd_args[0], 2);
+	ft_putstr_fd(": command not found\n", 2);
 	free_exit_child(shell);
 	shell->exit_code = 127;
 	exit(127);
@@ -121,6 +118,7 @@ void	exc_cmd(t_shell *shell, int cmd_num)
 		perror("fork");
 	else if (shell->command[cmd_num].pid == 0)
 	{
+		check_signal2();
 		if (strcmp(shell->command[cmd_num].cmd_args[0], "./minishell") == 0)
 		{
 			shell->env_joind = joind_env(shell);
