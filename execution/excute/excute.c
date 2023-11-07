@@ -6,7 +6,7 @@
 /*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 09:02:36 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/11/06 18:05:08 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/11/07 19:30:58 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	execute(t_shell *shell)
 				shell->exit_code = WEXITSTATUS(status);
 		}
 	}
-	check_signal();
+	check_signal(2);
 	return (1);
 }
 
@@ -84,31 +84,7 @@ void	start_executing2(t_shell *shell, int cmd_num, int flag)
 				ft_exit(shell, cmd_num);
 	}
 	else
-	{
-		if (is_builtin(shell, cmd_num)
-			|| (shell->command[cmd_num].cmd_args[0] == NULL
-				&& shell->number_commands > 1))
-			builtin_pipe(shell, cmd_num);
-		else
-			exc_cmd(shell, cmd_num);
-	}
-}
-
-void	forked_child(t_shell *shell, int cmd_num)
-{
-	char	*cmd_path;
-
-	shell->env_joind = joind_env(shell);
-	check_infile_exc(shell, cmd_num);
-	cmd_path = find_path(shell, shell->command[cmd_num].cmd_args[0]);
-	if (cmd_path != NULL)
-		execve(cmd_path, shell->command[cmd_num].cmd_args, shell->env_joind);
-	ft_putstr_fd("minishell: ", 2);
-	ft_putstr_fd(shell->command[cmd_num].cmd_args[0], 2);
-	ft_putstr_fd(": command not found\n", 2);
-	free_exit_child(shell);
-	shell->exit_code = 127;
-	exit(127);
+		exc_cmd(shell, cmd_num);
 }
 
 void	exc_cmd(t_shell *shell, int cmd_num)
@@ -118,8 +94,8 @@ void	exc_cmd(t_shell *shell, int cmd_num)
 		perror("fork");
 	else if (shell->command[cmd_num].pid == 0)
 	{
-		check_signal2();
-		if (strcmp(shell->command[cmd_num].cmd_args[0], "./minishell") == 0)
+		check_signal(2);
+		if (ft_strcmp(shell->command[cmd_num].cmd_args[0], "./minishell") == 0)
 		{
 			shell->env_joind = joind_env(shell);
 			execve("./minishell", shell->command[cmd_num].cmd_args,
@@ -129,14 +105,24 @@ void	exc_cmd(t_shell *shell, int cmd_num)
 			free_exit_child(shell);
 			exit(errno);
 		}
-		if (shell->number_commands != 1)
-			ft_dup2(shell, cmd_num);
-		if (redirection(shell, cmd_num) == -1)
-		{
-			free_exit_child(shell);
-			exit(1);
-		}
-		close_all_fd(shell);
-		forked_child(shell, cmd_num);
+		exc_cmd_child(shell, cmd_num);
 	}
+}
+
+void	exc_cmd_child(t_shell *shell, int cmd_num)
+{
+	if (shell->number_commands != 1)
+		ft_dup2(shell, cmd_num);
+	if (redirection(shell, cmd_num) == -1)
+	{
+		free_exit_child(shell);
+		exit(1);
+	}
+	close_all_fd(shell);
+	if (is_builtin(shell, cmd_num)
+		|| (shell->command[cmd_num].cmd_args[0] == NULL
+			&& shell->number_commands > 1))
+		forked_builtin(shell, cmd_num);
+	else
+		forked_child(shell, cmd_num);
 }

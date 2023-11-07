@@ -4,35 +4,36 @@ CC = cc
 
 CFLAGS =  -Wall -Wextra -Werror -I/Users/cmrabet/.brew/opt/readline/include
 
-SRCS =	parsing_start.c				\
-		parsing/ft_isalnum_mini.c	\
-		parsing/ft_speechchecker.c	\
-		parsing/ft_strtrim_free.c	\
-		parsing/ft_splitmini.c		\
-		parsing/ft_redirecter.c		\
-		parsing/rdp.c				\
-		parsing/rdp2.c				\
+SRCS =	parsing_start.c					\
+		parsing/ft_isalnum_mini.c		\
+		parsing/ft_speechchecker.c		\
+		parsing/ft_strtrim_free.c		\
+		parsing/ft_splitmini.c			\
+		parsing/ft_redirecter.c			\
+		parsing/rdp.c					\
+		parsing/rdp2.c					\
 		parsing/ft_utils.c				\
-		parsing/ft_cmd_args.c		\
-		parsing/ft_env.c			\
-		parsing/ft_env_init.c		\
-		execution/builtins/env.c			\
-		execution/builtins/cd.c		\
+		parsing/ft_cmd_args.c			\
+		parsing/ft_env.c				\
+		parsing/ft_env_init.c			\
+		execution/builtins/env.c		\
+		execution/builtins/cd.c			\
 		execution/builtins/pwd.c		\
 		execution/builtins/unset.c		\
 		execution/builtins/exit.c		\
+		execution/builtins/exit_utils.c	\
 		execution/builtins/echo.c		\
 		execution/builtins/export.c		\
-		execution/builtins/export_utils.c		\
-		execution/signal.c \
-		execution/excute/excute.c \
-		execution/excute/find_path.c \
-		execution/excute/open_files.c \
-		execution/excute/redirection.c \
+		execution/builtins/export_utils.c	\
+		execution/signal.c				 \
+		execution/excute/excute.c 		\
+		execution/excute/find_path.c 	\
+		execution/excute/open_files.c 	\
+		execution/excute/redirection.c	\
 		execution/excute/heredoc.c		\
 		execution/excute/excute2.c		\
 		execution/excute/excute3.c		\
-		execution/excute/excute_utils.c		\
+		execution/excute/excute_utils.c	\
 
 OBJS = $(SRCS:.c=.o)
 

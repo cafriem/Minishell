@@ -6,7 +6,7 @@
 /*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 09:02:36 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/10/06 09:36:48 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/11/07 19:30:58 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ char	*find_variable_val(t_env *env, char *variable)
 {
 	while (env != NULL)
 	{
-		if (strcmp(env->cmd, variable) == 0)
+		if (ft_strcmp(env->cmd, variable) == 0)
 			return (env->val);
 		env = env->next;
 	}

@@ -6,18 +6,11 @@
 /*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 09:01:42 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/11/06 16:25:06 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/11/07 18:02:24 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../execution.h"
-
-void	update_env(t_shell *shell, char *old_pwd, char *new_pwd)
-{
-	save_tmp_pwd(shell);
-	add_environment_variable(&(shell->env), "OLDPWD", old_pwd);
-	add_environment_variable(&(shell->env), "PWD", new_pwd);
-}
 
 void	absolute_pathcase(t_shell *shell, int cmd_num)
 {
@@ -65,8 +58,6 @@ int	err_msg(t_shell *shell, int flag, int cmd_num)
 
 int	ft_cd2(t_shell *shell, int cmd_num)
 {
-	char *pwd;
-	
 	if (ft_strcmp(shell->command[cmd_num].cmd_args[1], "~") == 0)
 		chdir(getenv("HOME"));
 	else if (ft_strcmp(shell->command[cmd_num].cmd_args[1], "-") == 0)
@@ -81,7 +72,14 @@ int	ft_cd2(t_shell *shell, int cmd_num)
 			return (err_msg(shell, 2, cmd_num));
 		change_path(shell);
 	}
-	else if (chdir(shell->command[cmd_num].cmd_args[1]) < 0)
+	return (ft_cd3(shell, cmd_num));
+}
+
+int	ft_cd3(t_shell *shell, int cmd_num)
+{
+	char	*pwd;
+
+	if (chdir(shell->command[cmd_num].cmd_args[1]) < 0)
 	{
 		if (ft_strncmp(shell->command[cmd_num].cmd_args[1], "~", 1) == 0)
 			absolute_pathcase(shell, cmd_num);
@@ -94,7 +92,7 @@ int	ft_cd2(t_shell *shell, int cmd_num)
 		pwd = getcwd(pwd, 0);
 		if (pwd == NULL)
 			return (ft_pwd(shell, 0, 1));
-		else 
+		else
 		{
 			free(pwd);
 			return (0);

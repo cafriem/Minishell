@@ -6,7 +6,7 @@
 /*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 13:50:20 by cafriem           #+#    #+#             */
-/*   Updated: 2023/11/06 12:45:12 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/11/07 19:18:42 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,12 +98,12 @@ int	main(int argc, char *argv[], char *env[])
 
 	ft_bzero(&shell, sizeof(t_shell));
 	ft_env_init(&shell, env);
-	ft_signal(&shell, 1);
+	ft_signal(&shell);
 	while (argc > 0 && argv[0])
 	{
 		shell.fail = 0;
 		start = readline("\033[1;35mminishell> \033[0m");
-		ft_signal(&shell, 2);
+		ft_check_sig(&shell);
 		if (start == NULL)
 		{
 			ft_putstr_fd("\033[1;35mMinishell> exit\033[0m\n", STDERR_FILENO);

@@ -6,7 +6,7 @@
 /*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 20:29:28 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/11/06 18:05:21 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/11/07 19:12:31 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,18 +45,23 @@ int	here_doc_redi2(t_shell *shell, int cmd_num, int lst_redi_pos)
 {
 	int	i;
 
-	i = 0;
-	while (i < shell->command[cmd_num].no_redir)
+	i = -1;
+	while (++i < shell->command[cmd_num].no_redir)
 	{
 		if (shell->command[cmd_num].redir[i].direct == HERE_DOC)
 		{
-			set_signal();
 			if (i != lst_redi_pos)
 				here_doc3(shell, cmd_num, i);
 			else
-				return (heredoc_exc(shell, cmd_num, i));
+			{
+				heredoc_exc(shell, cmd_num, i);
+				if (g_exit_signal == 1)
+				{
+					free_exit_child(shell);
+					exit (200);
+				}
+			}
 		}
-		i++;
 	}
 	return (0);
 }
@@ -76,24 +81,24 @@ int	here_doc_redi(t_shell *shell, int cmd_num)
 			perror("fork");
 		else if (pid == 0)
 		{
+			check_signal(3);
 			here_doc_redi2(shell, cmd_num, lst_redi_pos);
 			free_exit_child(shell);
 			exit (0);
 		}
 		if (waitpid(pid, &status, 0) > -1)
-		{
-			check_signal();
 			return (WEXITSTATUS(status));
-		}
-		return (0);
 	}
 	return (0);
 }
 
 void	is_heredoc(t_shell *shell, int cmd_num, int i)
 {
+	char	*filename;
+
+	filename = ft_strjoin("/tmp/hhdoc_", shell->command[cmd_num].redir[i].file);
 	shell->command[cmd_num].fd_redi
-		= open(shell->command[cmd_num].redir[i].file, O_RDWR, 0777);
+		= open(filename, O_RDWR, 0777);
 	if (shell->command[cmd_num].fd_redi != -1)
 	{
 		if (shell->number_commands > 1 || (!is_builtin(shell, cmd_num)
@@ -102,13 +107,14 @@ void	is_heredoc(t_shell *shell, int cmd_num, int i)
 			if (dup2(shell->command[cmd_num].fd_redi, STDIN_FILENO) < 0)
 				exit(-1);
 		}
-		if (unlink(shell->command[cmd_num].redir[i].file) == -1)
+		if (unlink(filename) == -1)
 			perror("unlink");
 		if (shell->command[cmd_num].fd_redi != 0)
 		{
 			close(shell->command[cmd_num].fd_redi);
 			shell->command[cmd_num].fd_redi = 0;
 		}
+		free(filename);
 	}
 }
 

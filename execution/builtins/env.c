@@ -6,7 +6,7 @@
 /*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:48:59 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/11/03 11:32:31 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/11/07 19:30:58 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	update_environment_variable(t_env *env, char *variable, char *new_value)
 	{
 		while (env != NULL)
 		{
-			if (strcmp(env->cmd, variable) == 0)
+			if (ft_strcmp(env->cmd, variable) == 0)
 			{
 				if (env->val)
 					free(env->val);
@@ -88,7 +88,7 @@ int	environment_variable_exists(t_env *env, char *variable)
 	current = env;
 	while (current != NULL)
 	{
-		if (strcmp(current->cmd, variable) == 0)
+		if (ft_strcmp(current->cmd, variable) == 0)
 			return (1);
 		current = current->next;
 	}
@@ -102,7 +102,7 @@ char	*find_env(t_env *env, char *variable)
 	current = env;
 	while (current != NULL)
 	{
-		if (strcmp(current->cmd, variable) == 0)
+		if (ft_strcmp(current->cmd, variable) == 0)
 		{
 			return (current->val);
 		}

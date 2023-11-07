@@ -6,7 +6,7 @@
 /*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 09:02:36 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/11/06 18:04:53 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/11/07 18:21:12 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,25 +30,6 @@ void	forked_builtin(t_shell *shell, int cmd_num)
 		shell->exit_code = ft_exit(shell, cmd_num);
 	free_exit_child(shell);
 	exit(shell->exit_code);
-}
-
-void	builtin_pipe(t_shell *shell, int cmd_num)
-{
-	shell->command[cmd_num].pid = fork();
-	if (shell->command[cmd_num].pid < 0)
-		exit(-1);
-	else if (shell->command[cmd_num].pid == 0)
-	{
-		if (shell->number_commands != 1)
-			ft_dup2(shell, cmd_num);
-		if (redirection(shell, cmd_num) == -1)
-		{
-			free_exit_child(shell);
-			exit(1);
-		}
-		close_all_fd(shell);
-		forked_builtin(shell, cmd_num);
-	}
 }
 
 int	is_builtin(t_shell *shell, int cmd_num)
@@ -83,4 +64,21 @@ void	free_exit_child(t_shell *shell)
 	close_all_fd(shell);
 	free_command_args(shell);
 	ft_env_free(shell);
+}
+
+void	forked_child(t_shell *shell, int cmd_num)
+{
+	char	*cmd_path;
+
+	shell->env_joind = joind_env(shell);
+	check_infile_exc(shell, cmd_num);
+	cmd_path = find_path(shell, shell->command[cmd_num].cmd_args[0]);
+	if (cmd_path != NULL)
+		execve(cmd_path, shell->command[cmd_num].cmd_args, shell->env_joind);
+	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd(shell->command[cmd_num].cmd_args[0], 2);
+	ft_putstr_fd(": command not found\n", 2);
+	free_exit_child(shell);
+	shell->exit_code = 127;
+	exit(127);
 }

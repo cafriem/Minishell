@@ -6,7 +6,7 @@
 /*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 08:51:51 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/11/06 18:04:19 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/11/07 19:37:35 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,17 @@ char	*find_env(t_env *env, char *variable);
 
 int		ft_pwd(t_shell *shell, int cmd_num, int flag);
 void	change_path(t_shell *shell);
+void	ft_pwd2(void);
+void	update_env(t_shell *shell, char *old_pwd, char *new_pwd);
+void	save_tmp_pwd(t_shell *shell);
 
 ///////////////////////// cd ///////////////////////
 
-void	update_env(t_shell *shell, char *old_pwd, char *new_pwd);
 void	absolute_pathcase(t_shell *shell, int cmd_num);
 int		err_msg(t_shell *shell, int flag, int cmd_num);
-int		ft_cd(t_shell *shell, int cmd_num);
 int		ft_cd2(t_shell *shell, int cmd_num);
+int		ft_cd3(t_shell *shell, int cmd_num);
+int		ft_cd(t_shell *shell, int cmd_num);
 
 ///////////////////////// unset ///////////////////////
 
@@ -51,15 +54,22 @@ int		unset_utils(t_shell *shell, char *var);
 ///////////////////////// exit ///////////////////////
 
 int		ft_exit(t_shell *shell, int cmd_num);
-int		ft_str_isnum(char *c);
 void	free_exit(t_shell *shell);
 void	exit_utils2(t_shell *shell, char *arg);
 void	exit_utils(t_shell *shell, int cmd_num);
+
+///////////////////////// exit_utils ///////////////////////
+
+int		ft_str_isnum(char *c);
+long	ft_res(t_shell *shell, int cmd_num, int c1, const char *str);
+long	ft_long(t_shell *shell, int cmd_num, const char *str);
+int		ft_minpos_check(char *str);
 
 ///////////////////////// echo ///////////////////////
 
 int		ft_echo(t_shell *shell, int cmd_num);
 void	ft_echo_2(t_shell *shell, int cmd_num);
+int		ft_str_ne(char *c);
 
 ///////////////////////// export ///////////////////////
 
@@ -79,11 +89,10 @@ void	free_export(char **str);
 ///////////////////////// signal ///////////////////////
 
 void	signal_handler(int sig);
-void	check_signal(void);
-void	check_signal(void);
-void	set_signal(void);
+void	check_signal(int flag);
 void	signal_handler2(int sig_num);
-void	ft_signal(t_shell *shell, int flag);
+void	signal_handler3(int sig_num);
+void	ft_signal(t_shell *shell);
 
 /*----------------------------- EXECUTION -------------------------------
 |																		 |
@@ -118,22 +127,23 @@ char	*find_path(t_shell *shell, char *command);
 int		execute(t_shell *shell);
 void	start_executing(t_shell *shell);
 void	start_executing2(t_shell *shell, int cmd_num, int flag);
-void	forked_child(t_shell *shell, int cmd_num);
 void	exc_cmd(t_shell *shell, int cmd_num);
+void	exc_cmd_child(t_shell *shell, int cmd_num);
 
 ////////////////// excute2 ////////////////////////////
 
 void	forked_builtin(t_shell *shell, int cmd_num);
-void	builtin_pipe(t_shell *shell, int cmd_num);
 int		is_builtin(t_shell *shell, int cmd_num);
 void	check_infile_exc(t_shell *shell, int cmd_num);
 void	free_exit_child(t_shell *shell);
+void	forked_child(t_shell *shell, int cmd_num);
 
 ////////////////// excute3 ////////////////////////////
 
 int		builtin_1(t_shell *shell, int cmd_num);
 int		check_red(t_shell *shell);
 void	path_free_split(char **cmd, char **path_split);
+void	ft_check_sig(t_shell *shell);
 
 ////////////////// excute2_utils//////////////////////////
 
@@ -145,13 +155,9 @@ void	fd_herdoc_closer(int *fd);
 
 ////////////////// here_doc//////////////////////////
 
-void	get_readstr(char **str, int fd, int flag);
 int		heredoc_pos(t_shell *shell, int cmd_num);
-int		heredoc_exc2(t_shell *shell, int p_fd[2], int cmd_num, int redi_num);
 int		here_doc3(t_shell *shell, int cmd_num, int redi_num);
 int		heredoc_exc(t_shell *shell, int cmd_num, int i);
-
-void save_tmp_pwd(t_shell *shell);
-
+int		ft_strcmp2(const char *s1, const char *s2);
 
 #endif

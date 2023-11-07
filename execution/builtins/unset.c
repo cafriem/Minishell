@@ -6,7 +6,7 @@
 /*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 08:53:19 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/11/03 12:01:33 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/11/07 19:30:58 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ int	ft_unset(t_shell *shell, int cmd_num)
 		while (i < shell->command[cmd_num].no_args)
 		{
 			if (ft_strchr(shell->command[cmd_num].cmd_args[i], '='))
-				return (unset_utils(shell, shell->command[cmd_num].cmd_args[i]));
+				return (unset_utils(shell,
+						shell->command[cmd_num].cmd_args[i]));
 			else if (environment_variable_exists(shell->env,
 					shell->command[cmd_num].cmd_args[i]))
 				remove_environment_variable(&(shell->env),
@@ -42,7 +43,7 @@ void	remove_environment_variable(t_env **env, char *variable)
 	prev = NULL;
 	while (current != NULL)
 	{
-		if (strcmp(current->cmd, variable) == 0)
+		if (ft_strcmp(current->cmd, variable) == 0)
 		{
 			if (prev == NULL)
 				*env = current->next;

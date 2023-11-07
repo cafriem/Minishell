@@ -6,7 +6,7 @@
 /*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 08:42:58 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/11/06 16:00:03 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/11/07 19:14:04 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	ft_pwd(t_shell *shell, int cmd_num, int flag)
 		{
 			pwd = ft_strjoin(shell->pwd_tmp, "/..");
 			shell->pwd_tmp = ft_strdup(pwd);
-			ft_putstr_fd("cd: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory\n", STDOUT_FILENO);
+			ft_pwd2();
 			free(pwd);
 			return (1);
 		}
@@ -54,5 +54,35 @@ void	change_path(t_shell *shell)
 		update_env(shell, pwd_value, path);
 		free(path);
 		path = NULL;
+	}
+}
+
+void	ft_pwd2(void)
+{
+	ft_putstr_fd("cd: error retrieving current directory: getcwd: ",
+		STDOUT_FILENO);
+	ft_putstr_fd("cd: error retrieving current directory:",
+		STDOUT_FILENO);
+	ft_putstr_fd(" getcwd: cannot access\n", STDOUT_FILENO);
+}
+
+void	update_env(t_shell *shell, char *old_pwd, char *new_pwd)
+{
+	save_tmp_pwd(shell);
+	add_environment_variable(&(shell->env), "OLDPWD", old_pwd);
+	add_environment_variable(&(shell->env), "PWD", new_pwd);
+}
+
+void	save_tmp_pwd(t_shell *shell)
+{
+	char	*tmp_pwd;
+
+	tmp_pwd = NULL;
+	tmp_pwd = getcwd(tmp_pwd, 0);
+	if (tmp_pwd != NULL)
+	{
+		if (ft_strcmp(tmp_pwd, "../"))
+			shell->pwd_tmp = tmp_pwd;
+		free(tmp_pwd);
 	}
 }

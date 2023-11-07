@@ -6,7 +6,7 @@
 /*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 09:02:36 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/10/25 11:47:26 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/11/07 19:18:06 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,19 @@ int	builtin_1(t_shell *shell, int cmd_num)
 {
 	if (shell->command[cmd_num].cmd_args[0] != NULL)
 	{
-		if (ft_pwd(shell, cmd_num, 0) || ft_cd(shell, cmd_num)
-			|| ft_unset(shell, cmd_num) || ft_env_exc(shell, cmd_num)
-			|| ft_echo(shell, cmd_num) || ft_export(shell, cmd_num))
-			return (0);
-		return (0);
+		if (ft_strcmp(shell->command[cmd_num].cmd_args[0], "pwd") == 0)
+			shell->exit_code = ft_pwd(shell, cmd_num, 0);
+		else if (ft_strcmp(shell->command[cmd_num].cmd_args[0], "cd") == 0)
+			shell->exit_code = ft_cd(shell, cmd_num);
+		else if (ft_strcmp(shell->command[cmd_num].cmd_args[0], "unset") == 0)
+			shell->exit_code = ft_unset(shell, cmd_num);
+		else if (ft_strcmp(shell->command[cmd_num].cmd_args[0], "env") == 0)
+			shell->exit_code = ft_env_exc(shell, cmd_num);
+		else if (ft_strcmp(shell->command[cmd_num].cmd_args[0], "echo") == 0)
+			shell->exit_code = ft_echo(shell, cmd_num);
+		else if (ft_strcmp(shell->command[cmd_num].cmd_args[0], "export") == 0)
+			shell->exit_code = ft_export(shell, cmd_num);
+		return (shell->exit_code);
 	}
 	return (1);
 }
@@ -49,4 +57,27 @@ void	path_free_split(char **cmd, char **path_split)
 {
 	ft_freesplit(cmd);
 	ft_freesplit(path_split);
+}
+
+void	ft_check_sig(t_shell *shell)
+{
+	if (g_exit_signal == 1)
+	{
+		shell->exit_code = 1;
+		g_exit_signal = 0;
+	}
+	if (g_exit_signal == 131)
+	{
+		shell->exit_code = 131;
+		g_exit_signal = 0;
+	}
+	if (g_exit_signal == 130)
+	{
+		shell->exit_code = 130;
+		g_exit_signal = 0;
+	}
+	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
+	check_signal(2);
+	save_tmp_pwd(shell);
 }

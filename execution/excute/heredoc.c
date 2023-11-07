@@ -6,46 +6,52 @@
 /*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 14:36:21 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/11/06 18:04:16 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/11/07 19:31:18 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../execution.h"
 
-void	get_readstr(char **str, int fd, int flag)
+int	ft_strcmp2(const char *s1, const char *s2)
 {
-	if (flag == 1)
+	size_t	c;
+
+	c = 0;
+	while (s1[c] && s2[c])
 	{
-		free(*str);
-		*str = readline("> ");
+		if ((unsigned char)s1[c] != (unsigned char)s2[c])
+			return ((unsigned char)s1[c] - (unsigned char)s2[c]);
+		if ((unsigned char)s1[c + 1] == '\n'
+			|| (unsigned char)s2[c + 1] == '\n')
+			break ;
+		c++;
 	}
-	else if (flag == 2)
-	{
-		ft_putendl_fd(*str, fd);
-		free(*str);
-		*str = readline("> ");
-	}
+	return ((unsigned char)s1[c] - (unsigned char)s2[c]);
 }
 
-int	heredoc_exc2(t_shell *shell, int p_fd[2], int cmd_num, int redi_num)
+int	heredoc_exc(t_shell *shell, int cmd_num, int i)
 {
 	char	*str;
 	int		fd;
+	char	*filename;
 
-	str = readline("> ");
-	fd = open(shell->command[cmd_num].redir[redi_num].file,
-			O_RDWR | O_CREAT | O_TRUNC, 0644);
-	while (str && ft_strcmp(str, shell->command[cmd_num].redir[redi_num].file))
+	filename = ft_strjoin("/tmp/hhdoc_",
+			shell->command[cmd_num].redir[i].file);
+	fd = open(filename, O_RDWR | O_CREAT | O_TRUNC, 0644);
+	str = NULL;
+	while (1)
 	{
-		write(fd, str, strlen(str));
+		str = readline("> ");
+		if (str == NULL
+			|| !ft_strcmp2(str, shell->command[cmd_num].redir[i].file))
+			break ;
+		write(fd, str, ft_strlen(str));
 		write(fd, "\n", 1);
-		get_readstr(&str, p_fd[1], 2);
+		free(str);
 	}
 	if (str)
 		free(str);
 	close(fd);
-	if (is_builtin(shell, cmd_num) == 0)
-		fd_herdoc_closer(p_fd);
 	return (0);
 }
 
@@ -69,23 +75,16 @@ int	here_doc3(t_shell *shell, int cmd_num, int redi_num)
 
 	str = readline("> ");
 	while (str && ft_strcmp(str, shell->command[cmd_num].redir[redi_num].file))
-		get_readstr(&str, 0, 1);
+	{
+		free(str);
+		str = readline("> ");
+	}
 	if (str)
 		free(str);
+	if (g_exit_signal == 1)
+	{
+		free_exit_child(shell);
+		exit (200);
+	}
 	return (0);
-}
-
-int	heredoc_exc(t_shell *shell, int cmd_num, int i)
-{
-	int	fd[2];
-	int	status;
-
-	pipe(fd);
-	heredoc_exc2(shell, fd, cmd_num, i);
-	shell->exit_code = WEXITSTATUS(status);
-	if (is_builtin(shell, cmd_num) == 0)
-		dup2(fd[1], 0);
-	if (is_builtin(shell, cmd_num) == 1)
-		fd_herdoc_closer(fd);
-	return (shell->exit_code);
 }

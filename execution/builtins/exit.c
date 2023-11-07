@@ -6,7 +6,7 @@
 /*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 10:00:36 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/11/06 16:51:10 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/11/07 19:29:57 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,22 +42,6 @@ void	free_exit(t_shell *shell)
 	exit(shell->exit_code);
 }
 
-int	ft_str_isnum(char *c)
-{
-	int	i;
-
-	i = 0;
-	if (c[i] == '+' || c[i] == '-')
-		i++;
-	while (c[i])
-	{
-		if (!ft_isdigit(c[i]))
-			return (1);
-		++i;
-	}
-	return (0);
-}
-
 int	ft_exit(t_shell *shell, int cmd_num)
 {
 	close_all_fd(shell);
@@ -69,18 +53,17 @@ int	ft_exit(t_shell *shell, int cmd_num)
 			exit_utils(shell, cmd_num);
 		else if (shell->command[cmd_num].no_args == 2)
 		{
-			if (ft_str_isnum(shell->command[cmd_num].cmd_args[1]) == 0)
-			{
-				shell->exit_code = ft_atoi(shell->command[cmd_num].cmd_args[1]);
+			shell->exit_code
+				= ft_long(shell, cmd_num, shell->command[cmd_num].cmd_args[1]);
+			if (ft_str_isnum(shell->command[cmd_num].cmd_args[1]) == 0
+				&& ft_minpos_check(shell->command[cmd_num].cmd_args[1]) == 1
+				&& shell->exit_code <= 9223372036854775807)
 				free_exit(shell);
-			}
 			else
 				exit_utils2(shell, shell->command[cmd_num].cmd_args[1]);
 		}
 		else
-		{
 			free_exit(shell);
-		}
 		return (1);
 	}
 	return (0);
