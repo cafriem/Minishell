@@ -6,7 +6,7 @@
 /*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 09:02:36 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/11/07 19:18:06 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/11/07 19:44:34 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,5 @@ void	ft_check_sig(t_shell *shell)
 		shell->exit_code = 130;
 		g_exit_signal = 0;
 	}
-	signal(SIGINT, SIG_IGN);
-	signal(SIGQUIT, SIG_IGN);
-	check_signal(2);
 	save_tmp_pwd(shell);
 }
