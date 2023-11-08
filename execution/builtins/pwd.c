@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cafriem <cafriem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 08:42:58 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/11/08 11:54:42 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/11/08 12:54:08 by cafriem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,11 @@ void	save_tmp_pwd(t_shell *shell)
 	if (tmp_pwd != NULL)
 	{
 		if (ft_strcmp(tmp_pwd, "../"))
-			shell->pwd_tmp = tmp_pwd;
-		free(tmp_pwd);
+		{
+			if (shell->pwd_tmp)
+				free(shell->pwd_tmp);
+			shell->pwd_tmp = ft_strdup(tmp_pwd);
+			free(tmp_pwd);
+		}
 	}
 }

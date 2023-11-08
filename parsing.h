@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cafriem <cafriem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 02:01:28 by smokashi          #+#    #+#             */
-/*   Updated: 2023/11/07 16:54:17 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/11/08 13:13:08 by cafriem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ typedef struct s_env
 {
 	char				*cmd;
 	char				*val;
+	int					flag;
 	struct s_env		*next;
 }	t_env;
 

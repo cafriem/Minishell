@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   excute2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cafriem <cafriem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 09:02:36 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/11/07 18:21:12 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/11/08 12:56:07 by cafriem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ void	free_exit_child(t_shell *shell)
 {
 	close_all_fd(shell);
 	free_command_args(shell);
+	if (shell->pwd_tmp)
+		free(shell->pwd_tmp);
 	ft_env_free(shell);
 }
 

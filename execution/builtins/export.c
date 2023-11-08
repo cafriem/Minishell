@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cafriem <cafriem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 14:48:38 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/11/08 11:48:53 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/11/08 13:17:04 by cafriem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	ft_export2(t_shell *shell, int cmd_num)
 	int		i;
 	char	**str_export;
 
-	i = 0;
+	i = 1;
 	while (i < shell->command[cmd_num].no_args)
 	{
 		str_export = split_export(shell->command[cmd_num].cmd_args[i]);
@@ -52,7 +52,6 @@ int	ft_export2(t_shell *shell, int cmd_num)
 	}
 	return (0);
 }
-
 
 void	sorting_env(t_env *env)
 {

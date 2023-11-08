@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cafriem <cafriem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 17:14:52 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/11/08 11:19:27 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/11/08 12:20:23 by cafriem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,5 +67,7 @@ void	check_signal(int flag)
 void	ft_signal(t_shell *shell)
 {
 	remove_environment_variable(&shell->env, "OLDPWD");
+	if (find_env(shell->env, "SHLVL") == NULL)
+		add_environment_variable(&shell->env, "SHLVL", "1");
 	check_signal(1);
 }
