@@ -6,7 +6,7 @@
 /*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 14:48:38 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/11/08 11:48:58 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/11/08 14:13:17 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,16 @@ char	**split_export(char *str)
 		i++;
 	out[0] = (char *)malloc(sizeof(char) * (j + 1));
 	ft_strncpy(out[0], &str[0], j);
-	out[1] = (char *)malloc(sizeof(char) * ((i - j) + 1));
-	ft_strncpy(out[1], &str[j + 1], i - j);
+	if (!str[j])
+	{
+		out[1] = (char *)malloc(sizeof(char) * (1));
+		out[1][0] = '\0';
+	}
+	else
+	{
+		out[1] = (char *)malloc(sizeof(char) * ((i - j) + 1));
+		ft_strncpy(out[1], &str[j + 1], i - j);
+	}
 	out[2] = NULL;
 	return (out);
 }

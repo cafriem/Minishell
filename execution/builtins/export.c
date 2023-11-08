@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cafriem <cafriem@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 14:48:38 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/11/08 13:17:04 by cafriem          ###   ########.fr       */
+/*   Updated: 2023/11/08 14:19:15 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	ft_export2(t_shell *shell, int cmd_num)
 		str_export = split_export(shell->command[cmd_num].cmd_args[i]);
 		if (check_var(str_export[0]) == 0)
 		{
-			if (ft_strchr(shell->command[cmd_num].cmd_args[i], '='))
+			if (ft_strchr(shell->command[cmd_num].cmd_args[i], '=') && str_export[1][0] == '\0')
 				add_environment_variable(&(shell->env),
 					str_export[0], " \b");
 			else

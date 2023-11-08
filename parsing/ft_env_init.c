@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env_init.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cafriem <cafriem@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 02:01:09 by smokashi          #+#    #+#             */
-/*   Updated: 2023/11/08 13:14:21 by cafriem          ###   ########.fr       */
+/*   Updated: 2023/11/08 14:20:07 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ void	ft_env_loop(t_env *env, char *tenv[], int c)
 		if (ft_double_pointer_counter2(string) > 1)
 			ft_env_val_long(nenv, string);
 		ft_freesplit(string);
-		nenv->flag = 0;
 		c++;
 		if (tenv[c])
 			ft_env_loop(nenv, tenv, c);
@@ -65,7 +64,6 @@ void	ft_env_init(t_shell *shell, char *tenv[])
 		string = ft_split(tenv[0], '=');
 		shell->env->cmd = ft_strdup(string[0]);
 		shell->env->val = ft_strdup(string[1]);
-		shell->env->flag = 0;
 		ft_freesplit(string);
 		ft_env_loop(shell->env, tenv, 1);
 	}
