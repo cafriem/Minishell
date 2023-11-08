@@ -6,7 +6,7 @@
 /*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 14:48:38 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/11/07 20:00:50 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/11/08 11:48:58 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,4 +67,20 @@ void	export_utils(t_shell *shell, char *var)
 	ft_putstr_fd(var, STDERR_FILENO);
 	ft_putchar_fd('\'', STDERR_FILENO);
 	ft_putstr_fd(": not a valid identifier\n", STDERR_FILENO);
+}
+
+int	check_var(char *str)
+{
+	int	i;
+
+	i = 1;
+	if (ft_isalpha(str[0]) == 0 && str[0] != '_')
+		return (1);
+	while (str[i])
+	{
+		if (ft_isalnum(str[i]) == 0 && str[i] != '_')
+			return (1);
+		i++;
+	}
+	return (0);
 }

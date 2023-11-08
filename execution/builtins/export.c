@@ -6,7 +6,7 @@
 /*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 14:48:38 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/11/07 20:00:28 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/11/08 11:48:53 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,40 +14,45 @@
 
 int	ft_export(t_shell *shell, int cmd_num)
 {
-	int		i;
-	char	**str_export;
-
-	i = 1;
 	if (ft_strcmp(shell->command[cmd_num].cmd_args[0], "export") == 0)
 	{
 		if (shell->command[cmd_num].no_args == 1)
 			print_export(shell->env);
 		else
-		{
-			while (i < shell->command[cmd_num].no_args)
-			{
-				str_export = split_export(shell->command[cmd_num].cmd_args[i]);
-				if (check_var(str_export[0]) == 0)
-				{
-					if (ft_strchr(shell->command[cmd_num].cmd_args[i], '='))
-						add_environment_variable(&(shell->env),
-							str_export[0], " \b");
-					else
-						add_environment_variable(&(shell->env),
-							str_export[0], str_export[1]);
-				}
-				else
-				{
-					export_utils(shell, str_export[0]);
-					return (1);
-				}
-				i++;
-				free_export(str_export);
-			}
-		}
+			return (ft_export2(shell, cmd_num));
 	}
 	return (0);
 }
+
+int	ft_export2(t_shell *shell, int cmd_num)
+{
+	int		i;
+	char	**str_export;
+
+	i = 0;
+	while (i < shell->command[cmd_num].no_args)
+	{
+		str_export = split_export(shell->command[cmd_num].cmd_args[i]);
+		if (check_var(str_export[0]) == 0)
+		{
+			if (ft_strchr(shell->command[cmd_num].cmd_args[i], '='))
+				add_environment_variable(&(shell->env),
+					str_export[0], " \b");
+			else
+				add_environment_variable(&(shell->env),
+					str_export[0], str_export[1]);
+		}
+		else
+		{
+			export_utils(shell, str_export[0]);
+			return (1);
+		}
+		i++;
+		free_export(str_export);
+	}
+	return (0);
+}
+
 
 void	sorting_env(t_env *env)
 {
@@ -104,20 +109,4 @@ void	print_export(t_env *env)
 		ft_putchar_fd('\n', STDOUT_FILENO);
 		env = env->next;
 	}
-}
-
-int	check_var(char *str)
-{
-	int	i;
-
-	i = 1;
-	if (ft_isalpha(str[0]) == 0 && str[0] != '_')
-		return (1);
-	while (str[i])
-	{
-		if (ft_isalnum(str[i]) == 0 && str[i] != '_')
-			return (1);
-		i++;
-	}
-	return (0);
 }

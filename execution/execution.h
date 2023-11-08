@@ -6,7 +6,7 @@
 /*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 08:51:51 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/11/07 19:37:35 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/11/08 11:49:18 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,9 @@ int		ft_str_ne(char *c);
 ///////////////////////// export ///////////////////////
 
 int		ft_export(t_shell *shell, int cmd_num);
+int		ft_export2(t_shell *shell, int cmd_num);
 void	sorting_env(t_env *env);
 void	print_export(t_env *env);
-int		check_var(char *str);
 void	swap_var(t_env *env, t_env	*tmp);
 
 ///////////////////////// export_utils ///////////////////////
@@ -85,6 +85,7 @@ void	export_utils(t_shell *shell, char *var);
 char	**split_export(char *str);
 char	*ft_strncpy(char *s1, char *s2, int n);
 void	free_export(char **str);
+int		check_var(char *str);
 
 ///////////////////////// signal ///////////////////////
 
