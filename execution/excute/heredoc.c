@@ -38,6 +38,7 @@ int	heredoc_exc(t_shell *shell, int cmd_num, int i)
 	filename = ft_strjoin("/tmp/hhdoc_",
 			shell->command[cmd_num].redir[i].file);
 	fd = open(filename, O_RDWR | O_CREAT | O_TRUNC, 0644);
+	free(filename);
 	str = NULL;
 	while (1)
 	{

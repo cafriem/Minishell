@@ -21,7 +21,7 @@ int	ft_env_exc(t_shell *shell, int cmd_num)
 		env = shell->env;
 		while (env)
 		{
-			if (ft_strlen(env->val))
+			if (env->val != NULL)
 			{
 				ft_putstr_fd(env->cmd, STDOUT_FILENO);
 				ft_putchar_fd('=', STDOUT_FILENO);

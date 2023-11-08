@@ -114,8 +114,8 @@ void	is_heredoc(t_shell *shell, int cmd_num, int i)
 			close(shell->command[cmd_num].fd_redi);
 			shell->command[cmd_num].fd_redi = 0;
 		}
-		free(filename);
 	}
+	free(filename);
 }
 
 int	redirection(t_shell *shell, int cmd_num)

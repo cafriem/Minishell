@@ -28,10 +28,8 @@ int	ft_pwd(t_shell *shell, int cmd_num, int flag)
 		}
 		else if (pwd == NULL && flag == 1)
 		{
-			pwd = ft_strjoin(shell->pwd_tmp, "/..");
-			shell->pwd_tmp = ft_strdup(pwd);
+			shell->pwd_tmp = ft_strjoin(shell->pwd_tmp, "/..");
 			ft_pwd2();
-			free(pwd);
 			return (1);
 		}
 		ft_putstr_fd(pwd, STDOUT_FILENO);

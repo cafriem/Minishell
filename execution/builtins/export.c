@@ -28,8 +28,14 @@ int	ft_export(t_shell *shell, int cmd_num)
 			{
 				str_export = split_export(shell->command[cmd_num].cmd_args[i]);
 				if (check_var(str_export[0]) == 0)
-					add_environment_variable(&(shell->env),
-						str_export[0], str_export[1]);
+				{
+					if (ft_strchr(shell->command[cmd_num].cmd_args[i], '='))
+						add_environment_variable(&(shell->env),
+							str_export[0], " \b");
+					else
+						add_environment_variable(&(shell->env),
+							str_export[0], str_export[1]);
+				}
 				else
 				{
 					export_utils(shell, str_export[0]);

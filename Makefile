@@ -2,7 +2,7 @@ NAME = minishell
 
 CC = cc
 
-CFLAGS =  -Wall -Wextra -Werror -I/Users/cmrabet/.brew/opt/readline/include
+CFLAGS =  -Wall -Wextra -Werror -I/Users/$(USER)/.brew/opt/readline/include
 
 SRCS =	parsing_start.c					\
 		parsing/ft_isalnum_mini.c		\
@@ -44,7 +44,7 @@ LIBS =	Libft/libft.a
 
 $(NAME): $(OBJS)
 	make -C Libft
-	$(CC) $(CFLAGS) $(OBJS) $(LIBS)  -lreadline -L/Users/cmrabet/.brew/opt/readline/lib -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJS) $(LIBS)  -lreadline -L/Users/$(USER)/.brew/opt/readline/lib -o $(NAME)
 	@printf "$(GR)Minishell ready.\n$(RC)"
 all: $(NAME)
 
