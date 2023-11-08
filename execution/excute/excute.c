@@ -6,7 +6,7 @@
 /*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 09:02:36 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/11/07 19:52:27 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/11/08 11:23:54 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,20 +85,18 @@ void	start_executing2(t_shell *shell, int cmd_num, int flag)
 	}
 	else
 		exc_cmd(shell, cmd_num);
-	signal(SIGINT, SIG_IGN);
-	signal(SIGQUIT, SIG_IGN);
 }
 
 void	exc_cmd(t_shell *shell, int cmd_num)
 {
 	signal(SIGINT, SIG_IGN);
 	signal(SIGQUIT, SIG_IGN);
+	check_signal(2);
 	shell->command[cmd_num].pid = fork();
 	if (shell->command[cmd_num].pid < 0)
 		perror("fork");
 	else if (shell->command[cmd_num].pid == 0)
 	{
-		check_signal(2);
 		if (ft_strcmp(shell->command[cmd_num].cmd_args[0], "./minishell") == 0)
 		{
 			shell->env_joind = joind_env(shell);
