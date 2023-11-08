@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cafriem <cafriem@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 12:04:53 by cafriem           #+#    #+#             */
-/*   Updated: 2023/10/25 14:10:13 by cafriem          ###   ########.fr       */
+/*   Updated: 2023/11/08 18:30:46 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ char	*ft_env3(t_shell *shell, char *string)
 	if (string[0] == '?')
 		return (ft_strjoinfree(ft_itoa(shell->exit_code), ft_substr(string, 1,
 					ft_strlen(string)), 3));
+	if (shell->env == NULL)
+		return (ft_strdup(""));
 	while (done->next != NULL)
 	{
 		if (ft_strcmp(string, done->cmd) == 0)
@@ -56,6 +58,7 @@ void	ft_env2(t_shell *shell, int start)
 	char	*string;
 
 	counter = start + 1;
+	string = NULL;
 	if (shell->current_line[counter] == '?')
 		counter++;
 	while (ft_isalnum_mini(shell->current_line[counter]) == 1)

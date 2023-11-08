@@ -6,7 +6,7 @@
 /*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 09:02:36 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/11/08 11:23:54 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/11/08 17:39:25 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void	start_executing(t_shell *shell)
 		if (shell->number_commands == 1 && (is_builtin(shell, cmd_num)
 				|| shell->command[cmd_num].cmd_args[0] == NULL))
 		{
+			check_signal(1);
 			if (redirection(shell, cmd_num) == -1)
 			{
 				g_exit_signal = 1;

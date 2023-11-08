@@ -6,7 +6,7 @@
 /*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 09:34:14 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/11/06 14:14:59 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/11/08 19:07:23 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char	*find_path3_2(t_shell *shell, char *command)
 {
 	check_stat(shell, command);
 	if (access(command, F_OK) == 0)
-		return (NULL);
+		return (command);
 	if (ft_strrchr(command, '/'))
 	{
 		ft_putstr_fd("minishell: ", STDERR_FILENO);
@@ -61,9 +61,9 @@ char	*find_path3(t_shell *shell, char *command, char **cmd)
 	char	*absolute_path;
 
 	i = -1;
-	path_split = ft_split(getenv("PATH"), ':');
 	if (getenv("PATH"))
 	{
+		path_split = ft_split(getenv("PATH"), ':');
 		while (path_split[++i])
 		{
 			absolute_path
@@ -78,8 +78,8 @@ char	*find_path3(t_shell *shell, char *command, char **cmd)
 			}
 			free(absolute_path);
 		}
+		path_free_split(cmd, path_split);
 	}
-	path_free_split(cmd, path_split);
 	return (find_path3_2(shell, command));
 }
 
@@ -119,6 +119,8 @@ char	*find_path(t_shell *shell, char *command)
 
 	if (ft_strrchr(command, '/'))
 	{
+		if (ft_strncmp(command, "../", 2) == 0)
+			return (command);
 		cmd = ft_split(command, '/');
 		return (find_path3(shell, command, cmd));
 	}
