@@ -6,7 +6,7 @@
 /*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 08:42:58 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/11/08 11:41:03 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/11/08 11:54:42 by cmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	ft_pwd(t_shell *shell, int cmd_num, int flag)
 	if (ft_strcmp(shell->command[cmd_num].cmd_args[0], "pwd") == 0 || flag == 1)
 	{
 		pwd = getcwd(pwd, 0);
-		if ((pwd == NULL && flag == 0))
+		if (pwd == NULL && flag == 0)
 		{
 			ft_putstr_fd(shell->pwd_tmp, STDOUT_FILENO);
 			ft_putchar_fd('\n', STDOUT_FILENO);
@@ -32,7 +32,6 @@ int	ft_pwd(t_shell *shell, int cmd_num, int flag)
 			ft_pwd2();
 			return (1);
 		}
-		printf("ttttt: %s\n", pwd);
 		ft_putstr_fd(pwd, STDOUT_FILENO);
 		ft_putchar_fd('\n', STDOUT_FILENO);
 		free(pwd);
