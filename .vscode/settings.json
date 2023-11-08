@@ -1,8 +1,0 @@
-{
-	"files.associations": {
-		"execution.h": "c",
-		"__locale": "c",
-		"locale": "c",
-		"__functional_base": "c"
-	}
-}

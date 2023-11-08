@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cafriem <cafriem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 14:48:38 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/11/08 14:13:17 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/11/08 15:00:02 by cafriem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ char	**split_export(char *str)
 	int		j;
 
 	i = 0;
-	j = 0;
 	out = (char **)malloc(sizeof(char *) * (3));
 	while (str[i] && str[i] != '=')
 		i++;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmrabet <cmrabet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cafriem <cafriem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 14:48:38 by cmrabet           #+#    #+#             */
-/*   Updated: 2023/11/08 14:19:15 by cmrabet          ###   ########.fr       */
+/*   Updated: 2023/11/08 14:59:03 by cafriem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,14 @@ int	ft_export2(t_shell *shell, int cmd_num)
 	int		i;
 	char	**str_export;
 
-	i = 1;
-	while (i < shell->command[cmd_num].no_args)
+	i = 0;
+	while (++i < shell->command[cmd_num].no_args)
 	{
 		str_export = split_export(shell->command[cmd_num].cmd_args[i]);
 		if (check_var(str_export[0]) == 0)
 		{
-			if (ft_strchr(shell->command[cmd_num].cmd_args[i], '=') && str_export[1][0] == '\0')
+			if (ft_strchr(shell->command[cmd_num].cmd_args[i], '=')
+				&& str_export[1][0] == '\0')
 				add_environment_variable(&(shell->env),
 					str_export[0], " \b");
 			else
@@ -47,7 +48,6 @@ int	ft_export2(t_shell *shell, int cmd_num)
 			export_utils(shell, str_export[0]);
 			return (1);
 		}
-		i++;
 		free_export(str_export);
 	}
 	return (0);
